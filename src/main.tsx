@@ -5,6 +5,7 @@ import "./index.css";
 import App from "./App.tsx";
 import FAQ from "./pages/FAQ.tsx";
 import Guestbook from "./pages/Guestbook.tsx";
+import Timetable from "./components/Timetable.tsx";
 import "@fontsource/hahmlet/700.css"; // Bold
 import "./index.css";
 
@@ -18,6 +19,7 @@ createRoot(document.getElementById("root")!).render(
         <Route path="/home" element={<App />} />
         <Route path="/faq" element={<FAQ />} />
         <Route path="/guestbook" element={<Guestbook />} />
+        <Route path="/timetable" element={<Timetable />} />
       </Routes>
     </BrowserRouter>
   </StrictMode>
