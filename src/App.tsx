@@ -1,25 +1,40 @@
-import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import Header from './components/Header';
+import Home from './pages/Home';
+import BoothRecommend from './pages/BoothRecommend';
+import BoothAndFoodTruck from './pages/BoothAndFoodTruck';
+import PhotoFestival from './pages/PhotoFestival';
+import Timetable from './pages/Timetable';
+import FAQAndGuestbook from './pages/FAQAndGuestbook';
 
-// App.tsx
 function App() {
   return (
-    <div className="min-h-screen flex justify-center bg-[#EFFFED12]">
-      <div className="w-full max-w-[430px] bg-white min-h-screen shadow-lg">
-        <div className="flex min-h-screen items-center justify-center bg-[#EFFFED12]">
-          <div className="text-center px-4">
-            <h1 className="text-red-500 text-2xl font-bold underline mb-4">
-              Hello Tailwind + TS!
-            </h1>
-            <Link 
-              to="/timetable" 
-              className="bg-green-500 text-white px-6 py-3 rounded-lg font-medium hover:bg-green-600 transition-colors"
-            >
-              타임테이블 보기
-            </Link>
+    <Router>
+      <div className="min-h-screen flex justify-center">
+        <div 
+          className="w-full max-w-[430px] min-h-screen shadow-lg bg-cover bg-top bg-no-repeat relative"
+          style={{
+            backgroundImage: "url('/assets/BG.png')",
+            backgroundSize: "cover",
+            backgroundPosition: "top center",
+            minHeight: "100vh"
+          }}
+        >
+          <Header />
+          <div className="pt-16">
+            <Routes>
+              <Route path="/" element={<Home />} />
+              <Route path="/booth-recommend" element={<BoothRecommend />} />
+              <Route path="/booth-foodtruck" element={<BoothAndFoodTruck />} />
+              <Route path="/photo-festival" element={<PhotoFestival />} />
+              <Route path="/timetable" element={<Timetable />} />
+              <Route path="/faq" element={<FAQAndGuestbook />} />
+              <Route path="/guestbook" element={<FAQAndGuestbook />} />
+            </Routes>
           </div>
         </div>
       </div>
-    </div>
+    </Router>
   );
 }
 
