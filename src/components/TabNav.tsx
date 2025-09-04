@@ -14,21 +14,14 @@ export default function TabNav({ value, onChange }: Props) {
   const setActive = (v: "faq" | "guestbook") => {
     if (onChange) onChange(v);
     else setInner(v);
-
+    
+    // URL도 함께 변경
     if (v === "faq") navigate("/faq");
     if (v === "guestbook") navigate("/guestbook");
   };
 
   return (
-    <div className="mt-6">
-      <div
-        className="
-      flex items-center justify-between
-      h-[50px] flex-shrink-0
-      rounded-[40px] bg-[#FFFFFFCC]
-      w-full
-    "
-      >
+    <div className="flex items-center justify-between h-[50px] w-full">
         {/* FAQ 버튼 */}
         <button
           onClick={() => setActive("faq")}
@@ -55,8 +48,6 @@ export default function TabNav({ value, onChange }: Props) {
         >
           방명록
         </button>
-      </div>
     </div>
-
   );
 }

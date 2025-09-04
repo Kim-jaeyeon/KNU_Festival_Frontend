@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import TimelineCard from './TimelineCard';
+import TimelineCard from '../components/TimelineCard';
 
 // 실제 일정 데이터
 const scheduleData = {
@@ -39,9 +39,48 @@ const Timetable: React.FC = () => {
   const [visibleCards, setVisibleCards] = useState<number[] | null>(null);
   const [isAnimating, setIsAnimating] = useState(false);
   const [isInitialLoad, setIsInitialLoad] = useState(true);
+  const [currentTime, setCurrentTime] = useState(new Date());
   
   // 4일차 기준 최대 높이 계산 (헤더 + 날짜선택 + 7개 일정 + 푸터)
   const maxContentHeight = 120 + 60 + (7 * 120) + 100 + 200; // 여유 공간 추가
+
+  // 현재 시간 업데이트 (1분마다)
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setCurrentTime(new Date());
+    }, 60000); // 1분마다 업데이트
+
+    return () => clearInterval(timer);
+  }, []);
+
+  // 시간 문자열을 분으로 변환하는 함수
+  const timeToMinutes = (timeStr: string): number => {
+    const [time] = timeStr.split(' ~');
+    const [hours, minutes] = time.split(':').map(Number);
+    return hours * 60 + minutes;
+  };
+
+  // 현재 시간이 해당 이벤트 시간 범위에 있는지 확인하는 함수
+  const isCurrentEvent = (timeStr: string): boolean => {
+    const now = new Date();
+    const currentMinutes = now.getHours() * 60 + now.getMinutes();
+    
+    // "~"로 시작하는 경우 (예: "17:00 ~")
+    if (timeStr.includes('~') && timeStr.endsWith('~')) {
+      const startTime = timeToMinutes(timeStr);
+      return currentMinutes >= startTime;
+    }
+    
+    // 시간 범위가 있는 경우 (예: "13:00 ~ 17:00")
+    if (timeStr.includes(' ~ ')) {
+      const [start, end] = timeStr.split(' ~ ');
+      const startMinutes = timeToMinutes(start);
+      const endMinutes = timeToMinutes(end);
+      return currentMinutes >= startMinutes && currentMinutes <= endMinutes;
+    }
+    
+    return false;
+  };
 
   // 일차 변경 시 애니메이션 효과
   useEffect(() => {
@@ -71,77 +110,51 @@ const Timetable: React.FC = () => {
   }, [selectedDay]);
   
   return (
-    <div 
-      className="w-full bg-cover bg-top bg-no-repeat relative"
-      style={{
-        backgroundImage: "url('/assets/BG.png')",
-        minHeight: `${maxContentHeight}px`
-      }}
-    >
-      {/* 오버레이 */}
-      <div className="absolute inset-0 bg-opacity-20"></div>
-      
-      {/* 메인 컨텐츠 */}
-      <div className="relative z-10 px-4 py-4">
-        <div className="space-y-4">
-          {/* 헤더 */}
-          <div className="flex items-center justify-between mb-6">
-            <button className="text-[#285100] text-xl font-bold">
-              ←
-            </button>
-            <h1 className="text-2xl font-bold text-[#285100]" style={{ fontFamily: 'Hahmlet, serif' }}>
-              Time Table
-            </h1>
-            <button className="text-[#285100] text-xl">
-              ☰
-            </button>
-          </div>
-
-          {/* 날짜 선택 */}
-          <div className="bg-white/80 font-bold rounded-full p-1 shadow-lg">
-            <div className="flex">
-              {[1, 2, 3, 4].map((day) => (
-                <button
-                  key={day}
-                  onClick={() => setSelectedDay(day)}
-                  className="flex-1 text-center py-2 border-r border-gray-200 last:border-r-0"
-                >
-                  <span className={`text-sm ${
-                    selectedDay === day 
-                      ? 'font-semibold text-[#285100]' 
-                      : 'text-gray-400'
-                  }`}>
-                    {day}일차
-                  </span>
-                </button>
-              ))}
-            </div>
-          </div>
-
-          {/* 시간표 */}
-          <div className="space-y-3">
-            {scheduleData[selectedDay as keyof typeof scheduleData].map((event, index) => (
-              <div
-                key={`${selectedDay}-${index}`}
-                           className={`transition-all duration-300 ease-out ${
-             visibleCards && visibleCards.includes(index)
-               ? 'opacity-100 translate-y-0'
-               : 'opacity-0 translate-y-4'
-           }`}
-           style={{
-             opacity: visibleCards && visibleCards.includes(index) ? 1 : 0
-           }}
+    <div className="w-full min-h-screen py-4">
+      <div className="space-y-4 px-4">
+        {/* 날짜 선택 */}
+        <div className="bg-white/80 font-bold rounded-full p-1 shadow-lg">
+          <div className="flex">
+            {[1, 2, 3, 4].map((day) => (
+              <button
+                key={day}
+                onClick={() => setSelectedDay(day)}
+                className="flex-1 text-center py-2 border-r border-gray-200 last:border-r-0"
               >
-                <TimelineCard
-                  time={event.time}
-                  title={event.title}
-                  description={event.description}
-                />
-              </div>
+                <span className={`text-sm ${
+                  selectedDay === day 
+                    ? 'font-semibold text-[#285100]' 
+                    : 'text-gray-400'
+                }`}>
+                  {day}일차
+                </span>
+              </button>
             ))}
           </div>
+        </div>
 
-         
+        {/* 시간표 */}
+        <div className="space-y-3 max-h-[calc(100vh-200px)] overflow-y-auto px-2 -mx-2">
+          {scheduleData[selectedDay as keyof typeof scheduleData].map((event, index) => (
+            <div
+              key={`${selectedDay}-${index}`}
+              className={`transition-all duration-300 ease-out ${
+                visibleCards && visibleCards.includes(index)
+                  ? 'opacity-100 translate-y-0'
+                  : 'opacity-0 translate-y-4'
+              }`}
+              style={{
+                opacity: visibleCards && visibleCards.includes(index) ? 1 : 0
+              }}
+            >
+              <TimelineCard
+                time={event.time}
+                title={event.title}
+                description={event.description}
+                isCurrent={isCurrentEvent(event.time)}
+              />
+            </div>
+          ))}
         </div>
       </div>
     </div>
