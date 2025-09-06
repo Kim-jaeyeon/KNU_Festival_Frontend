@@ -6,12 +6,13 @@ import BoothAndFoodTruck from './pages/BoothAndFoodTruck';
 import PhotoFestival from './pages/PhotoFestival';
 import Timetable from './pages/Timetable';
 import FAQAndGuestbook from './pages/FAQAndGuestbook';
+import GuestbookWrite from './pages/GuestbookWrite';
 
 function App() {
   return (
     <Router>
       <div className="min-h-screen flex justify-center">
-        <div 
+        <div
           className="w-full max-w-[430px] min-h-screen shadow-lg bg-cover bg-top bg-no-repeat relative"
           style={{
             backgroundImage: "url('/assets/BG.png')",
@@ -29,6 +30,7 @@ function App() {
               <Route path="/photo-festival" element={<PhotoFestival />} />
               <Route path="/timetable" element={<Timetable />} />
               <Route path="/faq" element={<FAQAndGuestbook />} />
+              <Route path="/guestbook/write" element={<GuestbookWrite />} />
               <Route path="/guestbook" element={<FAQAndGuestbook />} />
             </Routes>
           </div>
