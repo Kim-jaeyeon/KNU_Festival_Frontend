@@ -1,17 +1,17 @@
-import { useMemo } from "react";
+import { useState, useMemo } from "react";
 
 type Props = {
     question: string;
     answer: string;
-    isOpen: boolean;
-    onClick: () => void;
     variant?: "pill" | "rounded";
 };
 
-export default function FAQItem({ question, answer, isOpen, onClick, variant }: Props) {
+export default function FAQItem({ question, answer, variant }: Props) {
+    const [open, setOpen] = useState(false);
+
     const autoVariant = useMemo<"pill" | "rounded">(() => {
         if (variant) return variant;
-        return question.length <= 23 ? "pill" : "rounded";
+        return question.length <= 18 ? "pill" : "rounded";
     }, [question, variant]);
 
     const qClass =
@@ -20,23 +20,21 @@ export default function FAQItem({ question, answer, isOpen, onClick, variant }: 
             : "inline-flex min-h-[34px] items-center flex-shrink-0 rounded-[20px] py-[10px]";
 
     return (
-        <div className="mb-[15px] mx-[10px]">
+        <div className="mb-[15px] mx-[23px]">
             {/* 질문 바 */}
             <button
-                onClick={onClick}
+                onClick={() => setOpen((v) => !v)}
                 className={`group w-full shadow-sm focus:outline-none focus:ring-0 ${qClass}`}
                 style={{
                     border: "1px solid transparent",
                     borderRadius: autoVariant === "pill" ? "50px" : "20px",
-                    background: isOpen
-                        ? "linear-gradient(#FFFFFFFF, #FFFFFFFF) padding-box, linear-gradient(90deg,#83C082,#3E5A3D) border-box" // 열림 → 완전 흰색
-                        : "linear-gradient(#FFFFFFCC, #FFFFFFCC) padding-box, linear-gradient(90deg,#83C082,#3E5A3D) border-box", // 닫힘 → 80% 흰색
+                    background:
+                        "linear-gradient(white, white) padding-box, linear-gradient(90deg, #83C082, #3E5A3D) border-box",
                 }}
             >
-
-
                 {/* 가운데 정렬 컨테이너 */}
                 <div className="flex w-full items-center justify-center relative px-[23px]">
+                    {/* 질문 텍스트 */}
                     <span
                         className="text-center"
                         style={{
@@ -58,7 +56,8 @@ export default function FAQItem({ question, answer, isOpen, onClick, variant }: 
                             height="8"
                             viewBox="0 0 16 8"
                             fill="none"
-                            className={`transition-transform duration-200 ${isOpen ? "" : "rotate-180"}`}
+                            className={`transition-transform duration-200 ${open ? "rotate-180" : ""
+                                }`}
                         >
                             <path
                                 d="M8.00008 0.74998L0.916748 7.83331H15.0834L8.00008 0.74998Z"
@@ -71,7 +70,7 @@ export default function FAQItem({ question, answer, isOpen, onClick, variant }: 
             </button>
 
             {/* 답변 카드 */}
-            {isOpen && (
+            {open && (
                 <div
                     className="mt-[3px] flex flex-col justify-center items-center flex-shrink-0 mx-[-1px] rounded-[17px]"
                     style={{
@@ -82,11 +81,12 @@ export default function FAQItem({ question, answer, isOpen, onClick, variant }: 
                         padding: "0px 14px",
                     }}
                 >
-                    <p className="mt-[9px] text-[#1B1B1B] text-center font-pretendard font-[300] text-[15px] whitespace-pre-line leading-relaxed">
+                    <p className="text-[#1B1B1B] text-center font-pretendard font-[300] text-[15px] whitespace-pre-line leading-relaxed">
                         {answer}
                     </p>
+
                     <p
-                        className="mt-[10px] mb-[10px] text-center font-pretendard"
+                        className="mt-[5px] text-center font-pretendard"
                         style={{
                             color: "rgba(0, 0, 0, 0.50)",
                             fontSize: "12px",
