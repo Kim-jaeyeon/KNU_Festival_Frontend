@@ -18,7 +18,7 @@ export const HomeCard: React.FC<HomeCardProps> = ({
 }) => {
   return (
     <div
-      className={`relative ${width} ${height} rounded-[42px] mx-auto shadow-[-1px_3px_13.1px_-4px_rgba(56,63,41,0.67)] ${marginBottom || ""}`}
+      className={`relative ${width} ${height} rounded-[42px] shadow-[-1px_3px_13.1px_-4px_rgba(56,63,41,0.67)] ${marginBottom || ""}`}
     >
       {/* 불투명 배경 */}
       <div className="absolute inset-0 rounded-[42px] bg-white"></div>
