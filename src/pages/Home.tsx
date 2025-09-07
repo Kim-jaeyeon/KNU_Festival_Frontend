@@ -1,10 +1,16 @@
-import React, { useRef } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import { HomeCard } from '../components/home/HomeCard';
 import { HomeCard2 } from '../components/home/HomeCard2';
 import { HomeCrad3 } from '../components/home/HomeCard3';
 import { RefButton } from '../components/home/RefButton';
 
 const Home: React.FC = () => {
+  // 애니메이션 상태
+  const [isVisible, setIsVisible] = useState({
+    logo: false,
+    cards: false,
+    button: false
+  });
 
   // scroll 영역 ref
   const scroll1Ref = useRef<HTMLDivElement>(null);
@@ -18,24 +24,47 @@ const Home: React.FC = () => {
     }
   };
 
+  // 페이지 로드 시 순차적 애니메이션
+  useEffect(() => {
+    const timer1 = setTimeout(() => setIsVisible(prev => ({ ...prev, logo: true })), 300);
+    const timer2 = setTimeout(() => setIsVisible(prev => ({ ...prev, cards: true })), 600);
+    const timer3 = setTimeout(() => setIsVisible(prev => ({ ...prev, button: true })), 900);
+
+    return () => {
+      clearTimeout(timer1);
+      clearTimeout(timer2);
+      clearTimeout(timer3);
+    };
+  }, []);
+
 
 
   return (
-    <div className="min-h-screen ">
-      <div className="container mx-auto ">
-        <div className="text-center">
+    <div 
+      className="w-full max-w-[430px] bg-cover bg-center bg-no-repeat overflow-x-hidden"
+      style={{
+        backgroundImage: "url('/assets/home/bg_main.png')",
+        backgroundSize: "cover",
+        backgroundPosition: "top center",
+        minHeight: "300vh"
+      }}
+    >
+      <div className="w-full flex flex-col items-center overflow-x-hidden">
+        <div className={`text-center mt-[130px] px-4 transition-all duration-1000 ${isVisible.logo ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
 
           <img
-            src="/assets/main-logo.png"
+            src="public/assets/main-logo.png"
             alt="메인 로고"
             className="
-              mt-[90px] 
               w-full                /* 부모 너비에 맞게 */
               max-w-[237.48px]      /* 최대 크기 제한 */
               aspect-[237.48/78.21] /* 비율 유지 */
               flex-shrink-0
               mx-auto              
             "
+            style={{
+              animation: isVisible.logo ? 'fadeInScale 0.8s ease-out' : 'none'
+            }}
           />
 
           <p className="mt-[1px] text-[#383F15] font-hahmlet text-[20.735px] not-italic font-normal leading-normal">
@@ -50,14 +79,13 @@ const Home: React.FC = () => {
           {/*scroll 1 시작*/}
 
           {/* 1번째 HomeCard */}
-          <div ref={scroll1Ref} className="mt-[33px] w-[354px] h-[395px] mx-auto">
-            <div>
-             <HomeCard
-                backgroundColor="rgba(91,141,22,0.57)"
-                width="w-[354px]"
-                height="h-[122.027px]"
-                marginBottom="mb-[19px]"
-              >
+          <div ref={scroll1Ref} className={`mt-[33px] w-full h-[395px] px-4 transition-all duration-1000 ${isVisible.cards ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
+            <HomeCard
+              backgroundColor="rgba(91,141,22,0.57)"
+              width="w-full"
+              height="h-[122.027px]"
+              marginBottom="mb-[19px]"
+            >
                 <div className="relative w-full h-full flex items-center justify-center">
                   {/* 중앙 SVG */}
                   <img
@@ -94,84 +122,79 @@ const Home: React.FC = () => {
                     <span className="absolute top-[79px] right-[18px] text-white font-hahmlet text-[20px] not-italic font-medium leading-normal">타임테이블</span>
                   </div>
                 </div>
-              </HomeCard>
+            </HomeCard>
                            
-              {/* 2번째 HomeCard */}
-              <div className="flex justify-between mb-[19px]">
+            {/* 2번째 HomeCard */}
+            <div className="flex gap-2 mb-[19px] w-full">
                 <HomeCard
                   backgroundColor="rgba(58,105,58,0.84)"
-                  width="w-[183px]"
+                  width="w-1/2"
                   height="h-[115px]"          
-              >
-                <div className="absolute left-0 right-0 top-0 flex flex-col items-start text-left">
-                  <img src="/assets/home/1Layerlocal_shipping.svg"
-                  className="absolute top-[14px] left-[133px]"/>
-                  <span className="absolute top-[58px] left-[21px] text-white font-suit text-[13.237px] not-italic font-extralight leading-normal">부스 및 푸드트럭</span>
-                  <span className="absolute top-[75px] left-[21px] text-white font-hahmlet text-[20px] not-italic font-medium leading-normal">부스 및 푸드트럭</span>
-                </div>
-                
-              </HomeCard>
-
-              <HomeCard
-                  backgroundColor="rgba(156,170,44,0.72)"
-                  width="w-[158px]"
-                  height="h-[115px]"
-              >
-                    
-                <div className="absolute left-0 right-0 top-0 flex flex-col items-start text-left">
+                >
+                  <div className="absolute left-0 right-0 top-0 flex flex-col items-start text-left">
                     <img src="/assets/home/1Layerlocal_shipping.svg"
-                    className="absolute top-[14px] right-[19px]"/>
-                    <span className="absolute top-[58px] left-[21px] text-white font-suit text-[13.237px] not-italic font-extralight leading-normal">부스 추천</span>
-                    <span className="absolute top-[75px] left-[21px] text-white font-hahmlet text-[20px] not-italic font-medium leading-normal">부스 추천</span>
+                    className="absolute top-[14px] left-[133px]"/>
+                    <span className="absolute top-[58px] left-[21px] text-white font-suit text-[13.237px] not-italic font-extralight leading-normal">부스 및 푸드트럭</span>
+                    <span className="absolute top-[75px] left-[21px] text-white font-hahmlet text-[20px] not-italic font-medium leading-normal">부스 및 푸드트럭</span>
                   </div>
+                  
+                </HomeCard>
 
-              </HomeCard>
+                <HomeCard
+                    backgroundColor="rgba(156,170,44,0.72)"
+                    width="w-1/2"
+                    height="h-[115px]"
+                >
+                      
+                  <div className="absolute left-0 right-0 top-0 flex flex-col items-start text-left">
+                      <img src="/assets/home/1Layerlocal_shipping.svg"
+                      className="absolute top-[14px] right-[19px]"/>
+                      <span className="absolute top-[58px] left-[21px] text-white font-suit text-[13.237px] not-italic font-extralight leading-normal">부스 추천</span>
+                      <span className="absolute top-[75px] left-[21px] text-white font-hahmlet text-[20px] not-italic font-medium leading-normal">부스 추천</span>
+                    </div>
+
+                </HomeCard>
+            </div>
 
 
-              </div>
-
-
-              {/* 3번째 HomeCard */}
-              <div className="flex justify-between">
+            {/* 3번째 HomeCard */}
+            <div className="flex gap-2 w-full">
                 <HomeCard
                   backgroundColor="rgba(156, 170, 44, 0.72)"
-                  width="w-[217px]"
+                  width="w-1/2"
                   height="h-[120px]"          
-              >
+                >
 
-                <div className="absolute left-0 right-0 top-0 flex flex-col items-start text-left">
-                  <img src="/assets/home/1Layergroup.svg"
-                  className="absolute top-[17px] left-[155px]"/>
-                  <span className="absolute top-[58px] left-[21px] text-white font-suit text-[13.237px] not-italic font-extralight leading-normal">사진 페스티벌</span>
-                  <span className="absolute top-[75px] left-[21px] text-white font-hahmlet text-[20px] not-italic font-medium leading-normal">사진 페스티벌</span>
-                </div>
-                
-              </HomeCard>
+                  <div className="absolute left-0 right-0 top-0 flex flex-col items-start text-left">
+                    <img src="/assets/home/1Layergroup.svg"
+                    className="absolute top-[17px] left-[155px]"/>
+                    <span className="absolute top-[58px] left-[21px] text-white font-suit text-[13.237px] not-italic font-extralight leading-normal">사진 페스티벌</span>
+                    <span className="absolute top-[75px] left-[21px] text-white font-hahmlet text-[20px] not-italic font-medium leading-normal">사진 페스티벌</span>
+                  </div>
+                  
+                </HomeCard>
 
-              <HomeCard
-                  backgroundColor="rgba(58,105,58,0.84)"
-                  width="w-[124px]"
-                  height="h-[120px]"          
-              >
+                <HomeCard
+                    backgroundColor="rgba(58,105,58,0.84)"
+                    width="w-1/2"
+                    height="h-[120px]"          
+                >
 
-                <div className="absolute flex flex-col items-center justify-center text-center">
-                  <img src="/assets/home/1Layergroup.svg"
-                  className="absolute top-[17px] left-[155px]"/>
-                  <span className="text-white text-center font-hahmlet text-[20px] not-italic font-medium leading-normal">
-                    <p>FAQ</p>
-                    <p>&</p>
-                    <p>방명록</p>
-                  </span>
+                  <div className="absolute flex flex-col items-center justify-center text-center">
+                    <img src="/assets/home/1Layergroup.svg"
+                    className="absolute top-[17px] left-[155px]"/>
+                    <span className="text-white text-center font-hahmlet text-[20px] not-italic font-medium leading-normal">
+                      <p>FAQ</p>
+                      <p>&</p>
+                      <p>방명록</p>
+                    </span>
 
-                </div>
+                  </div>
 
-              </HomeCard>
-              </div>
-          </div>
-
-                 
+                </HomeCard>
             </div>
-            <div className="text-center">
+          </div>
+            <div className={`text-center mb-[200px] transition-all duration-1000 ${isVisible.button ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
             <RefButton
               text="축제 지도 보기"
               backgroundColor="#A0C09A"
@@ -182,14 +205,14 @@ const Home: React.FC = () => {
 
           
               {/* scroll2 시작 */}
-              <div ref={scroll2Ref} className="w-full h-full overflow-auto mt-[80.5px] left-0 right-0 top-0 flex flex-col items-start text-left">
+              <div ref={scroll2Ref} className="w-full  h-full mt-[80.5px] flex flex-col">
                 
                 <HomeCard2
                   title="60주년 기념관"
                   subtitle="주점, 푸드트럭"
                   details="자세히 보기"
                   imageSrc="/assets/home/2Layer60thAnniversaryHall.png"
-                  imagePosition="left"
+                  imagePosition="right"
                   textAlignment="left"
                   marginBottom="0px"
                 />
@@ -199,9 +222,9 @@ const Home: React.FC = () => {
                   subtitle="부스, 주점, 푸드트럭"
                   details="자세히 보기"
                   imageSrc="/assets/home/2LayerFutureSquare.png"
-                  imagePosition="right"
+                  imagePosition="left"
                   textAlignment="right"
-                  marginBottom="-100px"
+                  marginBottom="0px"
                 />
 
                 <HomeCard2
@@ -209,9 +232,9 @@ const Home: React.FC = () => {
                   subtitle="공연, 푸드트럭"
                   details="자세히 보기"
                   imageSrc="/assets/home/2LayerLargeGround.png"
-                  imagePosition="left"
+                  imagePosition="right"
                   textAlignment="left"
-                  marginBottom="-50px"
+                  marginBottom="0px"
                 />
 
                 <HomeCard2
@@ -219,7 +242,7 @@ const Home: React.FC = () => {
                   subtitle="부스, 푸드트럭"
                   details="자세히 보기"
                   imageSrc="/assets/home/2LayerHaminSquare.png"
-                  imagePosition="right"
+                  imagePosition="left"
                   textAlignment="right"
                   marginBottom="0px"
                 />      
@@ -235,7 +258,7 @@ const Home: React.FC = () => {
                             
 
               {/* scroll3 시작 */}
-              <div  ref={scroll3Ref} className="w-full h-full mt-[210.5px] flex flex-col items-center justify-center text-center">
+              <div ref={scroll3Ref} className="w-full h-full mt-[210.5px] flex flex-col items-center justify-center text-center px-4">
                 <HomeCrad3
                   imageSrc="/assets/home/lineup/promise9.png"
                   mainText="Promise9"
