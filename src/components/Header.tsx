@@ -45,6 +45,7 @@ const Header: React.FC = () => {
   };
 
   const handleCloseMenu = () => {
+    // 애니메이션을 위해 즉시 닫지 않고 MenuModal에서 처리
     setIsMenuOpen(false);
   };
 

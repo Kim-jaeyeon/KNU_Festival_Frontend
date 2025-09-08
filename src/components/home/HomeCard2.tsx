@@ -21,18 +21,29 @@ export const HomeCard2: React.FC<HomeCard2Props> = ({
   textAlignment,
   marginBottom = '0px',
 }) => {
-  const textContainerStyle =
-    textAlignment === 'right'
-      ? 'absolute top-[169.5px] right-[49px] flex flex-col items-end text-right'
-      : 'absolute mt-[169.5px] ml-[34px]';
-
-  const imageStyle = imagePosition === 'left' ? 'relative left-[180px]' : '';
-
   return (
-        <div
-      className="w-full relative" style={{ marginBottom }}
+    <div
+      className="w-full relative overflow-hidden flex items-center justify-between mx-0" 
+      style={{ marginBottom }}
     >
-      <div className={textContainerStyle}>
+      {/* 이미지가 왼쪽에 있는 경우 */}
+      {imagePosition === 'left' && imageSrc && (
+        <div className="flex-shrink-0 relative">
+          <img  
+            src={imageSrc} 
+            className="w-48 h-70 object-cover" 
+            alt={title} 
+            style={{
+              maskImage: 'linear-gradient(to right, transparent 0%, black 15%, black 100%)',
+              WebkitMaskImage: 'linear-gradient(to right, transparent 0%, black 30%, black 100%)',
+              animation: 'floating 4s ease-in-out infinite'
+            }}
+          />
+        </div>
+      )}
+      
+      {/* 텍스트 영역 */}
+      <div className={`flex-1 px-4 ${textAlignment === 'right' ? 'text-right pr-10' : 'pl-10'}`}>
         <p className="text-[#009A7C] font-['HS산토끼체_2.0'] text-[25px] not-italic font-normal leading-normal">
           {title}
         </p>
@@ -43,8 +54,21 @@ export const HomeCard2: React.FC<HomeCard2Props> = ({
           {details}
         </p>
       </div>
-      {imageSrc && (
-        <img src={imageSrc} className={imageStyle} alt={title} />
+      
+      {/* 이미지가 오른쪽에 있는 경우 */}
+      {imagePosition === 'right' && imageSrc && (
+        <div className="flex-shrink-0 relative">
+          <img 
+            src={imageSrc} 
+            className="w-48 h-64 object-cover" 
+            alt={title} 
+            style={{
+              maskImage: 'linear-gradient(to left, transparent 0%, black 15%, black 100%)',
+              WebkitMaskImage: 'linear-gradient(to left, transparent 0%, black 30%, black 100%)',
+              animation: 'floating 4s ease-in-out infinite'
+            }}
+          />
+        </div>
       )}
     </div>
   );

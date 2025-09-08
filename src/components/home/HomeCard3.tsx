@@ -19,7 +19,7 @@ export const HomeCrad3: React.FC<HomeCrad3Props> = ({
 }) => {
   return (
     <div
-      className="rounded-[17px] w-[354px] h-[284.783px] flex flex-col items-center text-center p-2]"
+      className="rounded-[17px] w-[90%] h-[284.783px] flex flex-col items-center text-center p-2]"
       style={{
         marginBottom: marginBottom,
         background: `linear-gradient(0deg, rgba(255, 255, 255, 0.6) 0%, rgba(255, 255, 255, 0.6) 100%), rgba(212, 212, 143, 0.74)`,
