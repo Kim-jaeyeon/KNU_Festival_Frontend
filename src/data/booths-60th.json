@@ -1,0 +1,11 @@
+[
+  {
+    "id": 1,
+    "location": "60주년",
+    "zone": "C",
+    "category": "food",
+    "title": "커피랩",
+    "desc": "원두 향 가득한 핸드드립 커피와 디저트",
+    "image": "/assets/booth/coffee.png"
+  }
+]
