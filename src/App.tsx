@@ -18,18 +18,23 @@ function AppContent() {
         className={`w-full max-w-[430px] shadow-lg relative ${
           isHome ? 'min-h-[300vh]' : 'min-h-screen bg-cover bg-top bg-no-repeat'
         }`}
-        style={isHome ? {} : {
-          backgroundImage: "url('/assets/BG.png')",
-          backgroundSize: "cover",
-          backgroundPosition: "top center",
-          minHeight: "100vh"
-        }}
+        style={
+          isHome
+            ? {}
+            : {
+                backgroundImage: "url('/assets/BG.png')",
+                backgroundSize: 'cover',
+                backgroundPosition: 'top center',
+                minHeight: '100vh',
+              }
+        }
       >
         <Header />
-        <div className={isHome ? "" : "pt-16"}>
+        <div className={isHome ? '' : 'pt-16'}>
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/booth-recommend" element={<BoothRecommend />} />
+            {/* ✅ booth-foodtruck 라우트 추가 */}
             <Route path="/booth-foodtruck" element={<BoothAndFoodTruck />} />
             <Route path="/photo-festival" element={<PhotoFestival />} />
             <Route path="/timetable" element={<Timetable />} />
@@ -51,4 +56,4 @@ function App() {
   );
 }
 
-export default App
+export default App;

@@ -1,0 +1,43 @@
+[
+    {
+    "id": 1,
+    "location": "미래광장",
+    "category": "promo",
+    "title": "총동창회 부스",
+    "desc": "총동창회 부스 설명",
+    "image": "/assets/booth/ai.png"
+  },
+  {
+    "id": 2,
+    "location": "미래광장",
+    "category": "promo",
+    "title": "굿즈 팝업 스토어",
+    "desc": "2025학년도 백령대동제 굿즈 판매 및 수령, 타투스티커",
+    "image": "/assets/booth/ai.png"
+  },
+
+    {
+    "id": 3,
+    "location": "미래광장",
+    "category": "promo",
+    "title": "정원 속 성장 이야기",
+    "desc": "두더지 잡기 게임, 새싹 유형 검사",
+    "image": "/assets/booth/ai.png"
+  },
+    {
+    "id": 4,
+    "location": "미래광장",
+    "category": "food",
+    "title": "정원 속 성장 이야기",
+    "desc": "간식 나눔, 양말목 키링 만들기",
+    "image": "/assets/booth/ai.png"
+  },
+    {
+    "id": 5,
+    "location": "미래광장",
+    "category": "promo",
+    "title": "대형 현수막 참여 프로그램",
+    "desc": "HORTUS 및 강원대학교 슬로건 현수막 꾸미기",
+    "image": "/assets/booth/ai.png"
+  }
+]
