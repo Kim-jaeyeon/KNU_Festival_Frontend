@@ -41,16 +41,16 @@ const Home: React.FC = () => {
 
   return (
     <div 
-      className="w-full max-w-[430px] bg-cover bg-center bg-no-repeat overflow-x-hidden"
+      className="w-full max-w-[430px] bg-cover bg-center bg-no-repeat overflow-x-hidden -mt-16"
       style={{
         backgroundImage: "url('/assets/home/bg_main.png')",
         backgroundSize: "cover",
         backgroundPosition: "top center",
-        minHeight: "300vh"
+        minHeight: "calc(300vh + 64px)"
       }}
     >
       <div className="w-full flex flex-col items-center overflow-x-hidden">
-        <div className={`text-center mt-[130px] px-4 transition-all duration-1000 ${isVisible.logo ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
+        <div className={`text-center mt-[84px] px-4 transition-all duration-1000 ${isVisible.logo ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
 
           <img
             src="public/assets/main-logo.png"
