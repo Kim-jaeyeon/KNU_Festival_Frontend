@@ -7,16 +7,17 @@ import PhotoFestival from './pages/PhotoFestival';
 import Timetable from './pages/Timetable';
 import FAQAndGuestbook from './pages/FAQAndGuestbook';
 import GuestbookWrite from './pages/GuestbookWrite';
+import PhotoUpload from './pages/PhotoUpload';
 
 function AppContent() {
   const location = useLocation();
   const isHome = location.pathname === '/';
 
   return (
-    <div className="min-h-screen flex justify-center">
+    <div className={`${isHome ? 'min-h-screen' : 'h-screen overflow-hidden'} flex justify-center`}>
       <div
         className={`w-full max-w-[430px] shadow-lg relative ${
-          isHome ? 'min-h-[300vh]' : 'min-h-screen bg-cover bg-top bg-no-repeat'
+          isHome ? 'min-h-[300vh]' : 'h-screen bg-cover bg-top bg-no-repeat overflow-hidden'
         }`}
         style={
           isHome
@@ -25,12 +26,12 @@ function AppContent() {
                 backgroundImage: "url('/assets/BG.png')",
                 backgroundSize: 'cover',
                 backgroundPosition: 'top center',
-                minHeight: '100vh',
+                height: '100vh',
               }
         }
       >
         <Header />
-        <div className={isHome ? '' : 'pt-16'}>
+        <div className="pt-16">
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/booth-recommend" element={<BoothRecommend />} />
@@ -41,6 +42,7 @@ function AppContent() {
             <Route path="/faq" element={<FAQAndGuestbook />} />
             <Route path="/guestbook/write" element={<GuestbookWrite />} />
             <Route path="/guestbook" element={<FAQAndGuestbook />} />
+            <Route path="/photo-upload" element={<PhotoUpload />} />
           </Routes>
         </div>
       </div>
