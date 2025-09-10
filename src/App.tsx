@@ -7,6 +7,7 @@ import PhotoFestival from './pages/PhotoFestival';
 import Timetable from './pages/Timetable';
 import FAQAndGuestbook from './pages/FAQAndGuestbook';
 import GuestbookWrite from './pages/GuestbookWrite';
+import BoothRecommendResult from './pages/BoothRecommendResult'
 
 function AppContent() {
   const location = useLocation();
@@ -30,6 +31,7 @@ function AppContent() {
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/booth-recommend" element={<BoothRecommend />} />
+            <Route path ="/BoothRecommendResult" element={<BoothRecommendResult/>} />
             <Route path="/booth-foodtruck" element={<BoothAndFoodTruck />} />
             <Route path="/photo-festival" element={<PhotoFestival />} />
             <Route path="/timetable" element={<Timetable />} />
