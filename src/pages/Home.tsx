@@ -16,6 +16,7 @@ const Home: React.FC = () => {
   const scroll1Ref = useRef<HTMLDivElement>(null);
   const scroll2Ref = useRef<HTMLDivElement>(null);
   const scroll3Ref = useRef<HTMLDivElement>(null);
+  const scroll4Ref = useRef<HTMLDivElement>(null);
 
   // 스크롤 이동 함수
   const scrollToRef = (ref: React.RefObject<HTMLDivElement | null>) => {
@@ -34,8 +35,10 @@ const Home: React.FC = () => {
       clearTimeout(timer1);
       clearTimeout(timer2);
       clearTimeout(timer3);
+
     };
   }, []);
+  
 
 
 
@@ -43,21 +46,20 @@ const Home: React.FC = () => {
     <div 
       className="w-full max-w-[430px] bg-cover bg-center bg-no-repeat overflow-x-hidden"
       style={{
-        backgroundImage: "url('/assets/home/bg_main.png')",
         backgroundSize: "cover",
         backgroundPosition: "top center",
         minHeight: "300vh"
       }}
     >
-      <div className="w-full flex flex-col items-center overflow-x-hidden">
-        <div className={`text-center mt-[130px] px-4 transition-all duration-1000 ${isVisible.logo ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
-
+      <div ref={scroll1Ref} className="w-full min-h-[932px] flex flex-col items-center overflow-x-hidden bg-[url('/assets/home/BGimg/BackImg1.png')] bg-cover bg-center"
+     >
+        <div className={`text-center mt-[95px] transition-all duration-1000 ${isVisible.logo ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
           <img
-            src="public/assets/main-logo.png"
+            src="/assets/main_logo.png"
             alt="메인 로고"
             className="
               w-full                /* 부모 너비에 맞게 */
-              max-w-[237.48px]      /* 최대 크기 제한 */
+              max-w-[310px]      /*  최대 크기 제한 */
               aspect-[237.48/78.21] /* 비율 유지 */
               flex-shrink-0
               mx-auto              
@@ -67,151 +69,173 @@ const Home: React.FC = () => {
             }}
           />
 
-          <p className="mt-[1px] text-[#383F15] font-hahmlet text-[20.735px] not-italic font-normal leading-normal">
+          <p className="mt-[-18px] text-[#5C6C00] font-[Hahmlet] text-[15px] font-normal leading-normal">
             고요를 채울, 환희로 피어날
           </p>
         
-            <p className="text-[#656565] font-hahmlet text-[20.735px] not-italic font-normal leading-normal">
-              2025.09.21 - 09.24
-            </p>
+          <p className="text-[#0F1D00] font-[Hahmlet] text-[18px] font-normal leading-normal">
+            2025.09.21 - 09.24
+          </p>
         </div>
           
           {/*scroll 1 시작*/}
 
           {/* 1번째 HomeCard */}
-          <div ref={scroll1Ref} className={`mt-[33px] w-full h-[395px] px-4 transition-all duration-1000 ${isVisible.cards ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
-            <HomeCard
-              backgroundColor="rgba(91,141,22,0.57)"
-              width="w-full"
-              height="h-[122.027px]"
-              marginBottom="mb-[19px]"
-            >
-                <div className="relative w-full h-full flex items-center justify-center">
-                  {/* 중앙 SVG */}
-                  <img
-                    src="/assets/home/1LayerEllipse78.svg"
-                  />
+          <div className={`mt-[30px] w-full h-full px-4 transition-all duration-1000 ${isVisible.cards ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
+            <div className="relative w-full h-auto">
+              <img src="/assets/home/LayerFrame1/1LayerFrame1.png" alt="" className="w-full h-auto" />
+              {/* 이미지 위 글씨 */}
+                <p className="absolute top-[14px] left-[37px] text-white text-2xl font-bold text-white font-[Pretendard] text-[11.89px] font-extralight leading-normal flex-shrink-0">
+                    TIME TABLE
+                </p>
 
-                  {/* 중앙 텍스트 */}
-                  <div className="absolute flex flex-col items-center justify-center text-center">
-                    <span className="text-[#584A00] font-pretendard text-[10px] not-italic font-normal leading-normal">
-                      Current Event
-                    </span>
-                    <span className="text-[#39403A] font-hahmlet text-[17.907px] not-italic font-normal leading-normal">
-                      연예인 공연
-                    </span>
-                    <span className="text-[#39403A] font-pretendard text-[14.196px] not-italic font-normal leading-normal">
-                      🕖 19:00 - 20:00
-                    </span>
-                  </div>
-                  
-                {/* 왼쪽 텍스트 */}
-                <div className="absolute left-0 right-0 top-0 flex flex-col items-start text-left">
-                  <span className="absolute top-[28px] left-[36px] text-[#121C00] font-pretendard text-[10px] not-italic font-normal leading-normal">
-                    today
-                  </span>
-                  <span className="absolute top-[48px] left-[30px] text-[#121C00] font-hahmlet text-[19.698px] not-italic font-semibold leading-normal">
-                    09.21
-                  </span>
+                <p className="absolute top-[14px] right-[47px] text-white font-[Hahmlet] text-[10px] font-normal leading-normal">
+                  today
+                </p>
+
+                <p className="absolute top-[24px] left-[35px] w-[117px] h-[34px] flex-shrink-0 text-white font-[Hahmlet] text-[25px] font-normal leading-normal">
+                  타임테이블
+                </p>
+
+                <p className="absolute top-[27px] right-[32px] text-white font-[Hahmlet] text-[19.698px] font-semibold leading-normal">
+                  09.21
+                </p>
+
+
+                <div className="flex absolute top-[71px] left-1/2 transform -translate-x-1/2 w-[330px] h-[46px] flex-shrink-0 rounded-[20px] border border-[#F6FAEB] 
+                                bg-gradient-to-r from-white/0 to-white shadow-[ -2px_3px_5px_0_rgba(105,132,77,0.33) ]">           
+                  <img src="assets/home/Clock.svg" className="mt-[11px] ml-[11px] w-[24px] h-[24px] p-[2.667px] items-center" alt="" />                 
+                    <p className="mt-[9.5px] ml-[12px] text-[#39646C] font-[Hahmlet] text-[18px] font-normal leading-normal">
+                    19:00 - 20:00
+                  </p>
+                   <p className="mt-[9.5px] ml-[53px] text-[#39646C] font-[Hahmlet] text-[18px] font-normal leading-normal">
+                    연예인 공연
+                  </p>
+            
                 </div>
 
 
-                  {/* 오른쪽 텍스트 */}
-                  <div className="absolute left-0 right-0 top-0 flex flex-col items-end text-right">
-                    <span className="absolute top-[62px] right-[18px] text-white text-right font-suit text-[13.237px] not-italic font-extralight leading-normal">time table</span>
-                    <span className="absolute top-[79px] right-[18px] text-white font-hahmlet text-[20px] not-italic font-medium leading-normal">타임테이블</span>
-                  </div>
-                </div>
-            </HomeCard>
-                           
-            {/* 2번째 HomeCard */}
-            <div className="flex gap-2 mb-[19px] w-full">
-                <HomeCard
-                  backgroundColor="rgba(58,105,58,0.84)"
-                  width="w-1/2"
-                  height="h-[115px]"          
-                >
-                  <div className="absolute left-0 right-0 top-0 flex flex-col items-start text-left">
-                    <img src="/assets/home/1Layerlocal_shipping.svg"
-                    className="absolute top-[14px] left-[133px]"/>
-                    <span className="absolute top-[58px] left-[21px] text-white font-suit text-[13.237px] not-italic font-extralight leading-normal">부스 및 푸드트럭</span>
-                    <span className="absolute top-[75px] left-[21px] text-white font-hahmlet text-[20px] not-italic font-medium leading-normal">부스 및 푸드트럭</span>
-                  </div>
-                  
-                </HomeCard>
-
-                <HomeCard
-                    backgroundColor="rgba(156,170,44,0.72)"
-                    width="w-1/2"
-                    height="h-[115px]"
-                >
-                      
-                  <div className="absolute left-0 right-0 top-0 flex flex-col items-start text-left">
-                      <img src="/assets/home/1Layerlocal_shipping.svg"
-                      className="absolute top-[14px] right-[19px]"/>
-                      <span className="absolute top-[58px] left-[21px] text-white font-suit text-[13.237px] not-italic font-extralight leading-normal">부스 추천</span>
-                      <span className="absolute top-[75px] left-[21px] text-white font-hahmlet text-[20px] not-italic font-medium leading-normal">부스 추천</span>
-                    </div>
-
-                </HomeCard>
             </div>
-
-
-            {/* 3번째 HomeCard */}
-            <div className="flex gap-2 w-full">
-                <HomeCard
-                  backgroundColor="rgba(156, 170, 44, 0.72)"
-                  width="w-1/2"
-                  height="h-[120px]"          
-                >
-
-                  <div className="absolute left-0 right-0 top-0 flex flex-col items-start text-left">
-                    <img src="/assets/home/1Layergroup.svg"
-                    className="absolute top-[17px] left-[155px]"/>
-                    <span className="absolute top-[58px] left-[21px] text-white font-suit text-[13.237px] not-italic font-extralight leading-normal">사진 페스티벌</span>
-                    <span className="absolute top-[75px] left-[21px] text-white font-hahmlet text-[20px] not-italic font-medium leading-normal">사진 페스티벌</span>
-                  </div>
-                  
-                </HomeCard>
-
-                <HomeCard
-                    backgroundColor="rgba(58,105,58,0.84)"
-                    width="w-1/2"
-                    height="h-[120px]"          
-                >
-
-                  <div className="absolute flex flex-col items-center justify-center text-center">
-                    <img src="/assets/home/1Layergroup.svg"
-                    className="absolute top-[17px] left-[155px]"/>
-                    <span className="text-white text-center font-hahmlet text-[20px] not-italic font-medium leading-normal">
-                      <p>FAQ</p>
-                      <p>&</p>
-                      <p>방명록</p>
-                    </span>
-
-                  </div>
-
-                </HomeCard>
+                
+            {/* 2번째 HomeCard */}
+            <div className="mt-[4px] mx-auto grid grid-cols-2 gap-[9px]">
+              <img src="/assets/home/LayerFrame1/1LayerFrame2.png" alt="" className="w-full h-full" />
+              <img src="/assets/home/LayerFrame1/1LayerFrame3.png" alt="" className="w-full h-full" />
+              <img src="/assets/home/LayerFrame1/1LayerFrame4.png" alt="" className="w-full h-full" />
+              <img src="/assets/home/LayerFrame1/1LayerFrame5.png" alt="" className="w-full h-full" />
             </div>
           </div>
-            <div className={`text-center mb-[200px] transition-all duration-1000 ${isVisible.button ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
+
+            <div className={`mt-[76px] h-[103px] text-centertransition-all duration-300 ${isVisible.button ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
             <RefButton
-              text="축제 지도 보기"
-              backgroundColor="#A0C09A"
+              text="축제 라인업 보기"
+              backgroundColor="rgba(244, 203, 0, 0.71)"
               onClick={() => scrollToRef(scroll2Ref)}
             />
+                        
+              <div className="mt-[9px] w-[37px] h-[37px] flex items-center justify-center mx-auto"
+              onClick={() => scrollToRef(scroll2Ref)}>
+                <img src="/assets/home/ArrowUp-circle.svg" alt="Arrow Up" className="w-full h-full" />
+              </div>
             </div>
+            </div>
+
+            
+              {/* scroll2 시작 */}
+              <div ref={scroll2Ref} 
+              className="w-full min-h-[932px] pt-[101px] bg-cover bg-center bg-no-repeat bg-[url('/assets/home/BGimg/BackImg2.png')] bg-cover bg-center">
+      
+                <HomeCrad3
+                  logoSrc="/assets/home/lineup/extext.svg"
+                  mainImgSrc="/assets/home/lineup/eximg.svg"
+                  dayText="DAY1"
+                  dateText="9.23"
+                  nameText="Kii Kii"
+                  imagePosition="left"
+                />
+
+                 <HomeCrad3
+                  logoSrc="/assets/home/lineup/extext.svg"
+                  mainImgSrc="/assets/home/lineup/eximg.svg"
+                  dayText="DAY1"
+                  dateText="9.23"
+                  nameText="Kii Kii"
+                  imagePosition="right"
+                />
+
+                
+                <HomeCrad3
+                  logoSrc="/assets/home/lineup/extext.svg"
+                  mainImgSrc="/assets/home/lineup/eximg.svg"
+                  dayText="DAY1"
+                  dateText="9.23"
+                  nameText="Kii Kii"
+                  imagePosition="left"
+                />
+       
+                
+              </div>
+
+            <div 
+            className="w-full min-h-[932px] pt-[50px] bg-cover bg-center bg-no-repeat bg-[url('/assets/home/BGimg/BackImg3.png')] bg-cover bg-center">
+      
+            <HomeCrad3
+                  logoSrc="/assets/home/lineup/extext.svg"
+                  mainImgSrc="/assets/home/lineup/eximg.svg"
+                  dayText="DAY1"
+                  dateText="9.23"
+                  nameText="Kii Kii"
+                  imagePosition="right"
+                />
+
+              <HomeCrad3
+                  logoSrc="/assets/home/lineup/extext.svg"
+                  mainImgSrc="/assets/home/lineup/eximg.svg"
+                  dayText="DAY1"
+                  dateText="9.23"
+                  nameText="Kii Kii"
+                  imagePosition="left"
+                />
+
+
+                
+            <HomeCrad3
+                  logoSrc="/assets/home/lineup/extext.svg"
+                  mainImgSrc="/assets/home/lineup/eximg.svg"
+                  dayText="DAY1"
+                  dateText="9.23"
+                  nameText="Kii Kii"
+                  imagePosition="right"
+                />
               
 
+
+            <div className="text-center">
+              <RefButton
+                text="축제 지도 보기"
+                backgroundColor="#A0C09A"
+                onClick={() => scrollToRef(scroll3Ref)}
+              />
+            </div>
+
+            <div className="mt-[9px] w-[37px] h-[37px] flex items-center justify-center mx-auto"
+            onClick={() => scrollToRef(scroll3Ref)}>
+                <img src="/assets/home/ArrowUp-circle.svg" alt="Arrow Up" className="w-full h-full" />
+            </div>
+                            
+
+            </div>
+            
           
-              {/* scroll2 시작 */}
-              <div ref={scroll2Ref} className="w-full  h-full mt-[80.5px] flex flex-col">
-                
+              {/* scroll3 시작 */}
+              <div ref={scroll3Ref} 
+              className="w-full min-h-[932px] pt-[64px] bg-cover bg-center bg-no-repeat bg-[url('/assets/home/BGimg/BackImg4.png')] bg-cover bg-center">
+
                 <HomeCard2
                   title="60주년 기념관"
                   subtitle="주점, 푸드트럭"
                   details="자세히 보기"
-                  imageSrc="/assets/home/2Layer60thAnniversaryHall.png"
+                  imageSrc="/assets/home/LayerFrame2/2Layer60thAnniversaryHall.png"
                   imagePosition="right"
                   textAlignment="left"
                   marginBottom="0px"
@@ -221,17 +245,23 @@ const Home: React.FC = () => {
                   title="미래광장"
                   subtitle="부스, 주점, 푸드트럭"
                   details="자세히 보기"
-                  imageSrc="/assets/home/2LayerFutureSquare.png"
+                  imageSrc="/assets/home/LayerFrame2/2LayerFutureSquare.png"
                   imagePosition="left"
                   textAlignment="right"
                   marginBottom="0px"
                 />
+ 
+              </div>
 
+
+            <div 
+              className="w-full min-h-[932px] pt-[64px] bg-cover bg-center bg-no-repeat bg-[url('/assets/home/BGimg/BackImg5.png')] bg-cover bg-center">
+      
                 <HomeCard2
                   title="대운동장"
                   subtitle="공연, 푸드트럭"
                   details="자세히 보기"
-                  imageSrc="/assets/home/2LayerLargeGround.png"
+                  imageSrc="/assets/home/LayerFrame2/2LayerLargeGround.png"
                   imagePosition="right"
                   textAlignment="left"
                   marginBottom="0px"
@@ -241,49 +271,93 @@ const Home: React.FC = () => {
                   title="함인섭 광장"
                   subtitle="부스, 푸드트럭"
                   details="자세히 보기"
-                  imageSrc="/assets/home/2LayerHaminSquare.png"
+                  imageSrc="/assets/home/LayerFrame2/2LayerHaminSquare.png"
                   imagePosition="left"
                   textAlignment="right"
                   marginBottom="0px"
-                />      
-              </div>
+                />     
 
-            <div className="text-center">
+                <div className="text-center">
               <RefButton
-                text="축제 라인업 보기"
-                backgroundColor="rgba(244, 203, 0, 0.71)"
-                onClick={() => scrollToRef(scroll3Ref)}
+                text="개발자 및 디자이너"
+                backgroundColor="#E5BEEF"
+                onClick={() => scrollToRef(scroll4Ref)}
               />
             </div>
-                            
 
-              {/* scroll3 시작 */}
-              <div ref={scroll3Ref} className="w-full h-full mt-[210.5px] flex flex-col items-center justify-center text-center px-4">
-                <HomeCrad3
-                  imageSrc="/assets/home/lineup/promise9.png"
-                  mainText="Promise9"
-                  subText="프로미스나인"
-                  marginBottom="35.22px"
-                />
+            <div className="mt-[9px] w-[37px] h-[37px] flex items-center justify-center mx-auto"
+            onClick={() => scrollToRef(scroll4Ref)}>
+              <img src="/assets/home/ArrowUp-circle.svg" alt="Arrow Up" className="w-full h-full" />
+            </div>
+  
+            </div>
 
-                <HomeCrad3
-                  imageSrc="/assets/home/lineup/promise9.png"
-                  mainText="Promise9"
-                  subText="제발와주세요"
-                  marginBottom="35.22px"
-                />
+                        
+            <div 
+              ref={scroll4Ref} 
+              className="w-full min-h-[932px] bg-cover bg-center bg-no-repeat bg-[url('/assets/home/BGimg/BackImg6.png')] flex justify-center items-center"
+            >
+              <div className="flex flex-col w-[343.699px] h-[364px]">
+                <p className="text-[#009A7C] font-hssantokki text-[20px] font-normal leading-normal">
+                  디자이너
+                </p>
 
-                <HomeCrad3
-                  imageSrc="/assets/home/lineup/promise9.png"
-                  mainText="Promise9"
-                  subText="제발제발제발"
-                  marginBottom="35.22px"
-                />
-
-              </div>
+                <p className="text-black font-['Hakgyoansim_Jeomsimsigan'] text-[16px] font-bold leading-[32px]">
+                  최혜선 <br />
+                  AI융합학과 23
+                </p>
 
 
-      </div>
+                <p className="mt-[39px] text-[#009A7C] font-hssantokki text-[20px] font-normal leading-normal">
+                  프론트엔드
+                </p>
+                
+                <div className = "flex gap-[13px]">
+                  <p className="text-black font-['Hakgyoansim_Jeomsimsigan'] text-[16px] font-bold leading-[32px]">
+                  김재연 <br />
+                  컴퓨터공학과 23
+                  </p>
+
+                  <p className="text-black font-['Hakgyoansim_Jeomsimsigan'] text-[16px] font-bold leading-[32px]">
+                  이원형 <br />
+                  (폰트 변경예정)
+                  </p>
+
+                  <p className="text-black font-['Hakgyoansim_Jeomsimsigan'] text-[16px] font-bold leading-[32px]">
+                  한철완 <br />
+                  컴퓨터공학과 22
+                  </p>
+                </div>
+
+                <p className="mt-[39px] text-[#009A7C] font-hssantokki text-[20px] font-normal leading-normal">
+                  백엔드
+                </p>
+                
+                <div className = "flex gap-[38px]">
+                  <p className="text-black font-['Hakgyoansim_Jeomsimsigan'] text-[16px] font-bold leading-[32px]">
+                  김소연 <br />
+                  컴퓨터공학과 21
+                  </p>
+
+                  <p className="text-black font-['Hakgyoansim_Jeomsimsigan'] text-[16px] font-bold leading-[32px]">
+                  유다인 <br />
+                  컴퓨터공학과 21 
+                  </p>
+
+                </div>
+
+                
+
+
+              </div>     
+            </div>
+
+
+
+
+
+
+      
     </div>
   );
 };

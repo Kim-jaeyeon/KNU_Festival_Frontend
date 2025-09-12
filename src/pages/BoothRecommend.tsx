@@ -13,30 +13,30 @@ const BoothRecommend: React.FC = () => {
 
   const stepChoices: Record<number, Choice[]> = {
     1: [
-      { id: "a1", label: "네 ! 축제하면 먹거리는 빠질 수 없죠 😋" },
-      { id: "a2", label: "선택 1-2" },
+      { id: "a1", label: "🍽 먹거리" },
+      { id: "a2", label: "🎨 체험거리" },
     ],
     2: [
-      { id: "b1", label: "선택 2-1" },
-      { id: "b2", label: "선택 2-2" },
+      { id: "b1", label: "👭 친구랑 같이" },
+      { id: "b2", label: "🧘 혼자 힐링" },
     ],
     3: [
-      { id: "c1", label: "선택 3-1" },
-      { id: "c2", label: "선택 3-2" },
+      { id: "c1", label: "⚡ 가볍게" },
+      { id: "c2", label: "🕒 오래" },
     ],
     4: [
-      { id: "d1", label: "최종 선택 1" },
-      { id: "d2", label: "최종 선택 2" },
-      { id: "d3", label: "최종 선택 3" },
+      { id: "d1", label: "🎉 신나는" },
+      { id: "d2", label: "🌿 감성적인" },
+      { id: "d3", label: "🧐 진지한" },
     ],
   };
 
   // 단계별 안내 문구
   const stepTexts: Record<number, string[]> = {
-    1: ["축제하면 먹거리지!", "어떤 메뉴가 끌리나요?"],
-    2: ["참여형 부스를 원하시나요?", "아니면 관람형을 원하시나요?"],
-    3: ["먹거리와 관련된 부스를 원하시나요?"],
-    4: ["마지막으로 최종 선택을 해주세요!"],
+    1: ["오늘 축제에서 무엇을", "더 즐기고 싶으신가요?"],
+    2: ["누구와 함께 오셨나요?"],
+    3: ["활동은 어떤 느낌으로", "즐기고 싶으신가요?"],
+    4: ["선호하는 분위기를 골라주세요!"],
   };
 
   const handleSelect = (choiceId: string) => {
@@ -54,12 +54,12 @@ const BoothRecommend: React.FC = () => {
     <div className="w-full min-h-screen">
       <div className="container max-w-md mx-auto">
         {/* 단계 제목 */}
-        <p className="mt-[50px] ml-[44px] text-[#508719] font-[HS산토끼체] text-[27.535px] font-normal leading-[30.288px] mb-2">
+        <p className="mt-[50px] ml-[44px] text-[#508719] font-hssantokki text-[27.535px] font-normal leading-[30.288px] mb-2">
           0{step}
         </p>
 
         {/* 안내 문구 */}
-       <p className="mt-[5px] ml-[44px] text-[#3B3B3B] font-[HS산토끼체] text-[28.636px] font-normal leading-[31.5px]">
+       <p className="mt-[5px] ml-[44px] text-[#3B3B3B] font-hssantokki text-[28.636px] font-normal leading-[31.5px]">
           {stepTexts[step].map((line, i) => (
             <React.Fragment key={i}>
               {line}

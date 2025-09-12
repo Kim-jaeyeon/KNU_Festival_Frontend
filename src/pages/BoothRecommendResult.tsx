@@ -11,10 +11,10 @@ const BoothRecommendResult: React.FC = () => {
   return (
      <div className="w-full min-h-screen">
       <div className="container max-w-md mx-auto px-4 py-8">
-      <p className="mt-[117px] text-[#6EAFF0] text-center font-[HS산토끼체] text-[28.636px] font-normal leading-[31.5px]">
+      <p className="mt-[25px] text-[#6EAFF0] text-center font-hssantokki text-[28.636px] font-normal leading-[31.5px]">
         체험과 소품을 좋아하는
       </p>
-      <p className="text-[#3B3B3B] text-center font-[HS산토끼체] text-[28.636px] font-normal leading-[31.5px]">
+      <p className="text-[#3B3B3B] text-center font-hssantokki text-[28.636px] font-normal leading-[31.5px]">
         당신에게 맞는 부스는,,
       </p>
 
@@ -38,15 +38,38 @@ const BoothRecommendResult: React.FC = () => {
 
  
       
-      <div className="mt-[16px] w-[168px] h-[167px] mx-auto">
+      <div className="mt-[16px] w-[150px] h-[150px] mx-auto">
         <div className="h-[150px] self-stretch rounded-[10px] border-[4px] border-[#BBCF90] bg-white shadow-[0_4px_9.2px_1px_rgba(22,44,61,0.25)]">
           <img src="" alt="" />
         </div>
       </div>
 
-      <p className="mt-[0px] text-[#90B246] text-center font-[HS산토끼체] text-[20px] font-normal leading-[22px]">
+      <p className="mt-[10px] text-[#90B246] text-center font-hssantokki text-[20px] font-normal leading-[22px]">
         인디드로잉
       </p>
+
+    <div className="mt-[50px] flex justify-center gap-10 flex-wrap">
+  {/* 카드 1 */}
+  <div className="flex flex-col items-center w-[150px] mt-4">
+    <div className="h-[150px] w-full rounded-[10px] border-[4px] border-[#BBCF90] bg-white shadow-[0_4px_9.2px_1px_rgba(22,44,61,0.25)] overflow-hidden">
+      <img src="" alt="" className="w-full h-full object-cover" />
+    </div>
+    <p className="mt-[10px] text-[#90B246] text-center font-hssantokki text-[20px] font-normal leading-[22px]">
+      인디드로잉
+    </p>
+  </div>
+
+  {/* 카드 2 */}
+  <div className="flex flex-col items-center w-[150px] mt-4">
+    <div className="h-[150px] w-full rounded-[10px] border-[4px] border-[#BBCF90] bg-white shadow-[0_4px_9.2px_1px_rgba(22,44,61,0.25)] overflow-hidden">
+      <img src="" alt="" className="w-full h-full object-cover" />
+    </div>
+    <p className="mt-[10px] text-[#90B246] text-center font-hssantokki text-[20px] font-normal leading-[22px]">
+      인디드로잉
+    </p>
+  </div>
+</div>
+
 
 
 

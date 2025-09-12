@@ -31,7 +31,7 @@ export const HomeCard2: React.FC<HomeCard2Props> = ({
         <div className="flex-shrink-0 relative">
           <img  
             src={imageSrc} 
-            className="w-48 h-70 object-cover" 
+            className="w-48 h-[375px] object-contain" 
             alt={title} 
             style={{
               maskImage: 'linear-gradient(to right, transparent 0%, black 15%, black 100%)',
@@ -60,7 +60,7 @@ export const HomeCard2: React.FC<HomeCard2Props> = ({
         <div className="flex-shrink-0 relative">
           <img 
             src={imageSrc} 
-            className="w-48 h-64 object-cover" 
+            className="w-48 h-[375px] object-contain" 
             alt={title} 
             style={{
               maskImage: 'linear-gradient(to left, transparent 0%, black 15%, black 100%)',

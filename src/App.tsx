@@ -8,6 +8,7 @@ import Timetable from './pages/Timetable';
 import FAQAndGuestbook from './pages/FAQAndGuestbook';
 import GuestbookWrite from './pages/GuestbookWrite';
 import BoothRecommendResult from './pages/BoothRecommendResult'
+import Celebrity from './pages/Celebrity';
 
 function AppContent() {
   const location = useLocation();
@@ -16,12 +17,13 @@ function AppContent() {
   return (
     <div className="min-h-screen flex justify-center">
       <div
-        className={`w-full max-w-[430px] shadow-lg relative ${
+        className={`w-full sm:max-w-[402px] shadow-lg relative  ${
           isHome ? 'min-h-[300vh]' : 'min-h-screen bg-cover bg-top bg-no-repeat'
         }`}
         style={isHome ? {} : {
-          backgroundImage: "url('/assets/BG.png')",
+          backgroundImage: "url('/assets/BoothRecommendBG.png')",
           backgroundSize: "cover",
+        
           backgroundPosition: "top center",
           minHeight: "100vh"
         }}
@@ -38,6 +40,7 @@ function AppContent() {
             <Route path="/faq" element={<FAQAndGuestbook />} />
             <Route path="/guestbook/write" element={<GuestbookWrite />} />
             <Route path="/guestbook" element={<FAQAndGuestbook />} />
+            <Route path="/celebrity" element={<Celebrity />} />
           </Routes>
         </div>
       </div>

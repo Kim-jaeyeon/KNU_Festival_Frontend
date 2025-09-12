@@ -20,6 +20,25 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+@font-face {
+  font-family: 'HS산토끼체';
+  src: url('./assets/fonts/HS-Santokki.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+
+@font-face {
+  font-family: 'HS-Santokki';
+  src: url('./assets/fonts/HS-Santokki.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+.font-hssantokki {
+  font-family: 'HS산토끼체', 'HS-Santokki', sans-serif !important;
+}
+
 ::-webkit-scrollbar {
   display: none;
 }
