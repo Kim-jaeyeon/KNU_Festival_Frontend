@@ -27,8 +27,6 @@ const Header: React.FC = () => {
         return 'FAQ & 방명록';
       case '/guestbook/write':
         return '방명록 작성하기';
-      case '/photo-upload':
-        return '사진 업로드하기';
       default:
         return '백령대동제';
     }
@@ -52,7 +50,7 @@ const Header: React.FC = () => {
   };
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-50  ">
+    <header className="absolute top-0 left-0 right-0 z-50">
       <div className="max-w-[430px] mx-auto px-4">
         {/* 헤더 */}
         <div className="flex items-center justify-between py-4">
