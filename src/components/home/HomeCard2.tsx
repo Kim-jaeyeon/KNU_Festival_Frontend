@@ -1,17 +1,18 @@
+// src/components/home/HomeCard2.tsx
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 
-// Props의 타입을 명시적으로 정의하는 인터페이스
 interface HomeCard2Props {
   title: string;
   subtitle: string;
   details: string;
-  imageSrc?: string; // 이미지는 선택 사항이므로 '?'를 붙여줍니다.
-  imagePosition?: 'left' | 'right'; // 이미지가 왼쪽/오른쪽에 올 수 있음을 명시합니다.
+  imageSrc?: string;
+  imagePosition?: 'left' | 'right';
   textAlignment?: 'left' | 'right';
-  marginBottom: string;
+  marginBottom?: string;
+  link: string; // 이동할 경로
 }
 
-// 공통적인 부분을 컴포넌트로 분리 (Props에 타입을 지정)
 export const HomeCard2: React.FC<HomeCard2Props> = ({
   title,
   subtitle,
@@ -20,11 +21,22 @@ export const HomeCard2: React.FC<HomeCard2Props> = ({
   imagePosition,
   textAlignment,
   marginBottom = '0px',
+  link,
 }) => {
+  const navigate = useNavigate();
+
+  const handleClick = () => {
+    if (link) {
+      // ✅ URL 파라미터 형식으로 수정
+      navigate(`/booth-foodtruck/${link}`); 
+    }
+  };
+
   return (
     <div
-      className="w-full relative overflow-hidden flex items-center justify-between mx-0" 
+      className="w-full relative overflow-hidden flex items-center justify-between mx-0 cursor-pointer"
       style={{ marginBottom }}
+      onClick={handleClick}
     >
       {/* 이미지가 왼쪽에 있는 경우 */}
       {imagePosition === 'left' && imageSrc && (

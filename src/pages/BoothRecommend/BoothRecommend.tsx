@@ -51,8 +51,8 @@ const BoothRecommend: React.FC = () => {
   };
 
   return (
-    <div className="w-full min-h-screen">
-      <div className="container max-w-md mx-auto">
+    <div className="w-full min-h-screen bg-cover bg-center">
+      <div className="pt-[70px] max-w-md mx-auto">
         {/* 단계 제목 */}
         <p className="mt-[50px] ml-[44px] text-[#508719] font-hssantokki text-[27.535px] font-normal leading-[30.288px] mb-2">
           0{step}

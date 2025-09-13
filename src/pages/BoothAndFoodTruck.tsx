@@ -1,6 +1,7 @@
 import React, { useState } from "react";
+import { useParams } from "react-router-dom";
 import BoothCard from "../components/Booth/BoothCard";
-import BoothModal from "../components/Booth/BoothModal"; // ✅ 모달 import
+import BoothModal from "../components/Booth/BoothModal";
 
 // 장소별 JSON import
 import stadiumBooths from "../data/booths-stadium.json";
@@ -20,10 +21,14 @@ export type Booth = {
 };
 
 const BoothAndFoodTruck: React.FC = () => {
-  const [activeLocation, setActiveLocation] = useState("대운동장");
-  const [activeTab, setActiveTab] = useState<"all" | "food" | "promo">("all");
+  // useParams 훅을 사용하여 URL 파라미터를 가져옵니다.
+  const { number } = useParams<{ number?: string }>();
+  console.log('Received URL parameter:', number); // ✅ 이 줄을 추가하세요!
 
-  // ✅ 모달 상태
+  // URL 파라미터 값에 따라 초기 activeLocation을 설정합니다.
+  // 이 부분에서 이미 URL 파라미터를 처리하고 있으므로, useEffect는 필요 없습니다.
+  const [activeLocation, setActiveLocation] = useState(number || "대운동장");
+  const [activeTab, setActiveTab] = useState<"all" | "food" | "promo">("all");
   const [selectedBooth, setSelectedBooth] = useState<Booth | null>(null);
 
   const locations = ["대운동장", "함인섭광장", "60주년", "미래광장"];
@@ -120,7 +125,7 @@ const BoothAndFoodTruck: React.FC = () => {
               <div
                 key={booth.id}
                 className="w-full cursor-pointer"
-                onClick={() => setSelectedBooth(booth)} // ✅ 클릭 시 모달 오픈
+                onClick={() => setSelectedBooth(booth)}
               >
                 <BoothCard booth={booth} />
               </div>
@@ -133,7 +138,7 @@ const BoothAndFoodTruck: React.FC = () => {
         </div>
       </div>
 
-      {/* ✅ 모달 띄우기 */}
+      {/* 모달 띄우기 */}
       {selectedBooth && (
         <BoothModal booth={selectedBooth} onClose={() => setSelectedBooth(null)} />
       )}
