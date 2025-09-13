@@ -16,9 +16,9 @@ const MenuModal: React.FC<MenuModalProps> = ({ isOpen, onClose, buttonRef }) => 
   const menuItems = [
     { label: '홈', path: '/' },
     { label: '타임테이블', path: '/timetable' },
-    { label: '부스 추천', path: '/booth-recommend' },
+    { label: '부스 추천', path: '/boothRecommendLoading' },
     { label: '사진 페스티벌', path: '/photo-festival' },
-    { label: '부스 및 푸드트럭', path: '/booth-foodtruck' },
+    { label: '부스 및 푸드트럭', path: '/booth-foodtruck/대운동장' },
     { label: 'FAQ', path: '/faq' },
     { label: '방명록', path: '/guestbook' },
   ];

@@ -1,10 +1,14 @@
 import React, { useRef, useState, useEffect } from 'react';
 import { HomeCard } from '../components/home/HomeCard';
 import { HomeCard2 } from '../components/home/HomeCard2';
-import { HomeCrad3 } from '../components/home/HomeCard3';
+import { HomeCard3 } from '../components/home/HomeCard3';
 import { RefButton } from '../components/home/RefButton';
+import { useNavigate } from "react-router-dom";
 
 const Home: React.FC = () => {
+  //네비게이터
+  const navigate = useNavigate();
+
   // 애니메이션 상태
   const [isVisible, setIsVisible] = useState({
     logo: false,
@@ -44,14 +48,14 @@ const Home: React.FC = () => {
   
   return (
     <div 
-      className="w-full max-w-[430px] bg-cover bg-center bg-no-repeat overflow-x-hidden -mt-16"
+      className="w-full max-w-[430px] bg-contain bg-center bg-no-repeat overflow-x-hidden -mt-16 "
       style={{
         backgroundSize: "cover",
         backgroundPosition: "top center",
         minHeight: "calc(300vh + 64px)"
       }}
     >
-      <div ref={scroll1Ref} className="w-full min-h-[932px] flex flex-col items-center overflow-x-hidden bg-[url('/assets/home/BGimg/BackImg1.png')] bg-cover bg-center"
+      <div ref={scroll1Ref} className="w-full min-h-[932px] flex flex-col items-center overflow-x-hidden bg-[url('/assets/home/BGimg/BackImg1.png')] bg-cover bg-center "
      >
         <div className={`text-center mt-[95px] transition-all duration-1000 ${isVisible.logo ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
           <img
@@ -82,7 +86,7 @@ const Home: React.FC = () => {
 
           {/* 1번째 HomeCard */}
           <div className={`mt-[30px] w-full h-full px-4 transition-all duration-1000 ${isVisible.cards ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
-            <div className="relative w-full h-auto">
+            <div className="relative w-full h-auto" onClick={() => navigate("/timetable")}>
               <img src="/assets/home/LayerFrame1/1LayerFrame1.png" alt="" className="w-full h-auto" />
               {/* 이미지 위 글씨 */}
                 <p className="absolute top-[14px] left-[37px] text-white text-2xl font-bold text-white font-[Pretendard] text-[11.89px] font-extralight leading-normal flex-shrink-0">
@@ -113,16 +117,14 @@ const Home: React.FC = () => {
                   </p>
             
                 </div>
-
-
             </div>
                 
             {/* 2번째 HomeCard */}
             <div className="mt-[4px] mx-auto grid grid-cols-2 gap-[9px]">
-              <img src="/assets/home/LayerFrame1/1LayerFrame2.png" alt="" className="w-full h-full" />
-              <img src="/assets/home/LayerFrame1/1LayerFrame3.png" alt="" className="w-full h-full" />
-              <img src="/assets/home/LayerFrame1/1LayerFrame4.png" alt="" className="w-full h-full" />
-              <img src="/assets/home/LayerFrame1/1LayerFrame5.png" alt="" className="w-full h-full" />
+              <img src="/assets/home/LayerFrame1/1LayerFrame2.png" alt="" className="w-full h-full" onClick={() => navigate("/booth-foodtruck")}/>
+              <img src="/assets/home/LayerFrame1/1LayerFrame3.png" alt="" className="w-full h-full" onClick={() => navigate("/photo-festival")}/>
+              <img src="/assets/home/LayerFrame1/1LayerFrame4.png" alt="" className="w-full h-full" onClick={() => navigate("/boothRecommendLoading")}/>
+              <img src="/assets/home/LayerFrame1/1LayerFrame5.png" alt="" className="w-full h-full" onClick={() => navigate("/faq")}/>
             </div>
           </div>
 
@@ -145,32 +147,35 @@ const Home: React.FC = () => {
               <div ref={scroll2Ref} 
               className="w-full min-h-[932px] pt-[101px] bg-cover bg-center bg-no-repeat bg-[url('/assets/home/BGimg/BackImg2.png')] bg-cover bg-center">
       
-                <HomeCrad3
+                <HomeCard3
                   logoSrc="/assets/home/lineup/extext.svg"
                   mainImgSrc="/assets/home/lineup/eximg.svg"
                   dayText="DAY1"
                   dateText="9.23"
                   nameText="Kii Kii"
                   imagePosition="left"
+                  number="1"
                 />
 
-                 <HomeCrad3
+                 <HomeCard3
                   logoSrc="/assets/home/lineup/extext.svg"
                   mainImgSrc="/assets/home/lineup/eximg.svg"
                   dayText="DAY1"
                   dateText="9.23"
                   nameText="Kii Kii"
                   imagePosition="right"
+                  number="2"
                 />
 
                 
-                <HomeCrad3
+                <HomeCard3
                   logoSrc="/assets/home/lineup/extext.svg"
                   mainImgSrc="/assets/home/lineup/eximg.svg"
                   dayText="DAY1"
                   dateText="9.23"
                   nameText="Kii Kii"
                   imagePosition="left"
+                  number="3"
                 />
        
                 
@@ -179,33 +184,36 @@ const Home: React.FC = () => {
             <div 
             className="w-full min-h-[932px] pt-[50px] bg-cover bg-center bg-no-repeat bg-[url('/assets/home/BGimg/BackImg3.png')] bg-cover bg-center">
       
-            <HomeCrad3
+            <HomeCard3
                   logoSrc="/assets/home/lineup/extext.svg"
                   mainImgSrc="/assets/home/lineup/eximg.svg"
                   dayText="DAY1"
                   dateText="9.23"
                   nameText="Kii Kii"
                   imagePosition="right"
+                  number="4"
                 />
 
-              <HomeCrad3
+              <HomeCard3
                   logoSrc="/assets/home/lineup/extext.svg"
                   mainImgSrc="/assets/home/lineup/eximg.svg"
                   dayText="DAY1"
                   dateText="9.23"
                   nameText="Kii Kii"
                   imagePosition="left"
+                  number="5"
                 />
 
 
                 
-            <HomeCrad3
+            <HomeCard3
                   logoSrc="/assets/home/lineup/extext.svg"
                   mainImgSrc="/assets/home/lineup/eximg.svg"
                   dayText="DAY1"
                   dateText="9.23"
                   nameText="Kii Kii"
                   imagePosition="right"
+                  number="6"
                 />
               
 
@@ -239,6 +247,7 @@ const Home: React.FC = () => {
                   imagePosition="right"
                   textAlignment="left"
                   marginBottom="0px"
+                  link="60주년"
                 />
 
                 <HomeCard2
@@ -249,6 +258,7 @@ const Home: React.FC = () => {
                   imagePosition="left"
                   textAlignment="right"
                   marginBottom="0px"
+                  link="미래광장"
                 />
  
               </div>
@@ -265,6 +275,7 @@ const Home: React.FC = () => {
                   imagePosition="right"
                   textAlignment="left"
                   marginBottom="0px"
+                  link="대운동장"
                 />
 
                 <HomeCard2
@@ -275,6 +286,7 @@ const Home: React.FC = () => {
                   imagePosition="left"
                   textAlignment="right"
                   marginBottom="0px"
+                  link="함인섭광장"
                 />     
 
                 <div className="text-center">
