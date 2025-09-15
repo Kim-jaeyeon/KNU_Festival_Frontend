@@ -1,17 +1,11 @@
 [
-    {
-    "id": 1,
-    "location": "미래광장",
-    "category": "promo",
-    "title": "총동창회 부스",
-    "desc": "총동창회 부스 설명",
-    "image": "/assets/booth/ai.png"
-  },
   {
     "id": 2,
     "location": "미래광장",
+    "boothNumber": 2,
+    "zone":"program",
     "category": "promo",
-    "title": "굿즈 팝업 스토어",
+    "title": "찰나의 기쁨",
     "desc": "2025학년도 백령대동제 굿즈 판매 및 수령, 타투스티커",
     "image": "/assets/booth/ai.png"
   },
@@ -19,25 +13,109 @@
     {
     "id": 3,
     "location": "미래광장",
+    "boothNumber": 3,
+    "zone":"program",
     "category": "promo",
-    "title": "정원 속 성장 이야기",
+    "title": "정원 수호 대작전",
     "desc": "두더지 잡기 게임, 새싹 유형 검사",
     "image": "/assets/booth/ai.png"
   },
     {
     "id": 4,
     "location": "미래광장",
+    "boothNumber": 4,
+    "zone":"program",
     "category": "food",
-    "title": "정원 속 성장 이야기",
+    "title": "꽃에 에너지 충전!",
     "desc": "간식 나눔, 양말목 키링 만들기",
     "image": "/assets/booth/ai.png"
   },
     {
     "id": 5,
     "location": "미래광장",
+    "boothNumber": 5,
+    "zone":"program",
     "category": "promo",
-    "title": "대형 현수막 참여 프로그램",
+    "title": "찰나의 기적",
     "desc": "HORTUS 및 강원대학교 슬로건 현수막 꾸미기",
     "image": "/assets/booth/ai.png"
+  },
+  
+  {
+    "id": 6,
+    "location": "미래광장",
+    "zone": "pub",
+    "boothNumber": 6,
+    "category": "pub",
+    "title": "미래광장 주점",
+    "desc": "잔빛으로 피어날 지금",
+    "notice": "2025. 9. 22.(월)~2025. 9. 25.(목) 18:00~24:00",
+    "place": "미래광장",
+    "prices": [
+      { "name": "테라, 켈리(맥주)", "price": "3,500원" },
+      { "name": "참이슬(소주)", "price": "4,000원" },
+      { "name": "콜라, 사이다", "price": "2,000원" },
+      { "name": "생수", "price": "1,000원" }
+    ]
+  },
+  {
+    "id": 7,
+    "location": "미래광장",
+    "zone": "truck",
+    "boothNumber": 7,
+    "category": "food",
+    "title": "달토끼부엌",
+    "desc": "분식",
+    "notice": "※ 9. 22.(월)~9. 23.(화) 이틀 운영"
+  },
+  {
+    "id": 8,
+    "location": "미래광장",
+    "zone": "truck",
+    "boothNumber": 8,
+    "category": "food",
+    "title": "미쿡",
+    "desc": "야끼소바",
+    "notice": "※ 9. 24.(수)~9. 25.(목) 이틀 운영"
+  },
+  {
+    "id": 9,
+    "location": "미래광장",
+    "zone": "truck",
+    "boothNumber": 9,
+    "category": "food",
+    "title": "도쿄카츠",
+    "desc": "규카츠, 크림 새우",
+    "notice": "※ 9. 22.(월)~9. 23.(화) 이틀 운영"
+  },
+  {
+    "id": 10,
+    "location": "미래광장",
+    "zone": "truck",
+    "boothNumber": 10,
+    "category": "food",
+    "title": "아차차",
+    "desc": "닭꼬치, 염통 꼬치",
+    "notice": "※ 9. 24.(수) 하루 운영"
+  },
+  {
+    "id": 11,
+    "location": "미래광장",
+    "zone": "truck",
+    "boothNumber": 11,
+    "category": "food",
+    "title": "아뿔싸",
+    "desc": "닭꼬치, 염통 꼬치",
+    "notice": "※ 9. 25.(목) 하루 운영"
+  },
+  {
+    "id": 12,
+    "location": "미래광장",
+    "zone": "truck",
+    "boothNumber": 12,
+    "category": "food",
+    "title": "얌얌잇",
+    "desc": "야끼소바",
+    "notice": "※ 9. 22.(월)~9. 23.(화) 이틀 운영"
   }
 ]

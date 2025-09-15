@@ -1,219 +1,222 @@
 [
-        {
+  {
     "id": 1,
     "location": "함인섭광장",
     "zone": "D",
+    "boothNumber": 1,
     "category": "promo",
     "title": "강원권 미세먼지연구관리센터",
     "desc": "센터 소개 및 미세먼지 정책 홍보",
-    "image": "/assets/booth/club-promo.png"
+    "image": "/assets/booth/booth-haminseop/image01.png"
   },
-    {
+  {
     "id": 2,
     "location": "함인섭광장",
     "zone": "D",
+    "boothNumber": 2,
     "category": "promo",
     "title": "강원지방병무청 병역진로설계지원센터",
     "desc": "병역진로설계 상담, 참여자 대상 기념품 증정",
-    "image": "/assets/booth/club-promo.png"
+    "image": "/assets/booth/booth-haminseop/image02.png"
   },
-      {
+  {
     "id": 3,
     "location": "함인섭광장",
     "zone": "D",
+    "boothNumber": 3,
     "category": "promo",
     "title": "KNU창업혁신원",
     "desc": "원스톱 창업상담창구를 통한 창업 안내 및 지원",
-    "image": "/assets/booth/club-promo.png"
+    "image": "/assets/booth/booth-haminseop/image03.png"
   },
-      {
+  {
     "id": 4,
     "location": "함인섭광장",
     "zone": "D",
+    "boothNumber": 4,
     "category": "promo",
     "title": "춘천시 자원순환과",
     "desc": "자원순환 실천 홍보 및 올바른 분리배출 안내 부스입니다",
-    "image": "/assets/booth/club-promo.png"
+    "image": "/assets/booth/booth-haminseop/image04.png"
   },
-      {
+  {
     "id": 5,
     "location": "함인섭광장",
     "zone": "D",
+    "boothNumber": 5,
     "category": "promo",
     "title": "춘천시 탄소중립지원센터",
     "desc": "에너지와 물질 소비를 줄이면 탄소중립에 도움이 됩니다!",
-    "image": "/assets/booth/club-promo.png"
+    "image": "/assets/booth/booth-haminseop/image05.png"
   },
-      {
+  {
     "id": 6,
     "location": "함인섭광장",
     "zone": "D",
+    "boothNumber": 6,
     "category": "promo",
     "title": "교육혁신본부",
     "desc": "대동제 축제기간에 음료 사먹으려고? 이거 가져오면 음료가 무료인데?",
-    "image": "/assets/booth/club-promo.png"
+    "image": "/assets/booth/booth-haminseop/image06.png"
   },
-      {
+  {
     "id": 7,
     "location": "함인섭광장",
     "zone": "D",
+    "boothNumber": 7,
     "category": "promo",
     "title": "춘천시 교통과",
     "desc": "교통안전 및 대중교통 이용 홍보",
-    "image": "/assets/booth/club-promo.png"
+    "image": "/assets/booth/booth-haminseop/image07.png"
   },
-      {
+  {
     "id": 8,
     "location": "함인섭광장",
     "zone": "D",
+    "boothNumber": 8,
     "category": "promo",
     "title": "한국도로교통공단",
     "desc": "이제그만 음주운전, 이제부터 친환경운전",
-    "image": "/assets/booth/club-promo.png"
+    "image": "/assets/booth/booth-haminseop/image08.png"
   },
-      {
+  {
     "id": 9,
     "location": "함인섭광장",
     "zone": "D",
+    "boothNumber": 9,
     "category": "promo",
     "title": "춘천시 민관협력배달앱 땡겨요",
     "desc": "소상공인 부담을 줄이는 저렴한 중개수수료, 춘천시민 배달비 할인쿠폰 지원",
-    "image": "/assets/booth/club-promo.png"
+    "image": "/assets/booth/booth-haminseop/image09.png"
   },
-      {
+  {
     "id": 10,
     "location": "함인섭광장",
     "zone": "D",
+    "boothNumber": 10,
     "category": "promo",
     "title": "2025. 춘천 술 페스타",
-    "desc": "2025년 9월 26일~27일, KT&G상상마당에서「춘천 술 페스타」가 개최됩니다!",
-    "image": "/assets/booth/club-promo.png"
+    "desc": "2025년 9월 26일~27일, KT&G상상마당에서 「춘천 술 페스타」가 개최됩니다!",
+    "image": "/assets/booth/booth-haminseop/image10.png"
   },
-      {
+  {
     "id": 11,
     "location": "함인섭광장",
     "zone": "D",
+    "boothNumber": 11,
     "category": "promo",
     "title": "강원대학교 발전기금재단",
     "desc": "‘천원의 아침밥’ 사업 기금을 확충하기 위한 바자회를 진행합니다.",
-    "image": "/assets/booth/club-promo.png"
+    "image": "/assets/booth/booth-haminseop/image11.png"
   },
-      {
+  {
     "id": 12,
     "location": "함인섭광장",
     "zone": "D",
+    "boothNumber": 12,
     "category": "promo",
     "title": "메가박스 춘천석사지점",
     "desc": "영화관람권 할인판매 중! 축제에서 만나요!",
-    "image": "/assets/booth/club-promo.png"
+    "image": "/assets/booth/booth-haminseop/image12.png"
   },
-      {
+  {
     "id": 13,
     "location": "함인섭광장",
     "zone": "D",
+    "boothNumber": 13,
     "category": "promo",
     "title": "대학일자리플러스센터",
     "desc": "잡구리의 취업수호자! 대플센터",
-    "image": "/assets/booth/club-promo.png"
+    "image": "/assets/booth/booth-haminseop/image13.png"
   },
-      {
+  {
     "id": 14,
     "location": "함인섭광장",
     "zone": "D",
+    "boothNumber": 14,
     "category": "promo",
     "title": "국제교류과",
     "desc": "교환학생·어학연수 프로그램 상담",
-    "image": "/assets/booth/club-promo.png"
+    "image": "/assets/booth/booth-haminseop/image14.png"
   },
-      {
+  {
     "id": 15,
     "location": "함인섭광장",
     "zone": "D",
+    "boothNumber": 15,
     "category": "promo",
     "title": "강원대학교 학생상담센터 학습상담실",
     "desc": "9월 24일 단 하루, 학습상담 선물 받으러오세요!",
-    "image": "/assets/booth/club-promo.png"
+    "image": "/assets/booth/booth-haminseop/image15.png"
   },
-      {
+  {
     "id": 16,
     "location": "함인섭광장",
     "zone": "D",
+    "boothNumber": 16,
     "category": "promo",
     "title": "강원대학교 학생상담센터",
     "desc": "스트레스 측정 및 결과 분석, 센터 홍보",
-    "image": "/assets/booth/club-promo.png"
+    "image": "/assets/booth/booth-haminseop/image16.png"
   },
-      {
+  {
     "id": 17,
     "location": "함인섭광장",
     "zone": "D",
+    "boothNumber": 17,
     "category": "promo",
     "title": "지능형 융합 보안 인재양성 사업 그룹",
     "desc": "지역지능혁신을 위한 빅데이터 보안·활용 인재양성사업 안내",
-    "image": "/assets/booth/club-promo.png"
+    "image": "/assets/booth/booth-haminseop/image17.png"
   },
-      {
+  {
     "id": 18,
     "location": "함인섭광장",
     "zone": "D",
+    "boothNumber": 18,
     "category": "promo",
     "title": "강원대학교 지학협력본부",
     "desc": "대학과 지역의 상생발전을 위한 다양한 역할 수행",
-    "image": "/assets/booth/club-promo.png"
+    "image": "/assets/booth/booth-haminseop/image18.png"
   },
-      {
+  {
     "id": 19,
     "location": "함인섭광장",
     "zone": "D",
+    "boothNumber": 19,
     "category": "promo",
     "title": "제 66보병사단",
     "desc": "스펙이상의 값진 경험, 상비예비군!",
-    "image": "/assets/booth/club-promo.png"
+    "image": "/assets/booth/booth-haminseop/image19.png"
   },
-      {
+  {
     "id": 20,
     "location": "함인섭광장",
     "zone": "D",
+    "boothNumber": 20,
     "category": "promo",
-    "title": "KOICA 키르기스스탄 프로젝트 봉사단 ",
+    "title": "KOICA 키르기스스탄 프로젝트 봉사단",
     "desc": "키르기스스탄에서 보건위생 프로젝트 할 사람?",
-    "image": "/assets/booth/club-promo.png"
+    "image": "/assets/booth/booth-haminseop/image20.png"
   },
-      {
+  {
     "id": 21,
     "location": "함인섭광장",
     "zone": "D",
+    "boothNumber": 21,
     "category": "promo",
     "title": "KNU MNM",
     "desc": "첨단소재, 나노융합, 적층제조 인재 양성 사업",
-    "image": "/assets/booth/club-promo.png"
+    "image": "/assets/booth/booth-haminseop/image21.png"
   },
-      {
+  {
     "id": 22,
     "location": "함인섭광장",
     "zone": "D",
+    "boothNumber": 22,
     "category": "promo",
     "title": "농협은행(주)강원영업부",
     "desc": "농협은행 금융상품 홍보",
-    "image": "/assets/booth/club-promo.png"
-  },
-        {
-    "id": 23,
-    "location": "함인섭광장",
-    "zone": "truck",
-    "category": "food",
-    "title": "푸드트럭 예정",
-    "desc": "예정",
-    "image": "/assets/booth/club-promo.png"
-  },
-          {
-    "id": 24,
-    "location": "함인섭광장",
-    "zone": "coffee",
-    "category": "food",
-    "title": "커피 예정",
-    "desc": "예정",
-    "image": "/assets/booth/club-promo.png"
+    "image": "/assets/booth/booth-haminseop/image22.png"
   }
-  
 ]

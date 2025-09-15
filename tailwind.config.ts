@@ -8,6 +8,7 @@ export default {
       fontFamily: {
         pretendard: ["Pretendard", "sans-serif"], // FAQItem 전용
         hssantokki: ['HS산토끼체', 'HS-Santokki'],
+        ownglyph:  ["Ownglyph-PDH", "sans-serif"],
       },
     },
   },
