@@ -10,6 +10,10 @@ export default {
         hssantokki: ["HS산토끼체", "HS-Santokki"],
         ownglyph: ["Ownglyph-PDH", "sans-serif"],
         school: ["school", "HakgyoansimJeomsimsiganB"],
+        mbc1961: ["mbc1961", "mbc1961"],
+      },
+      blur: {
+        custom: "12.65px",
       },
     },
   },
