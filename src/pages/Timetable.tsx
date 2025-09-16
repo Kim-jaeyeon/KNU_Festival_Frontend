@@ -54,19 +54,9 @@ const Timetable: React.FC = () => {
 
   const [selectedDay, setSelectedDay] = useState(getCurrentDay());
   const [visibleCards, setVisibleCards] = useState<number[] | null>(null);
-  const [isAnimating, setIsAnimating] = useState(false);
   const [isInitialLoad, setIsInitialLoad] = useState(true);
-  const [currentTime, setCurrentTime] = useState(new Date());
   
 
-  // 현재 시간 업데이트 (1분마다)
-  useEffect(() => {
-    const timer = setInterval(() => {
-      setCurrentTime(new Date());
-    }, 60000); // 1분마다 업데이트
-
-    return () => clearInterval(timer);
-  }, []);
 
   // 시간 문자열을 분으로 변환하는 함수
   const timeToMinutes = (timeStr: string): number => {
@@ -110,7 +100,6 @@ const Timetable: React.FC = () => {
     
     // 먼저 모든 카드를 숨김 (null로 설정)
     setVisibleCards(null);
-    setIsAnimating(true);
     
     // 순차적으로 카드들을 나타나게 함
     currentSchedule.forEach((_, index) => {
@@ -124,7 +113,6 @@ const Timetable: React.FC = () => {
     
     // 애니메이션 완료 후 상태 리셋
     setTimeout(() => {
-      setIsAnimating(false);
       if (isInitialLoad) {
         setIsInitialLoad(false);
       }

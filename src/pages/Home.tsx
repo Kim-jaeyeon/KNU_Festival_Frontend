@@ -1,7 +1,5 @@
 import React, { useRef, useState, useEffect } from "react";
-import { HomeCard } from "../components/home/HomeCard";
 import { HomeCard2 } from "../components/home/HomeCard2";
-import { HomeCard3 } from "../components/home/HomeCard3";
 import { RefButton } from "../components/home/RefButton";
 import { useNavigate } from "react-router-dom";
 
@@ -41,7 +39,6 @@ const scheduleData = {
 // 현재 이벤트를 표시하는 컴포넌트
 const CurrentEventDisplay: React.FC = () => {
   const [currentEvent, setCurrentEvent] = useState<{ time: string; title: string } | null>(null);
-  const [currentDay, setCurrentDay] = useState(1);
 
   // 현재 날짜에 맞는 일차 계산
   const getCurrentDay = (): number => {
@@ -102,16 +99,12 @@ const CurrentEventDisplay: React.FC = () => {
 
   useEffect(() => {
     const day = getCurrentDay();
-    setCurrentDay(day);
-    
     const event = getCurrentEvent(day);
     setCurrentEvent(event);
 
     // 1분마다 업데이트
     const timer = setInterval(() => {
       const newDay = getCurrentDay();
-      setCurrentDay(newDay);
-      
       const newEvent = getCurrentEvent(newDay);
       setCurrentEvent(newEvent);
     }, 60000);
