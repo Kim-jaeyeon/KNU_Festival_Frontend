@@ -35,14 +35,29 @@ const scheduleData = {
 };
 
 const Timetable: React.FC = () => {
-  const [selectedDay, setSelectedDay] = useState(1);
+  // 현재 날짜에 맞는 일차 계산
+  const getCurrentDay = (): number => {
+    const now = new Date();
+    const currentDate = now.getDate();
+    const currentMonth = now.getMonth() + 1; // 0-based month
+    
+    // 2024년 9월 22일부터 시작
+    if (currentMonth === 9) {
+      if (currentDate >= 22 && currentDate <= 25) {
+        return currentDate - 21; // 22일 = 1일차, 23일 = 2일차, ...
+      }
+    }
+    
+    // 실제 날짜가 아닌 경우 1일차로 설정
+    return 1;
+  };
+
+  const [selectedDay, setSelectedDay] = useState(getCurrentDay());
   const [visibleCards, setVisibleCards] = useState<number[] | null>(null);
   const [isAnimating, setIsAnimating] = useState(false);
   const [isInitialLoad, setIsInitialLoad] = useState(true);
   const [currentTime, setCurrentTime] = useState(new Date());
   
-  // 4일차 기준 최대 높이 계산 (헤더 + 날짜선택 + 7개 일정 + 푸터)
-  const maxContentHeight = 120 + 60 + (7 * 120) + 100 + 200; // 여유 공간 추가
 
   // 현재 시간 업데이트 (1분마다)
   useEffect(() => {
@@ -64,8 +79,14 @@ const Timetable: React.FC = () => {
   const isCurrentEvent = (timeStr: string): boolean => {
     const now = new Date();
     const currentMinutes = now.getHours() * 60 + now.getMinutes();
+    const currentDay = getCurrentDay();
     
-    // "~"로 끝나는 경우 (예: "17:00 ~") - 18:00까지 진행되는 것으로 처리
+    // 현재 선택된 일차가 실제 현재 일차와 다르면 false 반환
+    if (selectedDay !== currentDay) {
+      return false;
+    }
+    
+    // "~"로 시작하는 경우 (예: "17:00 ~") - 18:00까지로 제한
     if (timeStr.includes('~') && timeStr.endsWith('~')) {
       const startTime = timeToMinutes(timeStr);
       const endTime = 18 * 60; // 18:00 = 1080분
