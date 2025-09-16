@@ -134,7 +134,7 @@ const Timetable: React.FC = () => {
         </div>
 
         {/* 시간표 */}
-        <div className="space-y-3 max-h-[calc(100vh-200px)] overflow-y-auto px-2 -mx-2">
+        <div className="space-y-3 max-h-[calc(100vh-180px)] overflow-y-auto px-2 -mx-2 pb-4">
           {scheduleData[selectedDay as keyof typeof scheduleData].map((event, index) => (
             <div
               key={`${selectedDay}-${index}`}

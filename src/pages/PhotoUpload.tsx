@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 const PhotoUpload: React.FC = () => {
@@ -6,6 +6,51 @@ const PhotoUpload: React.FC = () => {
   const [nickname, setNickname] = useState('');
   const [selectedImage, setSelectedImage] = useState<File | null>(null);
   const [imagePreview, setImagePreview] = useState<string | null>(null);
+  const [content, setContent] = useState('');
+  
+  // 순차적 필드 표시 상태
+  const [showNickname, setShowNickname] = useState(false);
+  const [showImageSelect, setShowImageSelect] = useState(false);
+  const [showContent, setShowContent] = useState(false);
+  const [showSubmit, setShowSubmit] = useState(false);
+
+  // 페이지 로드 시 첫 번째 필드 표시
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setShowNickname(true);
+    }, 300);
+    return () => clearTimeout(timer);
+  }, []);
+
+  // 닉네임 입력 완료 시 다음 필드 표시
+  useEffect(() => {
+    if (nickname.trim().length > 0) {
+      const timer = setTimeout(() => {
+        setShowImageSelect(true);
+      }, 200);
+      return () => clearTimeout(timer);
+    }
+  }, [nickname]);
+
+  // 이미지 선택 완료 시 다음 필드 표시
+  useEffect(() => {
+    if (selectedImage) {
+      const timer = setTimeout(() => {
+        setShowContent(true);
+      }, 200);
+      return () => clearTimeout(timer);
+    }
+  }, [selectedImage]);
+
+  // 내용 입력 완료 시 제출 버튼 표시
+  useEffect(() => {
+    if (content.trim().length > 0) {
+      const timer = setTimeout(() => {
+        setShowSubmit(true);
+      }, 200);
+      return () => clearTimeout(timer);
+    }
+  }, [content]);
 
   const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
@@ -68,7 +113,11 @@ const PhotoUpload: React.FC = () => {
 
       <div className="relative z-10 pt-20 px-6 pb-8">
         {/* 닉네임 입력 */}
-        <div className="mb-6">
+        <div className={`mb-6 transition-all duration-700 ease-out ${
+          showNickname 
+            ? 'opacity-100 translate-y-0' 
+            : 'opacity-0 translate-y-4'
+        }`}>
           <label className="block text-green-800 font-semibold mb-2 text-sm">
             닉네임
           </label>
@@ -83,7 +132,11 @@ const PhotoUpload: React.FC = () => {
         </div>
 
         {/* 사진 선택 */}
-        <div className="mb-6">
+        <div className={`mb-6 transition-all duration-700 ease-out ${
+          showImageSelect 
+            ? 'opacity-100 translate-y-0' 
+            : 'opacity-0 translate-y-4'
+        }`}>
           <label className="block text-green-800 font-semibold mb-2 text-sm">
             사진 선택
           </label>
@@ -108,25 +161,37 @@ const PhotoUpload: React.FC = () => {
         </div>
 
         {/* 내용 입력 */}
-        <div className="mb-8">
+        <div className={`mb-8 transition-all duration-700 ease-out ${
+          showContent 
+            ? 'opacity-100 translate-y-0' 
+            : 'opacity-0 translate-y-4'
+        }`}>
           <label className="block text-green-800 font-semibold mb-2 text-sm">
             내용
           </label>
           <textarea
-         
+            value={content}
+            onChange={(e) => setContent(e.target.value)}
             placeholder="사진에 대한 설명을 50자 이내로 입력해주세요"
             rows={4}
+            maxLength={50}
             className="w-full px-4 py-3 bg-white/60 rounded-2xl text-gray-700 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-green-400 transition-all duration-300 resize-none text-sm"
           />
         </div>
 
         {/* 등록 버튼 */}
-        <button
-          onClick={handleSubmit}
-          className="w-full py-3 bg-white/80  rounded-2xl text-green-800 font-semibold hover:bg-green-200 transition-colors text-sm"
-        >
-          사진 업로드
-        </button>
+        <div className={`transition-all duration-700 ease-out ${
+          showSubmit 
+            ? 'opacity-100 translate-y-0' 
+            : 'opacity-0 translate-y-4'
+        }`}>
+          <button
+            onClick={handleSubmit}
+            className="w-full py-3 bg-white/80 rounded-2xl text-green-800 font-semibold hover:bg-green-200 transition-colors text-sm"
+          >
+            사진 업로드
+          </button>
+        </div>
       </div>
     </div>
   );
