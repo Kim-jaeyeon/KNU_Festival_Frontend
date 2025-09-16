@@ -140,7 +140,7 @@ const FAQAndGuestbook: React.FC = () => {
                   <div className="flex items-center gap-3 mb-2">
                     <div className="w-[28px] h-[28px] flex items-center justify-center rounded-[14px] bg-[#C7FBC2] overflow-hidden">
                       <img
-                        src="/user-image.png"
+                        src="/user-image.webp"
                         alt="avatar"
                         className="w-[50px] h-[50px] object-contain"
                       />

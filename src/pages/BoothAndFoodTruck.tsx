@@ -34,10 +34,10 @@ const BoothAndFoodTruck: React.FC = () => {
   const locations = ["대운동장", "함인섭광장", "60주년", "미래광장"];
 
   const locationImages: Record<string, string> = {
-    대운동장: "/assets/maps/map-stadium.png",
-    함인섭광장: "/assets/maps/map-haminseop.png",
-    "60주년": "/assets/maps/map-60th.jpg",
-    미래광장: "/assets/maps/map-future.png",
+    대운동장: "/assets/maps/map-stadium.webp",
+    함인섭광장: "/assets/maps/map-haminseop.webp",
+    "60주년": "/assets/maps/map-60th.webp",
+    미래광장: "/assets/maps/map-future.webp",
   };
 
   const boothData: Record<string, Booth[]> = {
