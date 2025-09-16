@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 
 interface HeaderProps {

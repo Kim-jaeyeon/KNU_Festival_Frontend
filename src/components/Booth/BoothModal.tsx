@@ -1,4 +1,3 @@
-import React from "react";
 import type { Booth } from "../../pages/BoothAndFoodTruck";
 import { getBoothColor, boothTextColors } from "./boothColors";
 
