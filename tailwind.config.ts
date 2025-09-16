@@ -7,12 +7,11 @@ export default {
     extend: {
       fontFamily: {
         pretendard: ["Pretendard", "sans-serif"], // FAQItem 전용
-        hssantokki: ['HS산토끼체', 'HS-Santokki'],
-        ownglyph:  ["Ownglyph-PDH", "sans-serif"],
+        hssantokki: ["HS산토끼체", "HS-Santokki"],
+        ownglyph: ["Ownglyph-PDH", "sans-serif"],
+        school: ["school", "HakgyoansimJeomsimsiganB"],
       },
     },
   },
-  plugins: [
-    lineClamp
-  ],
+  plugins: [lineClamp],
 } satisfies Config;

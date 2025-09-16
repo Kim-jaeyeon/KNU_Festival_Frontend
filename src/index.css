@@ -6,13 +6,13 @@
 @tailwind utilities;
 
 :root {
-  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
+  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif, school;
   line-height: 1.5;
   font-weight: 400;
 
   color-scheme: light dark;
   color: rgba(255, 255, 255, 0.87);
-  background-color: #FFFAE0;
+  background-color: #fffae0;
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
@@ -21,8 +21,8 @@
 }
 
 @font-face {
-  font-family: 'HS산토끼체';
-  src: url('./assets/fonts/HS-Santokki.ttf') format('truetype');
+  font-family: "HS산토끼체";
+  src: url("./assets/fonts/HS-Santokki.ttf") format("truetype");
   font-weight: normal;
   font-style: normal;
 }
@@ -35,14 +35,25 @@
 }
 
 @font-face {
-  font-family: 'HS-Santokki';
-  src: url('./assets/fonts/HS-Santokki.ttf') format('truetype');
+  font-family: "HS-Santokki";
+  src: url("./assets/fonts/HS-Santokki.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "school";
+  src: url("./assets/fonts/HakgyoansimJeomsimsiganB.ttf") format("truetype");
   font-weight: normal;
   font-style: normal;
 }
 
 .font-hssantokki {
-  font-family: 'HS산토끼체', 'HS-Santokki', sans-serif !important;
+  font-family: "HS산토끼체", "HS-Santokki", sans-serif !important;
+}
+
+.font-school {
+  font-family: "school", "HakgyoansimJeomsimsiganB", sans-serif !important;
 }
 
 /* 스크롤바 숨기기 (스크롤 기능은 유지) */
@@ -61,8 +72,6 @@ html {
   scroll-behavior: smooth;
 }
 
-
-
 /* --- TabNav 전용 버튼 리셋 --- */
 .tab-btn {
   cursor: pointer;
@@ -73,7 +82,6 @@ html {
 .tab-btn:focus {
   outline: none;
 }
-
 
 /* Hahmlet 전역 적용 (기존 :root 규칙을 확실히 덮어씀) */
 * {
@@ -135,7 +143,6 @@ html {
 }
 
 @keyframes pulse {
-
   0%,
   100% {
     transform: scale(1);
@@ -147,7 +154,6 @@ html {
 }
 
 @keyframes floating {
-
   0%,
   100% {
     transform: translateY(0px);
@@ -213,13 +219,18 @@ html {
 }
 
 .menu-item-hover::before {
-  content: '';
+  content: "";
   position: absolute;
   top: 0;
   left: -100%;
   width: 100%;
   height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.4),
+    transparent
+  );
   transition: left 0.5s;
 }
 
