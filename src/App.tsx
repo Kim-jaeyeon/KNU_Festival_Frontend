@@ -17,12 +17,12 @@ function AppContent() {
   const isHome = location.pathname === '/';
 
   return (
-<div className="flex justify-center">
+<div className={`flex justify-center ${!isHome ? 'h-screen overflow-hidden' : ''}`}>
   <div
-    className="w-full sm:max-w-[402px] shadow-lg relative bg-cover bg-center bg-no-repeat"
+    className={`w-full sm:max-w-[402px] shadow-lg relative bg-cover bg-center bg-no-repeat ${!isHome ? 'h-screen' : ''}`}
     style={{
       backgroundImage: "url('/assets/home/BGimg/BackImg1.png')",
-      backgroundSize: 'cover',   // Tailwind 클래스와 중복 가능
+      backgroundSize: 'cover',
       backgroundPosition: 'center top',
     }}
   >

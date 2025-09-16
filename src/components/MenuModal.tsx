@@ -89,7 +89,7 @@ const MenuModal: React.FC<MenuModalProps> = ({ isOpen, onClose, buttonRef }) => 
       {/* 작은 메뉴 모달 */}
       <div 
         ref={modalRef}
-        className={`absolute top-12 right-4 w-72 rounded-2xl shadow-lg z-50 border border-gray-200 transform transition-all duration-100 ease-out ${
+        className={`absolute top-12 right-4 w-56 rounded-2xl shadow-lg z-50 border border-gray-200 transform transition-all duration-100 ease-out ${
           isAnimatingOut 
             ? 'opacity-0 scale-95 translate-y-2 pointer-events-none' 
             : 'opacity-100 scale-100 translate-y-0 pointer-events-auto'

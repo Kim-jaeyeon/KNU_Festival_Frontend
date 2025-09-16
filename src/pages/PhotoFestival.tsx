@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useCallback, memo } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Masonry from 'react-masonry-css';
 
@@ -12,11 +12,150 @@ interface PhotoPost {
   height: number; // 랜덤 높이를 위한 속성
 }
 
+interface PhotoCardProps {
+  post: PhotoPost;
+  isVisible: boolean;
+  onLike: (id: number) => void;
+  onDelete: (id: number) => void;
+  showDeleteMenu: number | null;
+  onToggleDeleteMenu: (id: number) => void;
+}
+
+const PhotoCard = memo<PhotoCardProps>(({ 
+  post, 
+  isVisible, 
+  onLike, 
+  onDelete, 
+  showDeleteMenu, 
+  onToggleDeleteMenu 
+}) => {
+  const [isMenuAnimating, setIsMenuAnimating] = useState(false);
+  const [shouldShowMenu, setShouldShowMenu] = useState(false);
+
+  const handleToggleMenu = () => {
+    if (showDeleteMenu === post.id) {
+      // 메뉴가 열려있으면 닫기 애니메이션 시작
+      setIsMenuAnimating(true);
+      setTimeout(() => {
+        onToggleDeleteMenu(post.id);
+        setShouldShowMenu(false);
+        setIsMenuAnimating(false);
+      }, 200);
+    } else {
+      // 메뉴가 닫혀있으면 열기 애니메이션 시작
+      setShouldShowMenu(true);
+      onToggleDeleteMenu(post.id);
+    }
+  };
+
+  // 메뉴가 열릴 때 애니메이션을 위해 약간의 지연
+  useEffect(() => {
+    if (showDeleteMenu === post.id && shouldShowMenu) {
+      const timer = setTimeout(() => {
+        setIsMenuAnimating(false);
+      }, 10);
+      return () => clearTimeout(timer);
+    }
+  }, [showDeleteMenu, post.id, shouldShowMenu]);
+
+  return (
+    <div
+      className={`mb-4 bg-white/60 rounded-2xl shadow-lg overflow-hidden transition-all duration-700 ease-out ${
+        isVisible 
+          ? 'opacity-100 translate-y-0' 
+          : 'opacity-0 translate-y-4'
+      }`}
+    >
+      {/* User Info */}
+      <div className="p-3 pb-2">
+        <div className="flex items-center justify-between">
+          <div className="flex items-center">
+            <div className="w-8 h-8 bg-gradient-to-r from-green-400 to-blue-500 rounded-full flex items-center justify-center text-white text-sm font-bold">
+              {post.username.charAt(0)}
+            </div>
+            <div className="ml-2">
+              <p className="text-[13px] font-semibold text-gray-800">{post.username}</p>
+              <p className="text-[10px] text-gray-500">{post.uploadTime}</p>
+            </div>
+          </div>
+          <div className="relative -mr-1">
+            <button
+              data-menu-button
+              onClick={handleToggleMenu}
+              className={`p-1 transition-colors ${
+                showDeleteMenu === post.id 
+                  ? 'text-gray-600 bg-gray-100 rounded-full' 
+                  : 'text-gray-400 hover:text-gray-600'
+              }`}
+            >
+              <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M12 8c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm0 2c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm0 6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z"/>
+              </svg>
+            </button>
+            
+            {/* 삭제 메뉴 */}
+            {showDeleteMenu === post.id && (
+              <div 
+                data-delete-menu 
+                className={`absolute -right-2 top-6 bg-white rounded-lg shadow-lg border border-gray-200 py-2 px-3 z-10 min-w-[80px] transition-all duration-200 ease-out ${
+                  isMenuAnimating 
+                    ? 'opacity-0 translate-y-[-8px] scale-95' 
+                    : 'opacity-100 translate-y-0 scale-100'
+                }`}
+                style={{
+                  animation: shouldShowMenu && !isMenuAnimating 
+                    ? 'fadeInSlide 0.2s ease-out forwards' 
+                    : undefined
+                }}
+              >
+                <button
+                  onClick={() => onDelete(post.id)}
+                  className="w-full text-center text-red-600 hover:bg-red-50 text-sm font-medium py-1 px-2 rounded transition-colors"
+                >
+                  삭제
+                </button>
+              </div>
+            )}
+          </div>
+        </div>
+      </div>
+
+      {/* Image */}
+      <div className="relative aspect-[3/4]">
+        <img
+          src={post.image}
+          alt={post.caption}
+          className="w-full h-full object-cover"
+        />
+        {/* 좋아요 버튼 - 이미지 우측하단 */}
+        <button
+          onClick={() => onLike(post.id)}
+          className="absolute bottom-3 right-3 bg-black/50 backdrop-blur-sm rounded-full p-2 flex items-center space-x-1 text-white hover:bg-black/70 transition-all duration-200"
+        >
+          <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+            <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+          </svg>
+          <span className="text-xs font-medium">{post.likes}</span>
+        </button>
+      </div>
+
+      {/* Caption */}
+      <div className="p-3 pt-2">
+        <p className="text-xs text-gray-700 leading-relaxed line-clamp-3">
+          {post.caption}
+        </p>
+      </div>
+    </div>
+  );
+});
+
 const PhotoFestival: React.FC = () => {
   const navigate = useNavigate();
   const [visibleCards, setVisibleCards] = useState<Set<number>>(new Set());
   const [isDescriptionVisible, setIsDescriptionVisible] = useState(false);
   const [isUploadButtonVisible, setIsUploadButtonVisible] = useState(false);
+  const [showDeleteMenu, setShowDeleteMenu] = useState<number | null>(null);
+  const [showScrollTop, setShowScrollTop] = useState(false);
   const scrollContainerRef = useRef<HTMLDivElement>(null);
   const [posts, setPosts] = useState<PhotoPost[]>([
     {
@@ -93,7 +232,7 @@ const PhotoFestival: React.FC = () => {
     }
   ]);
 
-  // 문구와 카드들이 순차적으로 나타나도록 하는 효과
+  // 페이지 로드 시에만 애니메이션 실행
   useEffect(() => {
     // 스크롤 위치를 맨 위로 초기화
     window.scrollTo(0, 0);
@@ -105,6 +244,7 @@ const PhotoFestival: React.FC = () => {
     setVisibleCards(new Set());
     setIsDescriptionVisible(false);
     setIsUploadButtonVisible(false);
+    setShowDeleteMenu(null);
 
     // 먼저 문구가 나타남
     const descriptionTimer = setTimeout(() => {
@@ -130,15 +270,72 @@ const PhotoFestival: React.FC = () => {
       clearTimeout(cardsTimer);
       clearTimeout(uploadButtonTimer);
     };
-  }, [posts]);
+  }, []); // posts 의존성 제거
 
-  const handleLike = (id: number) => {
-    setPosts(posts.map(post => 
+  // 메뉴 외부 클릭 시 메뉴 닫기
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (showDeleteMenu !== null) {
+        // 클릭된 요소가 메뉴 버튼이나 메뉴 자체가 아닌 경우에만 닫기
+        const target = event.target as HTMLElement;
+        const isMenuButton = target.closest('[data-menu-button]');
+        const isMenu = target.closest('[data-delete-menu]');
+        
+        if (!isMenuButton && !isMenu) {
+          setShowDeleteMenu(null);
+        }
+      }
+    };
+
+    document.addEventListener('click', handleClickOutside);
+    return () => {
+      document.removeEventListener('click', handleClickOutside);
+    };
+  }, [showDeleteMenu]);
+
+  // 스크롤 이벤트 리스너
+  useEffect(() => {
+    const handleScroll = () => {
+      if (scrollContainerRef.current) {
+        const scrollTop = scrollContainerRef.current.scrollTop;
+        setShowScrollTop(scrollTop > 300); // 300px 이상 스크롤하면 버튼 표시
+      }
+    };
+
+    const scrollContainer = scrollContainerRef.current;
+    if (scrollContainer) {
+      scrollContainer.addEventListener('scroll', handleScroll);
+      return () => scrollContainer.removeEventListener('scroll', handleScroll);
+    }
+  }, []);
+
+  // 최상단으로 스크롤
+  const scrollToTop = () => {
+    if (scrollContainerRef.current) {
+      scrollContainerRef.current.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  };
+
+  const handleLike = useCallback((id: number) => {
+    setPosts(prevPosts => prevPosts.map(post => 
       post.id === id 
         ? { ...post, likes: post.likes + 1 }
         : post
     ));
-  };
+  }, []);
+
+  const handleDelete = useCallback((id: number) => {
+    setPosts(prevPosts => prevPosts.filter(post => post.id !== id));
+    setShowDeleteMenu(null);
+  }, []);
+
+  const toggleDeleteMenu = useCallback((id: number) => {
+    if (showDeleteMenu === id) {
+      setShowDeleteMenu(null);
+    } else {
+      setShowDeleteMenu(id);
+    }
+  }, [showDeleteMenu]);
 
   return (
     <div className="h-screen flex flex-col overflow-hidden">
@@ -162,54 +359,15 @@ const PhotoFestival: React.FC = () => {
           columnClassName="pl-4 bg-clip-padding"
         >
           {posts.map((post) => (
-            <div
+            <PhotoCard
               key={post.id}
-              className={`mb-4 bg-white/60 rounded-2xl shadow-lg overflow-hidden transition-all duration-700 ease-out ${
-                visibleCards.has(post.id) 
-                  ? 'opacity-100 translate-y-0' 
-                  : 'opacity-0 translate-y-4'
-              }`}
-            >
-              {/* User Info */}
-              <div className="p-3 pb-2">
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center">
-                    <div className="w-8 h-8 bg-gradient-to-r from-green-400 to-blue-500 rounded-full flex items-center justify-center text-white text-sm font-bold">
-                      {post.username.charAt(0)}
-                    </div>
-                    <div className="ml-2">
-                      <p className="text-[13px] font-semibold text-gray-800">{post.username}</p>
-                      <p className="text-[10px] text-gray-500">{post.uploadTime}</p>
-                    </div>
-                  </div>
-                  <button
-                    onClick={() => handleLike(post.id)}
-                    className="flex items-center space-x-1 text-red-500 hover:text-red-600 transition-colors"
-                  >
-                    <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
-                      <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
-                    </svg>
-                    <span className="text-xs">{post.likes}</span>
-                  </button>
-                </div>
-              </div>
-
-              {/* Image */}
-              <div className="relative aspect-[3/4]">
-                <img
-                  src={post.image}
-                  alt={post.caption}
-                  className="w-full h-full object-cover"
-                />
-              </div>
-
-              {/* Caption */}
-              <div className="p-3 pt-2">
-                <p className="text-xs text-gray-700 leading-relaxed line-clamp-3">
-                  {post.caption}
-                </p>
-              </div>
-            </div>
+              post={post}
+              isVisible={visibleCards.has(post.id)}
+              onLike={handleLike}
+              onDelete={handleDelete}
+              showDeleteMenu={showDeleteMenu}
+              onToggleDeleteMenu={toggleDeleteMenu}
+            />
           ))}
         </Masonry>
       </div>
@@ -231,6 +389,28 @@ const PhotoFestival: React.FC = () => {
           <span className="text-gray-700 font-semibold">사진 업로드하기</span>
         </button>
       </div>
+
+      {/* 최상단으로 이동 버튼 */}
+      {showScrollTop && (
+        <button
+          onClick={scrollToTop}
+          className="fixed bottom-25 right-6 z-50 w-12 h-12 bg-white/80 backdrop-blur-sm rounded-full shadow-lg flex items-center justify-center hover:bg-white transition-all duration-300 hover:scale-110"
+        >
+          <svg 
+            className="w-6 h-6 text-gray-600" 
+            fill="none" 
+            stroke="currentColor" 
+            viewBox="0 0 24 24"
+          >
+            <path 
+              strokeLinecap="round" 
+              strokeLinejoin="round" 
+              strokeWidth={2} 
+              d="M5 10l7-7m0 0l7 7m-7-7v18" 
+            />
+          </svg>
+        </button>
+      )}
     </div>
   );
 };

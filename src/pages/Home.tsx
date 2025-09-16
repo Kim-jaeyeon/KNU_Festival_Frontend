@@ -16,6 +16,9 @@ const Home: React.FC = () => {
     button: false
   });
 
+  // 스크롤 상태
+  const [showScrollTop, setShowScrollTop] = useState(false);
+
   // scroll 영역 ref
   const scroll1Ref = useRef<HTMLDivElement>(null);
   const scroll2Ref = useRef<HTMLDivElement>(null);
@@ -29,6 +32,11 @@ const Home: React.FC = () => {
     }
   };
 
+  // 최상단으로 스크롤
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
   // 페이지 로드 시 순차적 애니메이션
   useEffect(() => {
     const timer1 = setTimeout(() => setIsVisible(prev => ({ ...prev, logo: true })), 300);
@@ -39,8 +47,18 @@ const Home: React.FC = () => {
       clearTimeout(timer1);
       clearTimeout(timer2);
       clearTimeout(timer3);
-
     };
+  }, []);
+
+  // 스크롤 이벤트 리스너
+  useEffect(() => {
+    const handleScroll = () => {
+      const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+      setShowScrollTop(scrollTop > 500); // 500px 이상 스크롤하면 버튼 표시
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
 
@@ -48,7 +66,7 @@ const Home: React.FC = () => {
   
   return (
     <div 
-      className="w-full max-w-[430px] bg-contain bg-center bg-no-repeat overflow-x-hidden -mt-16 "
+      className="w-full max-w-[430px] bg-contain bg-center bg-no-repeat overflow-x-hidden -mt-16"
       style={{
         backgroundSize: "cover",
         backgroundPosition: "top center",
@@ -327,7 +345,7 @@ const Home: React.FC = () => {
                 <div className = "flex gap-[13px]">
                   <p className="text-black font-['Hakgyoansim_Jeomsimsigan'] text-[16px] font-bold leading-[32px]">
                   김재연 <br />
-                  컴퓨터공학과 23
+                  컴퓨터공학과 21
                   </p>
 
                   <p className="text-black font-['Hakgyoansim_Jeomsimsigan'] text-[16px] font-bold leading-[32px]">
@@ -369,6 +387,30 @@ const Home: React.FC = () => {
 
 
 
+      {/* 최상단으로 이동 버튼 */}
+      {showScrollTop && (
+        <button
+          onClick={scrollToTop}
+          className="fixed bottom-6 z-50 w-12 h-12 bg-white/80 backdrop-blur-sm rounded-full shadow-lg flex items-center justify-center hover:bg-white transition-all duration-300 hover:scale-110"
+          style={{
+            right: 'calc(50% - 215px + 45px)' // 430px 컨테이너의 우측에서 45px 떨어진 위치
+          }}
+        >
+          <svg 
+            className="w-6 h-6 text-gray-600" 
+            fill="none" 
+            stroke="currentColor" 
+            viewBox="0 0 24 24"
+          >
+            <path 
+              strokeLinecap="round" 
+              strokeLinejoin="round" 
+              strokeWidth={2} 
+              d="M5 10l7-7m0 0l7 7m-7-7v18" 
+            />
+          </svg>
+        </button>
+      )}
       
     </div>
   );
