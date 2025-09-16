@@ -133,7 +133,7 @@ const CurrentEventDisplay: React.FC = () => {
         {currentEvent ? currentEvent.time : "쉬는시간"}
       </p>
       <p className="mt-[9.5px] ml-auto mr-[20px] text-[#39646C] font-[Hahmlet] text-[18px] font-normal leading-normal">
-        {currentEvent ? currentEvent.title : "다시 돌아올게요!"}
+        {currentEvent ? currentEvent.title : "다시 돌아올게요~!"}
       </p>
     </div>
   );
