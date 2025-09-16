@@ -92,7 +92,7 @@ const Home: React.FC = () => {
           }`}
         >
           <img
-            src="/assets/main_logo.png"
+            src="/assets/main_logo.webp"
             alt="메인 로고"
             className="
               w-full                /* 부모 너비에 맞게 */
