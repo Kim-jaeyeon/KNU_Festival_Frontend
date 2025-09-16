@@ -65,10 +65,11 @@ const Timetable: React.FC = () => {
     const now = new Date();
     const currentMinutes = now.getHours() * 60 + now.getMinutes();
     
-    // "~"로 시작하는 경우 (예: "17:00 ~")
+    // "~"로 끝나는 경우 (예: "17:00 ~") - 18:00까지 진행되는 것으로 처리
     if (timeStr.includes('~') && timeStr.endsWith('~')) {
       const startTime = timeToMinutes(timeStr);
-      return currentMinutes >= startTime;
+      const endTime = 18 * 60; // 18:00 = 1080분
+      return currentMinutes >= startTime && currentMinutes <= endTime;
     }
     
     // 시간 범위가 있는 경우 (예: "13:00 ~ 17:00")

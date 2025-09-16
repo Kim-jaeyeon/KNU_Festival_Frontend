@@ -20,15 +20,17 @@ const TimelineCard: React.FC<TimelineCardProps> = ({
   artistInfo 
 }) => {
   return (
-    <div className="space-y-2 hover:scale-[1.02] transition-transform duration-200 ease-out">
+    <div className={`space-y-2 mt-1 hover:scale-[1.02] transition-all duration-200 ease-out ${
+      !isCurrent ? 'opacity-50' : ''
+    }`}>
       {/* 시간 표시 - 별도 박스 */}
-      <div className="bg-white/60 rounded-full px-3 py-2 mb-1 shadow-sm border border-gray-200 text-center">
-        <span className="text-sm font-bold text-gray-800">{time}</span>
+      <div className="bg-[#F2FCF3] ring-1 ring-[#285100] ring-opacity-50 rounded-full px-3 py-2 mb-1 shadow-sm border border-gray-200 text-center">
+        <span className="text-sm font-bold text-[#285100]">{time}</span>
       </div>
       
       {/* 내용 - 현재 이벤트일 때 하이라이트 */}
-      <div className={`rounded-2xl p-4 shadow-lg transition-all duration-300 ${
-        isCurrent ? 'bg-white/60 ring-2 ring-[#285100] ring-opacity-50' : 'bg-white/60'
+      <div className={`rounded-2xl p-4 ring-1 ring-[#285100] ring-opacity-50 shadow-lg transition-all duration-300 ${
+        isCurrent ? 'bg-white/60 ring-1 ring-[#285100] ring-opacity-50' : 'bg-white/60'
       }`}>
         <div className="text-center">
           <h3 className="text-base font-semibold text-gray-800 mb-1">{title}</h3>
