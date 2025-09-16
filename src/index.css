@@ -27,6 +27,12 @@
   font-style: normal;
 }
 
+@font-face {
+  font-family: "Ownglyph-PDH";
+  src: url("./assets/fonts/Ownglyph-PDH.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
 
 @font-face {
   font-family: 'HS-Santokki';

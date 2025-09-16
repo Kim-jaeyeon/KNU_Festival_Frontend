@@ -2,10 +2,56 @@
   {
     "id": 1,
     "location": "60주년",
-    "zone": "C",
+    "zone": "pub",
+    "boothNumber": 1,
+    "category": "pub",
+    "title": "백령대동제 주점",
+    "desc": "잔향으로 피어날 지금",
+    "notice": "2025. 9. 22.(월)~2025. 9. 25.(목) 18:00~24:00",
+    "place": "60주년 기념관 주차장",
+    "prices": [
+      { "name": "테라, 켈리(맥주)", "price": "3,500원" },
+      { "name": "참이슬(소주)", "price": "4,000원" },
+      { "name": "콜라, 사이다", "price": "2,000원" },
+      { "name": "생수", "price": "1,000원" }
+    ]
+  },
+  {
+    "id": 2,
+    "location": "60주년",
+    "zone": "truck",
+    "boothNumber": 2,
     "category": "food",
-    "title": "커피랩",
-    "desc": "원두 향 가득한 핸드드립 커피와 디저트",
-    "image": "/assets/booth/coffee.png"
+    "title": "온스트릿1",
+    "desc": "닭강정"
+  },
+  {
+    "id": 3,
+    "location": "60주년",
+    "zone": "truck",
+    "boothNumber": 3,
+    "category": "food",
+    "title": "온스트릿2",
+    "desc": "전"
+  },
+  {
+    "id": 4,
+    "location": "60주년",
+    "zone": "truck",
+    "boothNumber": 4,
+    "category": "food",
+    "title": "곱창앤야끼",
+    "desc": "곱창",
+    "notice": "※ 9. 22.(월)~9. 23.(화) 이틀 운영"
+  },
+  {
+    "id": 5,
+    "location": "60주년",
+    "zone": "truck",
+    "boothNumber": 5,
+    "category": "food",
+    "title": "크레아",
+    "desc": "츄러스",
+    "notice": "※ 9. 24.(수)~9. 25.(목) 이틀 운영"
   }
 ]
