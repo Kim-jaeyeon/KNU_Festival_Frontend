@@ -1,96 +1,101 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 const GuestbookWrite: React.FC = () => {
-    const navigate = useNavigate();
-    const [author, setAuthor] = useState("");
-    const [content, setContent] = useState("");
+  const navigate = useNavigate();
+  const [author, setAuthor] = useState(""); // nickname은 서버에서 token으로 처리되면 필요 없을 수 있음
+  const [content, setContent] = useState("");
 
-    const handleSubmit = (e: React.FormEvent) => {
-        e.preventDefault();
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
 
-        if (!author.trim() || !content.trim()) {
-            alert("닉네임과 내용을 모두 입력해주세요!");
-            return;
+    if (!content.trim()) {
+      alert("내용을 입력해주세요!");
+      return;
+    }
+
+    try {
+      // 로컬스토리지에서 Access Token 가져오기
+      const accessToken = localStorage.getItem("accessToken");
+      if (!accessToken) {
+        alert("로그인이 필요합니다.");
+        return;
+      }
+
+      // 서버 API 호출
+      const response = await axios.post(
+        "http://34.47.70.96:8080/api/guestbook",
+        {
+          content,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+          },
         }
+      );
 
-        // 🚩 나중에 서버 저장 API 연결 예정
-        console.log("작성자:", author);
-        console.log("내용:", content);
+      if (response.status === 201 && response.data.code === 0) {
+        alert("방명록이 등록되었습니다.");
+        navigate("/guestbook"); // 작성 후 목록 페이지 이동
+      } else {
+        alert(response.data.message || "방명록 등록 실패");
+      }
+    } catch (err: any) {
+      console.error(err);
+      alert("방명록 등록 중 오류가 발생했습니다.");
+    }
+  };
 
-        navigate("/guestbook");
-    };
+  return (
+    <div className="w-full min-h-screen flex justify-center">
+      <main className="pt-[74px] px-4 max-w-[430px] mx-auto">
+        <form onSubmit={handleSubmit} className="flex flex-col gap-6">
+          {/* 내용 */}
+          <div>
+            <label className="block mb-2 text-[#285100] font-pretendard font-bold">
+              내용
+            </label>
+            <textarea
+              placeholder="내용을 입력해주세요"
+              value={content}
+              onChange={(e) => setContent(e.target.value)}
+              className="w-[353px] h-[124px] px-[20px] py-[16px] rounded-[20px]
+                bg-[rgba(255,255,255,0.54)] font-pretendard text-sm resize-none
+                placeholder:text-[#555555]
+                focus:outline-none focus:ring-2 focus:ring-[#285100]"
+              style={{ color: "#000", caretColor: "#000" }}
+            />
+          </div>
 
-    return (
-        <div className="w-full min-h-screen flex justify-center">
-            <main className="pt-[74px] px-4 max-w-[430px] mx-auto">
-                <form onSubmit={handleSubmit} className="flex flex-col gap-6">
-                    {/* 닉네임 */}
-                    <div>
-                        <label className="block mb-2 text-[#285100] font-pretendard font-bold">
-                            닉네임
-                        </label>
-                        <input
-                            type="text"
-                            placeholder="5글자 내로 입력해주세요"
-                            value={author}
-                            onChange={(e) => setAuthor(e.target.value)}
-                            maxLength={5}
-                            className="w-[353px] h-[48px] px-[20px] py-[16px] rounded-[20px] 
-               bg-[rgba(255,255,255,0.54)] font-pretendard text-sm
-               placeholder:text-[#555555]
-               focus:outline-none focus:ring-2 focus:ring-[#285100] mb-0"
-                            style={{ color: "#000", caretColor: "#000" }}
-                        />
-                    </div>
+          {/* 구분선 */}
+          <div
+            style={{
+              width: "339.5px",
+              height: "0px",
+              borderTop: "0.8px solid rgba(255, 255, 255, 0.88)",
+              flexShrink: 0,
+            }}
+          />
 
-                    {/* ✅ 버튼 밑 19px 떨어진 구분선 */}
-                    <div
-                        style={{
-                            width: "339.5px",
-                            height: "0px",
-                            borderTop: "0.8px solid rgba(255, 255, 255, 0.88)",
-                            flexShrink: 0,
-                        }}
-                    />
-
-
-                    {/* 내용 */}
-                    <div>
-                        <label className="block mb-2 text-[#285100] font-pretendard font-bold">
-                            내용
-                        </label>
-                        <textarea
-                            placeholder="내용을 입력해주세요"
-                            value={content}
-                            onChange={(e) => setContent(e.target.value)}
-                            className="w-[353px] h-[124px] px-[20px] py-[16px] rounded-[20px]
-               bg-[rgba(255,255,255,0.54)] font-pretendard text-sm resize-none
-               placeholder:text-[#555555]
-               focus:outline-none focus:ring-2 focus:ring-[#285100]"
-                            style={{ color: "#000", caretColor: "#000" }}
-                        />
-                    </div>
-
-                    {/* 버튼 */}
-                    <button
-                        type="submit"
-                        disabled={!author.trim() || !content.trim()}
-                        className={`w-[353px] h-[65px] rounded-[40px] font-pretendard font-bold 
+          {/* 버튼 */}
+          <button
+            type="submit"
+            disabled={!content.trim()}
+            className={`w-[353px] h-[65px] rounded-[40px] font-pretendard font-bold 
               transition-colors duration-200 bg-[rgba(255,255,255,0.8)]
-              ${!author.trim() || !content.trim()
-                                ? "text-gray-400 border border-gray-400 cursor-not-allowed"
-                                : "text-[#285100] border border-[#285100] hover:bg-[#285100] hover:text-white"
-                            }`}
-                    >
-                        방명록 등록
-                    </button>
-
-
-                </form>
-            </main>
-        </div >
-    );
+              ${!content.trim()
+                ? "text-gray-400 border border-gray-400 cursor-not-allowed"
+                : "text-[#285100] border border-[#285100] hover:bg-[#285100] hover:text-white"
+              }`}
+          >
+            방명록 등록
+          </button>
+        </form>
+      </main>
+    </div>
+  );
 };
 
 export default GuestbookWrite;

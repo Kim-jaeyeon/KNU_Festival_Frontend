@@ -1,20 +1,23 @@
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import { useState, useRef } from 'react';
-import Header from './components/Header';
-import MenuModal from './components/MenuModal';   // ✅ 메뉴 모달 import
-import LoginModal from './components/LoginModal'; // ✅ 로그인 모달 import
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { useState, useRef } from "react";
+import Header from "./components/Header";
+import MenuModal from "./components/MenuModal"; // ✅ 메뉴 모달 import
+import LoginModal from "./components/LoginModal"; // ✅ 로그인 모달 import
 
-import Home from './pages/Home';
-import BoothRecommendLoading from './pages/BoothRecommend/BoothRecommendLoading';
-import BoothRecommend from './pages/BoothRecommend/BoothRecommend';
-import BoothAndFoodTruck from './pages/BoothAndFoodTruck';
-import PhotoFestival from './pages/PhotoFestival';
-import Timetable from './pages/Timetable';
-import FAQAndGuestbook from './pages/FAQAndGuestbook';
-import GuestbookWrite from './pages/GuestbookWrite';
-import BoothRecommendResult from './pages/BoothRecommend/BoothRecommendResult';
-import Artist from './pages/Artist/Artist';
-import PhotoUpload from './pages/PhotoUpload';
+import Home from "./pages/Home";
+import BoothRecommendLoading from "./pages/BoothRecommend/BoothRecommendLoading";
+import BoothRecommend from "./pages/BoothRecommend/BoothRecommend";
+import BoothAndFoodTruck from "./pages/BoothAndFoodTruck";
+import PhotoFestival from "./pages/PhotoFestival";
+import Timetable from "./pages/Timetable";
+import FAQAndGuestbook from "./pages/FAQAndGuestbook";
+import GuestbookWrite from "./pages/GuestbookWrite";
+import BoothRecommendResult from "./pages/BoothRecommend/BoothRecommendResult";
+import Artist from "./pages/Artist/Artist";
+import PhotoUpload from "./pages/PhotoUpload";
+import KakaoCallback from "./components/KakaoCallback";
+import LoginCallback from "./components/LoginCallback";
+
 
 function AppContent() {
   //const location = useLocation();
@@ -31,8 +34,8 @@ function AppContent() {
         className="w-full sm:max-w-[402px] shadow-lg relative bg-cover bg-center bg-no-repeat"
         style={{
           backgroundImage: "url('/assets/home/BGimg/BackImg1.webp')",
-          backgroundSize: 'cover',
-          backgroundPosition: 'center top',
+          backgroundSize: "cover",
+          backgroundPosition: "center top",
         }}
       >
         {/* ✅ Header: 버튼 참조 + 메뉴 열기 핸들러 전달 */}
@@ -55,10 +58,19 @@ function AppContent() {
         <div className="pt-16">
           <Routes>
             <Route path="/" element={<Home />} />
-            <Route path="boothRecommendLoading" element={<BoothRecommendLoading />} />
+            <Route
+              path="boothRecommendLoading"
+              element={<BoothRecommendLoading />}
+            />
             <Route path="/booth-recommend" element={<BoothRecommend />} />
-            <Route path="/BoothRecommendResult" element={<BoothRecommendResult />} />
-            <Route path="/booth-foodtruck/:number" element={<BoothAndFoodTruck />} />
+            <Route
+              path="/BoothRecommendResult"
+              element={<BoothRecommendResult />}
+            />
+            <Route
+              path="/booth-foodtruck/:number"
+              element={<BoothAndFoodTruck />}
+            />
             <Route path="/photo-festival" element={<PhotoFestival />} />
             <Route path="/timetable" element={<Timetable />} />
             <Route path="/faq" element={<FAQAndGuestbook />} />
@@ -66,6 +78,8 @@ function AppContent() {
             <Route path="/guestbook" element={<FAQAndGuestbook />} />
             <Route path="/artist/:number" element={<Artist />} />
             <Route path="/photo-upload" element={<PhotoUpload />} />
+            <Route path="/kakao/callback" element={<KakaoCallback />} />
+            <Route path="/login-callback" element={<LoginCallback />} />
           </Routes>
         </div>
       </div>

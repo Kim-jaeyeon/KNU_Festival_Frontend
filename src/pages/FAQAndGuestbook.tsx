@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
+import axios from "axios";
 import TabNav from "../components/TabNav";
 import FAQItem from "../components/FAQItem";
 
@@ -23,42 +24,24 @@ const FAQ_DATA = [
     a: "인류의 앞이 풀이 꽃이 속에 그들의 사막이다. 따뜻한 방황하여도, 눈이 설산에서 생명을 밥을 구할 뿐이다. 날카로우나 그림자는 든 거친 원대하고, 별과 아니다. 그림자는 풀이 가슴에 용기가 이는 소담스러운 위하여서. 끝에 이상 방지하는 이성은 꽃이 이것이다.",
   },
 ];
-
-// 방명록 데이터
-const GUESTBOOK_DATA = [
-  {
-    id: 1,
-    author: "익명1",
-    date: "9월 18일 09:41",
-    content: "우는 별들을 이름자 어머니 가을 있습니다.",
-    avatar: "👤",
-  },
-  {
-    id: 2,
-    author: "익명2",
-    date: "9월 18일 09:41",
-    content: "우는 별들을 이름자 어머니 가을 있습니다.",
-    avatar: "👤",
-  },
-  {
-    id: 3,
-    author: "익명3",
-    date: "9월 17일 14:30",
-    content: "축제가 정말 기대됩니다!",
-    avatar: "👤",
-  },
-];
+interface GuestbookItem {
+  guestbookId: number;
+  nickname: string;
+  content: string;
+  createdAt: string;
+}
 
 const FAQAndGuestbook: React.FC = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const [activeTab, setActiveTab] = useState<"faq" | "guestbook">("faq");
   const [currentPage, setCurrentPage] = useState(1);
-
-  // ✅ 추가: FAQ 아코디언 상태
   const [openIndex, setOpenIndex] = useState<number | null>(null);
 
-  // URL에 따라 탭 설정 (URL 변경 시에도 업데이트)
+  // 서버에서 가져온 방명록
+  const [guestbooks, setGuestbooks] = useState<GuestbookItem[]>([]);
+
+  // URL에 따라 탭 설정
   useEffect(() => {
     if (location.pathname === "/guestbook") {
       setActiveTab("guestbook");
@@ -66,6 +49,38 @@ const FAQAndGuestbook: React.FC = () => {
       setActiveTab("faq");
     }
   }, [location.pathname]);
+
+  // 서버에서 방명록 목록 가져오기
+  useEffect(() => {
+    if (activeTab === "guestbook") {
+      const fetchGuestbooks = async () => {
+        try {
+          const accessToken = "eyJhbGciOiJIUzI1NiJ9.eyJ1c2VySWQiOjIsInJvbGUiOiJVU0VSIiwiaWF0IjoxNzU4MDQyMzYzLCJleHAiOjE3NTgwNDk1NjN9.JV1y7NfdkUfKrSnzOdxQgYzRSW3VySc1dxw1izHfYac";
+          const res = await axios.get("api/guestbooks", {
+            headers: {
+              Authorization: `Bearer ${accessToken}`,
+            },
+          });
+
+          if (res.data.code === 0) {
+            setGuestbooks(res.data.data);
+          } else {
+            alert(res.data.message || "방명록 불러오기 실패");
+          }
+        } catch (err: any) {
+  if (err.response) {
+    console.error("서버 응답:", err.response.status, err.response.data);
+    alert(`방명록 불러오기 실패: ${err.response.data.message}`);
+  } else {
+    console.error("네트워크 오류:", err.message);
+    alert("네트워크 오류가 발생했습니다.");
+  }
+}
+      };
+
+      fetchGuestbooks();
+    }
+  }, [activeTab]);
 
   const handleTabChange = (tab: "faq" | "guestbook") => {
     setActiveTab(tab);
@@ -78,7 +93,6 @@ const FAQAndGuestbook: React.FC = () => {
   return (
     <div className="w-full min-h-screen">
       <main className="relative w-full min-h-screen">
-        {/* 상단 spacer */}
         <div className="h-[40px] w-full pointer-events-none" aria-hidden />
 
         {/* TabNav */}
@@ -100,7 +114,6 @@ const FAQAndGuestbook: React.FC = () => {
               방명록 작성하기
             </button>
 
-            {/* 구분선 */}
             <div
               className="mt-[19px]"
               style={{
@@ -131,9 +144,9 @@ const FAQAndGuestbook: React.FC = () => {
             </div>
           ) : (
             <div className="space-y-4">
-              {GUESTBOOK_DATA.map((comment) => (
+              {guestbooks.map((comment) => (
                 <div
-                  key={comment.id}
+                  key={comment.guestbookId}
                   className="w-full max-w-[353px] mx-auto rounded-[20px] bg-white/80 px-4 py-3 shadow-md"
                 >
                   {/* 작성자 정보 */}
@@ -148,10 +161,15 @@ const FAQAndGuestbook: React.FC = () => {
 
                     <div className="flex-1 flex justify-between items-center">
                       <span className="font-pretendard font-bold text-gray-800 text-sm">
-                        {comment.author}
+                        {comment.nickname}
                       </span>
                       <span className="font-pretendard text-xs text-gray-500">
-                        {comment.date}
+                        {new Date(comment.createdAt).toLocaleString("ko-KR", {
+                          month: "numeric",
+                          day: "numeric",
+                          hour: "2-digit",
+                          minute: "2-digit",
+                        })}
                       </span>
                     </div>
                   </div>
@@ -162,24 +180,6 @@ const FAQAndGuestbook: React.FC = () => {
                   </p>
                 </div>
               ))}
-
-              {/* 페이지네이션 */}
-              <div className="flex justify-center mt-8">
-                <div className="flex items-center justify-center w-[353px] px-[12px] py-[8px] gap-[57px] flex-shrink-0 rounded-[40px] bg-[rgba(255,255,255,0.8)]">
-                  {[1, 2, 3, 4].map((page) => (
-                    <button
-                      key={page}
-                      onClick={() => setCurrentPage(page)}
-                      className={`font-pretendard font-bold text-[17px] leading-[22px] transition-colors duration-200 ${currentPage === page
-                        ? "text-[#285100]"
-                        : "text-[rgba(125,149,100,0.63)]"
-                        }`}
-                    >
-                      {page}
-                    </button>
-                  ))}
-                </div>
-              </div>
             </div>
           )}
         </section>

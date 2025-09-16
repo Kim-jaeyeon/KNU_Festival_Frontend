@@ -11,8 +11,13 @@ export default defineConfig({
     tailwindcss(),
     svgr(),
   ],
-  server: {
+  /*server: {
     host: true,   // ← 외부 기기(iPad) 접속 허용
     port: 5173,   // ← 포트 고정 (필요시 변경 가능)
+  },*/
+  server: {
+    proxy: {
+      '/api': 'http://34.47.70.96:8080',
+    },
   },
 })
