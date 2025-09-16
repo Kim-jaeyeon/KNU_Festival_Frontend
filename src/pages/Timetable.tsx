@@ -41,7 +41,7 @@ const Timetable: React.FC = () => {
     const currentDate = now.getDate();
     const currentMonth = now.getMonth() + 1; // 0-based month
     
-    // 2024년 9월 22일부터 시작
+    // 2025년 9월 22일부터 시작
     if (currentMonth === 9) {
       if (currentDate >= 22 && currentDate <= 25) {
         return currentDate - 21; // 22일 = 1일차, 23일 = 2일차, ...
