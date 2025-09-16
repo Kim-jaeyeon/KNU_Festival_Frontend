@@ -7,7 +7,7 @@
     "category": "promo",
     "title": "인디드로잉",
     "desc": "드로잉 감성 낭낭히 담은 끈책갈피, 타투스티커, 팔찌, 키링",
-    "image": "/assets/booth/booth-stadium/indidrawing.png",
+    "image": "/assets/booth/booth-stadium/indidrawing.webp",
     "prices": [
       { "name": "상품", "price": "8,000원" }
     ]
@@ -20,7 +20,7 @@
     "category": "promo",
     "title": "도서관자치위원회",
     "desc": "기억의 서재에서 당신의 펜팔을 기다립니다.",
-    "image": "/assets/booth/booth-stadium/library.png",
+    "image": "/assets/booth/booth-stadium/library.webp",
     "prices": [
       { "name": "상품", "price": "8,000원" }
     ]
@@ -33,7 +33,7 @@
     "category": "promo",
     "title": "학생권익위원회",
     "desc": "재미와 선물이 가득! 도라에몽과 권익을 즐겁게 배워보세요!",
-    "image": "/assets/booth/booth-stadium/rights.png",
+    "image": "/assets/booth/booth-stadium/rights.webp",
     "prices": [
       { "name": "상품", "price": "8,000원" }
     ]
@@ -46,7 +46,7 @@
     "category": "food",
     "title": "아뜨거빙수",
     "desc": "기계메카 대표 미남들이 열정적으로 만든 뜨거운 팥빙수 드셔보실래요?",
-    "image": "/assets/booth/booth-stadium/mecha-bingsu.png",
+    "image": "/assets/booth/booth-stadium/mecha-bingsu.webp",
     "prices": [
       { "name": "상품", "price": "8,000원" }
     ]
@@ -59,7 +59,7 @@
     "category": "food",
     "title": "푸딩팜(Pudding:Farm)",
     "desc": "부드럽게 즐기는 수제 블루베리 푸딩",
-    "image": "/assets/booth/booth-stadium/puddingfarm.png",
+    "image": "/assets/booth/booth-stadium/puddingfarm.webp",
     "prices": [
       { "name": "상품", "price": "8,000원" }
     ]
@@ -72,7 +72,7 @@
     "category": "promo",
     "title": "KEY",
     "desc": "타로 한 장, 타투 한 장 어떠세요?",
-    "image": "/assets/booth/booth-stadium/key.png",
+    "image": "/assets/booth/booth-stadium/key.webp",
     "prices": [
       { "name": "상품", "price": "8,000원" }
     ]
@@ -85,7 +85,7 @@
     "category": "promo",
     "title": "자치기구발전위원회",
     "desc": "폴라로이드 사진 촬영 및 페이스페인팅",
-    "image": "/assets/booth/booth-stadium/development.png",
+    "image": "/assets/booth/booth-stadium/development.webp",
     "prices": [
       { "name": "상품", "price": "8,000원" }
     ]
@@ -98,7 +98,7 @@
     "category": "promo",
     "title": "Yours",
     "desc": "나 예쁜데 귀여운 거 만들었으니까 와라",
-    "image": "/assets/booth/booth-stadium/yours.png",
+    "image": "/assets/booth/booth-stadium/yours.webp",
     "prices": [
       { "name": "상품", "price": "8,000원" }
     ]
@@ -111,7 +111,7 @@
     "category": "food",
     "title": "원예당",
     "desc": "고당도 프리미엄! 하니원메론 추석선물세트 판매",
-    "image": "/assets/booth/booth-stadium/honeyfarm.png",
+    "image": "/assets/booth/booth-stadium/honeyfarm.webp",
     "prices": [
       { "name": "상품", "price": "8,000원" }
     ]
@@ -124,7 +124,7 @@
     "category": "promo",
     "title": "타로세이",
     "desc": "구체적이고 자세하게 상담해드립니다.",
-    "image": "/assets/booth/booth-stadium/tarosei.png",
+    "image": "/assets/booth/booth-stadium/tarosei.webp",
     "prices": [
       { "name": "상품", "price": "8,000원" }
     ]
@@ -138,7 +138,7 @@
     "category": "promo",
     "title": "집행위원회",
     "desc": "고요를 채울, 환희로 피어날",
-    "image": "/assets/booth/booth-stadium/imagenone.png",
+    "image": "/assets/booth/booth-stadium/imagenone.webp",
     "prices": [
       { "name": "상품", "price": "8,000원" }
     ]
@@ -151,7 +151,7 @@
     "category": "promo",
     "title": "스마트원예영농창업특성화사업단",
     "desc": "영농창업특성화사업단, 우리는 '영특이'입니다!",
-    "image": "/assets/booth/booth-stadium/image10.png",
+    "image": "/assets/booth/booth-stadium/image10.webp",
     "prices": [
       { "name": "상품", "price": "8,000원" }
     ]
@@ -165,7 +165,7 @@
     "category": "food",
     "title": "쥬스에 퐁당",
     "desc": "생과일 착즙 쥬스 판매합니다! 비타민 보충하고 가세요!",
-    "image": "/assets/booth/booth-stadium/image11.png",
+    "image": "/assets/booth/booth-stadium/image11.webp",
     "prices": [
       { "name": "상품", "price": "8,000원" }
     ]
@@ -178,7 +178,7 @@
     "category": "food",
     "title": "JDM",
     "desc": "‘이번에도 돌아온 떡삼’에서 특별한 소스가 발라진 맛있는 떡삼과 시원한 음료 드시러 오세요!",
-    "image": "/assets/booth/booth-stadium/image12.png",
+    "image": "/assets/booth/booth-stadium/image12.webp",
     "prices": [
       { "name": "상품", "price": "8,000원" }
     ]
@@ -191,7 +191,7 @@
     "category": "promo",
     "title": "W.I.N.G(We Innovate Now, Gangwon)",
     "desc": "돗자리 타고 궁전으로 날아가는 법 알려드림",
-    "image": "/assets/booth/booth-stadium/image13.png",
+    "image": "/assets/booth/booth-stadium/image13.webp",
     "prices": [
       { "name": "상품", "price": "8,000원" }
     ]
@@ -204,7 +204,7 @@
     "category": "promo",
     "title": "우리다누리",
     "desc": "글로벌 인싸존, 우리다누리",
-    "image": "/assets/booth/booth-stadium/image14.png",
+    "image": "/assets/booth/booth-stadium/image14.webp",
     "prices": [
       { "name": "상품", "price": "8,000원" }
     ]
@@ -217,7 +217,7 @@
     "category": "promo",
     "title": "온화",
     "desc": "첫 만남의 설렘, 온화고등학교",
-    "image": "/assets/booth/booth-stadium/image15.png",
+    "image": "/assets/booth/booth-stadium/image15.webp",
     "prices": [
       { "name": "상품", "price": "8,000원" }
     ]
@@ -230,7 +230,7 @@
     "category": "promo",
     "title": "kor (코르)",
     "desc": "kor는 헝가리어로 원을 뜻합니다. 여러분의 궤도에 ‘kor’가 함께하겠습니다.",
-    "image": "/assets/booth/booth-stadium/image16.png",
+    "image": "/assets/booth/booth-stadium/image16.webp",
     "prices": [
       { "name": "상품", "price": "8,000원" }
     ]
@@ -243,7 +243,7 @@
     "category": "promo",
     "title": "빛길",
     "desc": "달리기 게임을 즐기고, 특별한 선물도 받아가세요~",
-    "image": "/assets/booth/booth-stadium/image17.png",
+    "image": "/assets/booth/booth-stadium/image17.webp",
     "prices": [
       { "name": "상품", "price": "8,000원" }
     ]
@@ -256,7 +256,7 @@
     "category": "promo",
     "title": "3D Maker",
     "desc": "밴드 붐은 온다, 음악 & 밴드 덕후라면 놓칠 수 없는 키링 제작소",
-    "image": "/assets/booth/booth-stadium/image18.png",
+    "image": "/assets/booth/booth-stadium/image18.webp",
     "prices": [
       { "name": "상품", "price": "8,000원" }
     ]
@@ -269,7 +269,7 @@
     "category": "food",
     "title": "POME",
     "desc": "와플이랑 버블티 먹으러 오면 좋겠다..",
-    "image": "/assets/booth/booth-stadium/image19.png",
+    "image": "/assets/booth/booth-stadium/image19.webp",
     "prices": [
       { "name": "상품", "price": "8,000원" }
     ]
@@ -282,7 +282,7 @@
     "category": "food",
     "title": "5PPORYUNTY",
     "desc": "당일 구운 따뜻한 감자빵 먹을 사람~",
-    "image": "/assets/booth/booth-stadium/image20.png",
+    "image": "/assets/booth/booth-stadium/image20.webp",
     "prices": [
       { "name": "상품", "price": "8,000원" }
     ]
@@ -295,7 +295,7 @@
     "category": "promo",
     "title": "왕희천과 아이들",
     "desc": "하루쯤은 과감하게, 타투스티커로 도전!",
-    "image": "/assets/booth/booth-stadium/image21.png",
+    "image": "/assets/booth/booth-stadium/image21.webp",
     "prices": [ { "name": "상품", "price": "8,000원" }]
   },
   {
@@ -306,7 +306,7 @@
     "category": "food",
     "title": "무적 해적단",
     "desc": "맛있어져라~ 모에모에뀽!",
-    "image": "/assets/booth/booth-stadium/image22.png",
+    "image": "/assets/booth/booth-stadium/image22.webp",
     "prices": [ { "name": "상품", "price": "8,000원" }]
   },
   {
@@ -317,7 +317,7 @@
     "category": "food",
     "title": "화석어셈블",
     "desc": "졸업 직전의 마지막 불꽃! 이런식빵 대동제 상륙하다.",
-    "image": "/assets/booth/booth-stadium/image23.png",
+    "image": "/assets/booth/booth-stadium/image23.webp",
     "prices": []
   },
   {
@@ -328,7 +328,7 @@
     "category": "food",
     "title": "옥수수 좀 하는 집 (강원대학교 4-H회)",
     "desc": "버터향 가득한 콘치즈&옥수수 버터구이!",
-    "image": "/assets/booth/booth-stadium/image24.png",
+    "image": "/assets/booth/booth-stadium/image24.webp",
     "prices": []
   },
   {
@@ -339,7 +339,7 @@
     "category": "promo",
     "title": "여성가족인권상담센터 한삶",
     "desc": "춘천에 있는 여성 폭력 피해자 지원시설이 연대해서 부스 운영",
-    "image": "/assets/booth/booth-stadium/image25.png",
+    "image": "/assets/booth/booth-stadium/image25.webp",
     "prices": []
   },
   {
@@ -350,7 +350,7 @@
     "category": "food",
     "title": "웰컴 투 이스탄불",
     "desc": "터키에서 직접 공수해온 레시피로 제공하는 고등어 케밥",
-    "image": "/assets/booth/booth-stadium/image26.png",
+    "image": "/assets/booth/booth-stadium/image26.webp",
     "prices": []
   },
   {
@@ -361,7 +361,7 @@
     "category": "food",
     "title": "앙금이들",
     "desc": "먹을래? 말래? 넌 대답만 해, 앙 먹어볼래! 도합 경력 70년 장인들의 수제디저트",
-    "image": "/assets/booth/booth-stadium/image27.png",
+    "image": "/assets/booth/booth-stadium/image27.webp",
     "prices": []
   },
   {
@@ -372,7 +372,7 @@
     "category": "food",
     "title": "헤어지자고?",
     "desc": "나 지금 비비는 중인데..? 헤어진 애인도 돌아오는 그 맛..!",
-    "image": "/assets/booth/booth-stadium/image28.png",
+    "image": "/assets/booth/booth-stadium/image28.webp",
     "prices": []
   },
   {
@@ -383,7 +383,7 @@
     "category": "food",
     "title": "후문연합",
     "desc": "후문연합이 준비한 단과대 컬러빙수 맛보러 오세요~!",
-    "image": "/assets/booth/booth-stadium/image29.png",
+    "image": "/assets/booth/booth-stadium/image29.webp",
     "prices": []
   },
   {
@@ -394,7 +394,7 @@
     "category": "food",
     "title": "ALFS",
     "desc": "펀딩 진행한 식생공 개발 알러지프리디저트",
-    "image": "/assets/booth/booth-stadium/image30.png",
+    "image": "/assets/booth/booth-stadium/image30.webp",
     "prices": []
   },
   {
@@ -405,7 +405,7 @@
     "category": "promo",
     "title": "한마음선교회",
     "desc": "한마음선교회, 예수님 사랑 실천하는 위그노 정신 공동체",
-    "image": "/assets/booth/booth-stadium/image31.png",
+    "image": "/assets/booth/booth-stadium/image31.webp",
     "prices": []
   },
   {
@@ -416,7 +416,7 @@
     "category": "promo",
     "title": "뭉개구름",
     "desc": "뭉개구름 부스에서 추억도 만들고, 굿즈도 챙겨가세요!",
-    "image": "/assets/booth/booth-stadium/image32.png",
+    "image": "/assets/booth/booth-stadium/image32.webp",
     "prices": []
   },
   {
@@ -427,7 +427,7 @@
     "category": "promo",
     "title": "OECO",
     "desc": "매 순간의 전국 자연을 기록해 나갑니다.",
-    "image": "/assets/booth/booth-stadium/image33.png",
+    "image": "/assets/booth/booth-stadium/image33.webp",
     "prices": []
   },
   {
@@ -438,7 +438,7 @@
     "category": "craft",
     "title": "Revine (리바인)",
     "desc": "직접 만드는 감성 바이오차 테라리움 탈취제",
-    "image": "/assets/booth/booth-stadium/image34.png",
+    "image": "/assets/booth/booth-stadium/image34.webp",
     "prices": []
   },
   {
@@ -449,7 +449,7 @@
     "category": "promo",
     "title": "포뿌리",
     "desc": "활동 체험하고 즉석사진 찍으세요!",
-    "image": "/assets/booth/booth-stadium/image35.png",
+    "image": "/assets/booth/booth-stadium/image35.webp",
     "prices": []
   },
   {
@@ -460,7 +460,7 @@
     "category": "promo",
     "title": "Aesthetic H",
     "desc": "옷을 잘 입고싶으신 분들께 상담도 해드립니다. 오셔서 자기만의 스타일 찾아가세요",
-    "image": "/assets/booth/booth-stadium/image36.png",
+    "image": "/assets/booth/booth-stadium/image36.webp",
     "prices": []
   },
   {
@@ -471,7 +471,7 @@
     "category": "promo",
     "title": "학생홍보대사 가온",
     "desc": "학생홍보대사",
-    "image": "/assets/booth/booth-stadium/image37.png",
+    "image": "/assets/booth/booth-stadium/image37.webp",
     "prices": []
   },
   {
@@ -482,7 +482,7 @@
     "category": "craft",
     "title": "beadsinyou_(비즈인유)",
     "desc": "감성 가득, 귀여운 버섯 키링 핸드메이드 비즈 키링 판매 부스!",
-    "image": "/assets/booth/booth-stadium/image38.png",
+    "image": "/assets/booth/booth-stadium/image38.webp",
     "prices": []
   },
   {
@@ -493,7 +493,7 @@
     "category": "promo",
     "title": "온담",
     "desc": "오늘 내 감정 온도는? 내 마음 진단 테스트!",
-    "image": "/assets/booth/booth-stadium/image39.png",
+    "image": "/assets/booth/booth-stadium/image39.webp",
     "prices": []
   },
   {
@@ -504,7 +504,7 @@
     "category": "promo",
     "title": "신세계사주타로",
     "desc": "진로,취업,연애부분을 중점적으로 상담해드리겠습니다.",
-    "image": "/assets/booth/booth-stadium/image40.png",
+    "image": "/assets/booth/booth-stadium/image40.webp",
     "prices": []
   },
   {
@@ -515,7 +515,7 @@
     "category": "promo",
     "title": "그리너블",
     "desc": "환경보호 그린(green) + 블(able)의 할 수 있는 이라는 뜻을 합하여 그리너블입니다.",
-    "image": "/assets/booth/booth-stadium/image41.png",
+    "image": "/assets/booth/booth-stadium/image41.webp",
     "prices": []
   },
   {
@@ -526,7 +526,7 @@
     "category": "craft",
     "title": "그린나라 피톤치드",
     "desc": "향기롭고 건강한 생활, 10종 천연 탈취제",
-    "image": "/assets/booth/booth-stadium/image42.png",
+    "image": "/assets/booth/booth-stadium/image42.webp",
     "prices": []
   },
   {
@@ -537,7 +537,7 @@
     "category": "food",
     "title": "오일장 버거",
     "desc": "퐁신한 번 + 와규함박패티로 하나만으로 든든하게!!",
-    "image": "/assets/booth/booth-stadium/image43.png",
+    "image": "/assets/booth/booth-stadium/image43.webp",
     "prices": []
   },
   {
@@ -548,7 +548,7 @@
     "category": "promo",
     "title": "슈가베어 스튜디오",
     "desc": "당신의 모든 순간을 담다",
-    "image": "/assets/booth/booth-stadium/image44.png",
+    "image": "/assets/booth/booth-stadium/image44.webp",
     "prices": []
   },
   {
@@ -559,7 +559,7 @@
     "category": "craft",
     "title": "실몽실",
     "desc": "실의 따뜻한 감성을 담은 손뜨개 소품샵",
-    "image": "/assets/booth/booth-stadium/image45.png",
+    "image": "/assets/booth/booth-stadium/image45.webp",
     "prices": []
   },
   {
@@ -570,7 +570,7 @@
     "category": "craft",
     "title": "HESSDOLL",
     "desc": "정교한 뜨개인형과 실용적인 소품판매",
-    "image": "/assets/booth/booth-stadium/image46.png",
+    "image": "/assets/booth/booth-stadium/image46.webp",
     "prices": []
   }
   

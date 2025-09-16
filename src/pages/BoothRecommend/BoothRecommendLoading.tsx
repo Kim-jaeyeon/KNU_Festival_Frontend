@@ -10,7 +10,7 @@ const BoothRecommendLoading: React.FC = () => {
       <main className="pt-[70px] px-4 max-w-md mx-auto">
         {/* 상단 아이콘 */}
         <div className="w-[121px] h-[69px] mx-auto">
-          <img src="assets/boothRecommend/now.png" alt="현재 위치" />
+          <img src="assets/boothRecommend/now.webp" alt="현재 위치" />
         </div>
 
         {/* 텍스트 */}
@@ -33,7 +33,7 @@ const BoothRecommendLoading: React.FC = () => {
 
         {/* 캐슬 이미지 */}
         <div className="mt-[100px] w-full flex justify-center items-center h-[57px]">
-          <img src="assets/boothRecommend/castle.png" alt="캐슬" />
+          <img src="assets/boothRecommend/castle.webp" alt="캐슬" />
         </div>
 
         {/* 버튼 */}

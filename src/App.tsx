@@ -30,7 +30,7 @@ function AppContent() {
       <div
         className="w-full sm:max-w-[402px] shadow-lg relative bg-cover bg-center bg-no-repeat"
         style={{
-          backgroundImage: "url('/assets/home/BGimg/BackImg1.png')",
+          backgroundImage: "url('/assets/home/BGimg/BackImg1.webp')",
           backgroundSize: 'cover',
           backgroundPosition: 'center top',
         }}
