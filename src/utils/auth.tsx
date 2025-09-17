@@ -1,4 +1,4 @@
-// src/utils/auth.ts
+// accessToken 관리
 export const setAccessToken = (token: string) => {
   localStorage.setItem("accessToken", token);
 };

@@ -1,13 +1,12 @@
-// src/utils/api.ts
 import axios from "axios";
-import { getAccessToken, setAccessToken, removeAccessToken } from "./auth.tsx";
+import { getAccessToken, setAccessToken, removeAccessToken } from "./auth";
 
 const api = axios.create({
   baseURL: import.meta.env.VITE_API_BASE_URL,
   withCredentials: true, // refreshToken HttpOnly 쿠키 전송
 });
 
-// 요청 시 자동 Authorization 헤더 추가
+// 요청 시 accessToken 자동 첨부
 api.interceptors.request.use((config) => {
   const token = getAccessToken();
   if (token) config.headers!["Authorization"] = `Bearer ${token}`;
@@ -32,8 +31,8 @@ api.interceptors.response.use(
         originalRequest.headers["Authorization"] = `Bearer ${newAccessToken}`;
         return axios(originalRequest);
       } catch {
-        removeAccessToken(); // 재발급 실패 → 로그아웃 처리
-        window.location.href = "/login"; // 로그인 페이지 이동
+        removeAccessToken();
+        window.location.href = "/";
         return Promise.reject(err);
       }
     }
