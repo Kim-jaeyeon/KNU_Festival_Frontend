@@ -4,7 +4,6 @@ import axios from "axios";
 
 const GuestbookWrite: React.FC = () => {
   const navigate = useNavigate();
-  const [author, setAuthor] = useState(""); // nickname은 서버에서 token으로 처리되면 필요 없을 수 있음
   const [content, setContent] = useState("");
 
   const handleSubmit = async (e: React.FormEvent) => {

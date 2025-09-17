@@ -35,7 +35,6 @@ const FAQAndGuestbook: React.FC = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const [activeTab, setActiveTab] = useState<"faq" | "guestbook">("faq");
-  const [currentPage, setCurrentPage] = useState(1);
   const [openIndex, setOpenIndex] = useState<number | null>(null);
 
   // 서버에서 가져온 방명록
