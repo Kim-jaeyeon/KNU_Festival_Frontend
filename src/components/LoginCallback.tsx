@@ -20,15 +20,11 @@ const LoginCallback: React.FC = () => {
       return;
     }
 
-    kakaoLogin({ code, nickname, phone })
+        kakaoLogin({ code, nickname, phone })
       .then((data) => {
-        if (!data.accessToken) throw new Error("AccessToken 누락");
-
-        // 세션 + context 동기화
         setAuth(data.accessToken, data.nickname);
-        sessionStorage.setItem("nickname", data.nickname || "");
+        sessionStorage.setItem("accessToken", data.accessToken); // ← 꼭 갱신
         sessionStorage.removeItem("phone");
-
         toast.success("로그인 성공!");
         navigate("/");
       })

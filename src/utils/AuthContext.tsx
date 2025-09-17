@@ -3,7 +3,7 @@ import React, { createContext, useContext, useState, useEffect } from "react";
 interface AuthContextType {
   accessToken: string | null;
   nickname: string | null;
-  setAuth: (token: string, name?: string) => void;
+  setAuth: (token: string, nickname?: string) => void;
   logout: () => void;
 }
 
@@ -18,7 +18,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   const [accessToken, setToken] = useState<string | null>(null);
   const [nickname, setNickname] = useState<string | null>(null);
 
-  // 새로고침 시 세션스토리지에서 초기값 가져오기
+  // 새로고침 후 세션에서 초기값 가져오기
   useEffect(() => {
     const storedToken = sessionStorage.getItem("accessToken");
     const storedNickname = sessionStorage.getItem("nickname");

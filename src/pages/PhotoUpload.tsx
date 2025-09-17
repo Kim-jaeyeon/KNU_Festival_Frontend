@@ -112,24 +112,7 @@ const PhotoUpload: React.FC = () => {
       </div>
 
       <div className="relative z-10 pt-20 px-6 pb-8">
-        {/* 닉네임 입력 */}
-        <div className={`mb-6 transition-all duration-700 ease-out ${
-          showNickname 
-            ? 'opacity-100 translate-y-0' 
-            : 'opacity-0 translate-y-4'
-        }`}>
-          <label className="block text-green-800 font-semibold mb-2 text-sm">
-            닉네임
-          </label>
-          <input
-            type="text"
-            value={nickname}
-            onChange={(e) => setNickname(e.target.value)}
-            placeholder="5글자 내로 입력"
-            maxLength={5}
-            className="w-full px-4 py-3 bg-white/60 rounded-2xl text-gray-700 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-green-400 transition-all duration-300 text-sm"
-          />
-        </div>
+
 
         {/* 사진 선택 */}
         <div className={`mb-6 transition-all duration-700 ease-out ${
