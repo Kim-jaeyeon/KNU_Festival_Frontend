@@ -1,39 +1,37 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import api from "../utils/api"; // 기존 axios 대신 api 사용
-import { setAccessToken } from "../utils/auth"; // 추가
+import api from "../utils/api";
+import { setAccessToken } from "../utils/auth";
 
 const GuestbookWrite: React.FC = () => {
   const navigate = useNavigate();
   const [content, setContent] = useState("");
 
   const handleSubmit = async (e: React.FormEvent) => {
-  e.preventDefault();
+    e.preventDefault();
+    if (!content.trim()) {
+      alert("내용을 입력해주세요!");
+      return;
+    }
 
-  if (!content.trim()) {
-    alert("내용을 입력해주세요!");
-    return;
-  }
+    try {
+      const response = await api.post("/api/guestbooks/register", { content });
 
-  try {
-    const response = await api.post("/api/guestbooks/register", { content });
-
-    // status 체크 제거, code === 0만 체크
-    if (response.data.code === 0) {
+      // 서버에서 새 accessToken 발급 시 LocalStorage 갱신
       const newAccessToken = response.headers["accesstoken"];
       if (newAccessToken) setAccessToken(newAccessToken);
 
-      alert("방명록이 등록되었습니다.");
-      navigate("/guestbook");
-    } else {
-      alert(response.data.message || "방명록 등록 실패");
+      if (response.status === 201 && response.data?.code === 0) {
+        alert(response.data.message || "방명록이 등록되었습니다.");
+        navigate("/guestbook");
+      } else {
+        alert(response.data?.message || "방명록 등록 실패");
+      }
+    } catch (err: any) {
+      console.error("방명록 등록 오류:", err);
+      alert("방명록 등록 중 오류가 발생했습니다.");
     }
-  } catch (err: any) {
-    console.error("방명록 등록 오류:", err);
-    alert("방명록 등록 중 오류가 발생했습니다.");
-  }
-};
-
+  };
 
   return (
     <div className="w-full min-h-screen flex justify-center">
