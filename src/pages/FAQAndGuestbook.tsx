@@ -55,7 +55,12 @@ const FAQAndGuestbook: React.FC = () => {
     if (activeTab === "guestbook") {
       const fetchGuestbooks = async () => {
         try {
-          const accessToken = "eyJhbGciOiJIUzI1NiJ9.eyJ1c2VySWQiOjIsInJvbGUiOiJVU0VSIiwiaWF0IjoxNzU4MDQyMzYzLCJleHAiOjE3NTgwNDk1NjN9.JV1y7NfdkUfKrSnzOdxQgYzRSW3VySc1dxw1izHfYac";
+          const accessToken = sessionStorage.getItem("accessToken");
+          if (!accessToken) {
+            alert("로그인이 필요합니다.");
+            navigate("/login");
+            return;
+          }
           const res = await axios.get("api/guestbooks", {
             headers: {
               Authorization: `Bearer ${accessToken}`,
@@ -68,14 +73,14 @@ const FAQAndGuestbook: React.FC = () => {
             alert(res.data.message || "방명록 불러오기 실패");
           }
         } catch (err: any) {
-  if (err.response) {
-    console.error("서버 응답:", err.response.status, err.response.data);
-    alert(`방명록 불러오기 실패: ${err.response.data.message}`);
-  } else {
-    console.error("네트워크 오류:", err.message);
-    alert("네트워크 오류가 발생했습니다.");
-  }
-}
+          if (err.response) {
+            console.error("서버 응답:", err.response.status, err.response.data);
+            alert(`방명록 불러오기 실패: ${err.response.data.message}`);
+          } else {
+            console.error("네트워크 오류:", err.message);
+            alert("네트워크 오류가 발생했습니다.");
+          }
+        }
       };
 
       fetchGuestbooks();
