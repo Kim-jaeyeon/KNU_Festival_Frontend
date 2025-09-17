@@ -11,30 +11,30 @@ const LoginCallback: React.FC = () => {
 
   useEffect(() => {
     const code = searchParams.get("code");
-    const nickname = sessionStorage.getItem("nickname");
-    const phone = sessionStorage.getItem("phone");
+    if (!code) {
+  toast.error("로그인 코드가 없습니다.");
+  navigate("/");
+  return;
+}
 
-    if (!code || !nickname || !phone) {
-      toast.error("로그인 정보가 부족합니다.");
-      navigate("/");
-      return;
-    }
+// nickname, phone은 optional
+const nickname = sessionStorage.getItem("nickname") || undefined;
+const phone = sessionStorage.getItem("phone") || undefined;
 
-    kakaoLogin({ code, nickname, phone })
-      .then((data) => {
-        console.log("로그인 데이터:", data);
-        console.log("data.nickname", data.nickname)
-        setAuth(data.accessToken, data.nickname);
-        sessionStorage.setItem("accessToken", data.accessToken);
-        sessionStorage.removeItem("phone");
-        toast.success("로그인 성공!");
-        navigate("/");
-      })
-      .catch((err) => {
-        console.error("Login POST 에러:", err);
-        toast.error("로그인에 실패했습니다.");
-        navigate("/");
-      });
+kakaoLogin({ code, nickname, phone })
+  .then((data) => {
+    setAuth(data.accessToken, data.nickname);
+    sessionStorage.setItem("accessToken", data.accessToken);
+    sessionStorage.removeItem("phone");
+    toast.success("로그인 성공!");
+    navigate("/");
+  })
+  .catch((err) => {
+    console.error("Login POST 에러:", err);
+    toast.error("로그인에 실패했습니다.");
+    navigate("/");
+  });
+
   }, [searchParams, navigate, setAuth]);
 
   return <div className="flex justify-center items-center h-screen">로그인 처리 중...</div>;
