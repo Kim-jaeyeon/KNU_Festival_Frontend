@@ -46,7 +46,7 @@ const PhotoUpload: React.FC = () => {
     }
   };
 
-  const handleSubmit = async () => {
+const handleSubmit = async () => {
   if (!selectedImage) {
     alert('사진을 선택해주세요.');
     return;
@@ -58,17 +58,18 @@ const PhotoUpload: React.FC = () => {
 
   try {
     const formData = new FormData();
+
+    // 파일
     formData.append('file', selectedImage);
 
-    // content를 JSON 문자열로 감싸서 'request'라는 key로 전송
-    const jsonData = JSON.stringify({ content });
-    formData.append('request', jsonData);
+    // JSON 요청을 Blob으로 만들어 multipart 안에 추가
+    const jsonBlob = new Blob([JSON.stringify({ content })], { type: 'application/json' });
+    formData.append('request', jsonBlob);
 
-    const response = await api.post('/api/photo', formData, {
-      headers: { 'Content-Type': 'multipart/form-data' },
-    });
+    // axios에서 Content-Type 제거 → 브라우저가 boundary 포함 multipart/form-data 자동 설정
+    const response = await api.post('/api/photo', formData);
 
-    // accessToken 갱신 처리
+    // accessToken 갱신
     const newAccessToken = response.headers['accesstoken'];
     if (newAccessToken) setAccessToken(newAccessToken);
 
@@ -87,6 +88,7 @@ const PhotoUpload: React.FC = () => {
     }
   }
 };
+
 
   return (
     <div className="min-h-screen relative overflow-hidden">
