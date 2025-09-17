@@ -23,6 +23,7 @@ const LoginCallback: React.FC = () => {
     kakaoLogin({ code, nickname, phone })
       .then((data) => {
         console.log("로그인 데이터:", data);
+        console.log("data.nickname", data.nickname)
         setAuth(data.accessToken, data.nickname);
         sessionStorage.setItem("accessToken", data.accessToken);
         sessionStorage.removeItem("phone");

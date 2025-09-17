@@ -59,9 +59,10 @@ const MenuModal: React.FC<MenuModalProps> = ({ isOpen, onClose, onLoginClick }) 
     }, 100);
   };
 
-  useEffect(() => {
-    if (isOpen) setShouldRender(true);
-  }, [isOpen]);
+useEffect(() => {
+  if (isOpen) setShouldRender(true);
+}, [isOpen, nickname]);
+
 
   if (!shouldRender) return null;
 

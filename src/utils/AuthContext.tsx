@@ -1,9 +1,9 @@
-import React, { createContext, useContext, useState, useEffect } from "react";
+import React, { createContext, useContext, useState } from "react";
 
 interface AuthContextType {
   accessToken: string | null;
   nickname: string | null;
-  setAuth: (token: string, nickname?: string) => void;
+  setAuth: (token: string, name?: string) => void;
   logout: () => void;
 }
 
@@ -15,16 +15,9 @@ const AuthContext = createContext<AuthContextType>({
 });
 
 export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  const [accessToken, setToken] = useState<string | null>(null);
-  const [nickname, setNickname] = useState<string | null>(null);
-
-  // 새로고침 시 sessionStorage에서 초기값 가져오기 (선택적)
-  useEffect(() => {
-    const storedToken = sessionStorage.getItem("accessToken");
-    const storedNickname = sessionStorage.getItem("nickname");
-    if (storedToken) setToken(storedToken);
-    if (storedNickname) setNickname(storedNickname);
-  }, []);
+  // sessionStorage에서 lazy load
+  const [accessToken, setToken] = useState<string | null>(() => sessionStorage.getItem("accessToken"));
+  const [nickname, setNickname] = useState<string | null>(() => sessionStorage.getItem("nickname") || null);
 
   const setAuth = (token: string, name?: string) => {
     setToken(token);
