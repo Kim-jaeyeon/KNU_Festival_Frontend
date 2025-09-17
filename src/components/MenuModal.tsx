@@ -6,7 +6,6 @@ import { useAuth } from "../utils/AuthContext";
 interface MenuModalProps {
   isOpen: boolean;
   onClose: () => void;
-  buttonRef: React.RefObject<HTMLButtonElement | null>;
   onLoginClick: () => void;
 }
 
@@ -16,7 +15,7 @@ const MenuModal: React.FC<MenuModalProps> = ({ isOpen, onClose, onLoginClick }) 
   const [shouldRender, setShouldRender] = useState(false);
   const [isAnimatingOut, setIsAnimatingOut] = useState(false);
 
-  const { nickname, logout, accessToken } = useAuth(); // AuthContext 기반 nickname 사용
+  const { nickname, logout, accessToken } = useAuth();
 
   const menuItems = [
     { label: "홈", path: "/" },
@@ -40,13 +39,8 @@ const MenuModal: React.FC<MenuModalProps> = ({ isOpen, onClose, onLoginClick }) 
   const handleLogoutClick = async () => {
     if (!accessToken) return;
     try {
-      await axios.post(
-        "/api/auth/logout",
-        {},
-        { headers: { Authorization: `Bearer ${accessToken}` } }
-      );
-
-      logout(); // AuthContext 초기화
+      await axios.post("/api/auth/logout", {}, { headers: { Authorization: `Bearer ${accessToken}` } });
+      logout(); // AuthContext에서 바로 상태 초기화
       handleClose();
       navigate("/");
     } catch (err) {
@@ -77,9 +71,7 @@ const MenuModal: React.FC<MenuModalProps> = ({ isOpen, onClose, onLoginClick }) 
       <div
         ref={modalRef}
         className={`absolute top-12 right-4 w-56 rounded-2xl shadow-lg z-50 border border-gray-200 transform transition-all duration-100 ease-out ${
-          isAnimatingOut
-            ? "opacity-0 scale-95 translate-y-2 pointer-events-none"
-            : "opacity-100 scale-100 translate-y-0 pointer-events-auto"
+          isAnimatingOut ? "opacity-0 scale-95 translate-y-2 pointer-events-none" : "opacity-100 scale-100 translate-y-0 pointer-events-auto"
         }`}
         style={{ backgroundColor: "#FFFAE0", transformOrigin: "top right", backfaceVisibility: "hidden", perspective: "1000px" }}
       >

@@ -44,12 +44,9 @@ function AppContent() {
         <MenuModal
           isOpen={menuOpen}
           onClose={() => setMenuOpen(false)}
-          buttonRef={buttonRef}
-          onLoginClick={() => {
-            setMenuOpen(false); // 메뉴 닫기
-            setLoginOpen(true); // 로그인 열기
-          }}
+          onLoginClick={() => setLoginOpen(true)}
         />
+
 
         {/* ✅ 로그인 모달 */}
         <LoginModal open={loginOpen} onClose={() => setLoginOpen(false)} />
