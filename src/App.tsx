@@ -29,6 +29,7 @@ function AppContent() {
 
   return (
     <div className="flex justify-center">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0"></meta>
       <div
         className="w-full sm:max-w-[402px] shadow-lg relative bg-cover bg-center bg-no-repeat"
         style={{
@@ -78,7 +79,7 @@ function AppContent() {
             <Route path="/artist/:number" element={<Artist />} />
             <Route path="/photo-upload" element={<PhotoUpload />} />
         
-            <Route path="/login/callback" element={<LoginCallback />} />
+            <Route path="/login" element={<LoginCallback />} />
           </Routes>
         </div>
       </div>
