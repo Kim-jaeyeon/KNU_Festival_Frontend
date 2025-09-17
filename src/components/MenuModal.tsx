@@ -1,5 +1,7 @@
 import React, { useRef, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
+import { getAccessToken, removeAccessToken } from "../utils/auth";
 
 interface MenuModalProps {
   isOpen: boolean;
@@ -17,6 +19,7 @@ const MenuModal: React.FC<MenuModalProps> = ({
   const modalRef = useRef<HTMLDivElement>(null);
   const [shouldRender, setShouldRender] = useState(false);
   const [isAnimatingOut, setIsAnimatingOut] = useState(false);
+  const [nickname, setNickname] = useState<string | null>(null);
 
   const menuItems = [
     { label: "홈", path: "/" },
@@ -28,6 +31,11 @@ const MenuModal: React.FC<MenuModalProps> = ({
     { label: "방명록", path: "/guestbook" },
   ];
 
+  useEffect(() => {
+    const storedNickname = sessionStorage.getItem("nickname");
+    setNickname(storedNickname);
+  }, [isOpen]);
+
   const handleMenuItemClick = (path: string) => {
     navigate(path);
     handleClose();
@@ -37,6 +45,27 @@ const MenuModal: React.FC<MenuModalProps> = ({
     handleClose(() => {
       onLoginClick();
     });
+  };
+
+  const handleLogoutClick = async () => {
+    const token = getAccessToken();
+    if (!token) return;
+
+    try {
+      await axios.post(
+        "/api/auth/logout",
+        {},
+        { headers: { Authorization: `Bearer ${token}` } }
+      );
+      removeAccessToken();
+      sessionStorage.removeItem("nickname");
+      setNickname(null);
+      handleClose();
+      navigate("/");
+    } catch (err) {
+      console.error("로그아웃 실패:", err);
+      handleClose();
+    }
   };
 
   const handleClose = (callback?: () => void) => {
@@ -60,28 +89,26 @@ const MenuModal: React.FC<MenuModalProps> = ({
 
   return (
     <>
-      {/* ✅ 배경 (backdrop) */}
       <div
         className="fixed inset-0 bg-black/30 z-40"
         onClick={() => handleClose()}
       />
-
-      {/* 메뉴 모달 */}
       <div
         ref={modalRef}
         className={`absolute top-12 right-4 w-56 rounded-2xl shadow-lg z-50 border border-gray-200 transform transition-all duration-100 ease-out ${
-          isAnimatingOut 
-            ? 'opacity-0 scale-95 translate-y-2 pointer-events-none' 
-            : 'opacity-100 scale-100 translate-y-0 pointer-events-auto'
+          isAnimatingOut
+            ? "opacity-0 scale-95 translate-y-2 pointer-events-none"
+            : "opacity-100 scale-100 translate-y-0 pointer-events-auto"
         }`}
-        style={{ 
-          backgroundColor: '#FFFAE0',
-          animation: isAnimatingOut ? 'modalSlideOut 0.1s ease-in forwards' : 'modalSlideIn 0.2s ease-out forwards',
-          transformOrigin: 'top right',
-          backfaceVisibility: 'hidden',
-          perspective: '1000px'
+        style={{
+          backgroundColor: "#FFFAE0",
+          animation: isAnimatingOut
+            ? "modalSlideOut 0.1s ease-in forwards"
+            : "modalSlideIn 0.2s ease-out forwards",
+          transformOrigin: "top right",
+          backfaceVisibility: "hidden",
+          perspective: "1000px",
         }}
-
       >
         <div className="p-3">
           <div className="space-y-1">
@@ -100,13 +127,24 @@ const MenuModal: React.FC<MenuModalProps> = ({
                 <span className="text-gray-500 text-2xl">👤</span>
               </div>
               <div className="text-center space-y-1">
-                <div className="text-black text-base font-normal">게스트</div>
-                <button
-                  onClick={handleLoginClick}
-                  className="text-black text-sm hover:text-[#285100]"
-                >
-                  로그인
-                </button>
+                <div className="text-black text-base font-normal">
+                  {nickname || "게스트"}
+                </div>
+                {nickname ? (
+                  <button
+                    onClick={handleLogoutClick}
+                    className="text-black text-sm hover:text-[#285100]"
+                  >
+                    로그아웃
+                  </button>
+                ) : (
+                  <button
+                    onClick={handleLoginClick}
+                    className="text-black text-sm hover:text-[#285100]"
+                  >
+                    로그인
+                  </button>
+                )}
               </div>
             </div>
           </div>

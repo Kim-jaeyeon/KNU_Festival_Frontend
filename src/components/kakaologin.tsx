@@ -23,8 +23,10 @@ export const kakaoLogin = async (body: KakaoLoginBody) => {
       res.headers["authorization"] ||
       (res.data?.data?.accessToken ?? null);
 
+      const nickname = res.data?.nickname;
+
     if (res.data.code === 0 && accessToken) {
-      return { accessToken }; // 오직 accessToken만 반환
+      return { accessToken, nickname  }; // 오직 accessToken만 반환
     }
 
     throw new Error(res.data.message || "로그인 실패");
