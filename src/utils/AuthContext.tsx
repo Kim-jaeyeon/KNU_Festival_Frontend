@@ -1,4 +1,5 @@
-import React, { createContext, useContext, useState } from "react";
+// utils/AuthContext.tsx
+import React, { createContext, useContext, useState, useEffect } from "react";
 
 interface AuthContextType {
   accessToken: string | null;
@@ -15,15 +16,22 @@ const AuthContext = createContext<AuthContextType>({
 });
 
 export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  // sessionStorage에서 lazy load
-  const [accessToken, setToken] = useState<string | null>(() => sessionStorage.getItem("accessToken"));
-  const [nickname, setNickname] = useState<string | null>(() => sessionStorage.getItem("nickname") || null);
+  const [accessToken, setToken] = useState<string | null>(null);
+  const [nickname, setNickname] = useState<string | null>(null);
+
+  // 초기 로딩 시 sessionStorage에서 불러오기
+  useEffect(() => {
+    const storedToken = sessionStorage.getItem("accessToken");
+    const storedName = sessionStorage.getItem("nickname");
+    if (storedToken) setToken(storedToken);
+    if (storedName) setNickname(storedName);
+  }, []);
 
   const setAuth = (token: string, name?: string) => {
     setToken(token);
     setNickname(name || null);
     sessionStorage.setItem("accessToken", token);
-    sessionStorage.setItem("nickname", name || "");
+    if (name) sessionStorage.setItem("nickname", name);
   };
 
   const logout = () => {

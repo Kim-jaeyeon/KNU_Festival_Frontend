@@ -3,44 +3,43 @@ import { getAccessToken, setAccessToken, removeAccessToken } from "./auth";
 
 const api = axios.create({
   baseURL: import.meta.env.VITE_API_BASE_URL,
-  withCredentials: true, // 쿠키 전송
+  withCredentials: true,
 });
 
-// 요청 시 Authorization 헤더 자동 첨부
+// 요청 시 토큰 자동 첨부
 api.interceptors.request.use((config) => {
   const token = getAccessToken();
   if (token) config.headers!["Authorization"] = `Bearer ${token}`;
   return config;
 });
 
-// 응답 에러 처리: 401 → refreshToken으로 accessToken 재발급
+// 응답 에러 처리 (401)
 api.interceptors.response.use(
   (res) => res,
   async (err) => {
     const originalRequest = err.config;
-    if (err.response?.status === 401 && !originalRequest._retry) {
+    if (err.response?.status === 401 && !originalRequest._retry && !originalRequest.url.includes("/auth/login")) {
       originalRequest._retry = true;
       try {
-        // 쿠키 기반 refreshToken 재발급
         const response = await axios.post(
           `${import.meta.env.VITE_API_BASE_URL}/api/auth/reissue`,
           {},
           { withCredentials: true }
         );
 
-        const newAccessToken = response.data.data.accessToken;
-        if (newAccessToken) {
-          setAccessToken(newAccessToken); // 세션스토리지 갱신
-          originalRequest.headers["Authorization"] = `Bearer ${newAccessToken}`;
+        const newToken = response.data.data.accessToken;
+        if (newToken) {
+          setAccessToken(newToken);
+          originalRequest.headers["Authorization"] = `Bearer ${newToken}`;
           return axios(originalRequest);
         }
 
-        // 원래 요청에 새 토큰 적용 후 재전송
-        originalRequest.headers["Authorization"] = `Bearer ${newAccessToken}`;
-        return axios(originalRequest);
+        removeAccessToken();
+        window.location.href = "/login";
+        return Promise.reject(err);
       } catch {
         removeAccessToken();
-        window.location.href = "/login"; // 로그인 페이지로
+        window.location.href = "/login";
         return Promise.reject(err);
       }
     }

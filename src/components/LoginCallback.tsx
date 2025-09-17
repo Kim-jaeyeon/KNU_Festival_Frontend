@@ -27,7 +27,7 @@ kakaoLogin({ code, nickname, phone })
     console.log('Saved Token:', sessionStorage.getItem('accessToken')); // 저장 직후 확인
     sessionStorage.removeItem("phone");
     toast.success("로그인 성공!");
-    navigate("/");
+    navigate("/", { replace: true }); 
   })
   .catch((err) => {
     console.error("Login POST 에러:", err);
