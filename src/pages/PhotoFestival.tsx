@@ -217,22 +217,26 @@ const PhotoFestival: React.FC = () => {
 
   const scrollToTop = () => scrollContainerRef.current?.scrollTo({ top: 0, behavior: 'smooth' });
 
-  const handleLike = useCallback(async (id: number) => {
+ const handleLike = useCallback(async (id: number) => {
   try {
-    // optimistic update (UI 먼저 증가)
-    setPosts(prevPosts => prevPosts.map(p => p.id === id ? { ...p, likes: p.likes + 1 } : p));
-
-    // 실제 API 호출
     const res = await api.post(`/api/photo/like/${id}`);
-    if (res.data.code === 0) {
-      console.log(res.data.message); // 좋아요/취소 메시지
-    } else {
-      console.error("좋아요 처리 실패:", res.data.message);
-    }
+
+    setPosts(prevPosts => prevPosts.map(p => {
+      if (p.id !== id) return p;
+
+      // 서버 메시지에 따라 좋아요 수 변경
+      if (res.data.message.includes("정상적으로 처리")) {
+        return { ...p, likes: p.likes + 1 };
+      } else if (res.data.message.includes("취소되었습니다")) {
+        return { ...p, likes: p.likes - 1 };
+      }
+      return p;
+    }));
+
+    console.log(res.data.message);
+
   } catch (err: any) {
     console.error("좋아요 API 에러:", err);
-    // 실패하면 UI 되돌리기
-    setPosts(prevPosts => prevPosts.map(p => p.id === id ? { ...p, likes: p.likes - 1 } : p));
   }
 }, []);
 
