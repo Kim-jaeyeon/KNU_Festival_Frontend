@@ -6,7 +6,6 @@ import { useAuth } from "../utils/AuthContext";
 interface MenuModalProps {
   isOpen: boolean;
   onClose: () => void;
-  buttonRef: React.RefObject<HTMLButtonElement | null>;
   onLoginClick: () => void;
 }
 
@@ -38,26 +37,22 @@ const MenuModal: React.FC<MenuModalProps> = ({ isOpen, onClose, onLoginClick }) 
   };
 
   const handleLogoutClick = async () => {
-  if (!accessToken) return;
-  try {
-    await axios.post(
-      "/api/auth/logout",
-      {},
-      { headers: { Authorization: `Bearer ${accessToken}` } }
-    );
+    if (!accessToken) return;
+    try {
+      await axios.post(
+        "/api/auth/logout",
+        {},
+        { headers: { Authorization: `Bearer ${accessToken}` } }
+      );
 
-    // 세션스토리지와 AuthContext 초기화
-    logout(); // nickname, accessToken 초기화
-    sessionStorage.removeItem("accessToken");
-    sessionStorage.removeItem("nickname");
-
-    handleClose();
-    navigate("/");
-  } catch (err) {
-    console.error("로그아웃 실패:", err);
-    handleClose();
-  }
-};
+      logout(); // context + sessionStorage 초기화
+      handleClose();
+      navigate("/");
+    } catch (err) {
+      console.error("로그아웃 실패:", err);
+      handleClose();
+    }
+  };
 
   const handleClose = (callback?: () => void) => {
     setIsAnimatingOut(true);
@@ -98,24 +93,17 @@ const MenuModal: React.FC<MenuModalProps> = ({ isOpen, onClose, onLoginClick }) 
                 <span className="text-gray-500 text-2xl">👤</span>
               </div>
               <div className="text-center space-y-1">
-              {/* 로그인 상태면 닉네임 표시, 로그아웃 버튼 */}
-              <div className="text-black text-base font-normal">{nickname || "게스트"}</div>
-              {nickname ? (
-                <button
-                  onClick={handleLogoutClick}
-                  className="text-black text-sm hover:text-[#285100]"
-                >
-                  로그아웃
-                </button>
-              ) : (
-                <button
-                  onClick={handleLoginClick}
-                  className="text-black text-sm hover:text-[#285100]"
-                >
-                  로그인
-                </button>
-              )}
-            </div>
+                <div className="text-black text-base font-normal">{nickname || "게스트"}</div>
+                {nickname ? (
+                  <button onClick={handleLogoutClick} className="text-black text-sm hover:text-[#285100]">
+                    로그아웃
+                  </button>
+                ) : (
+                  <button onClick={handleLoginClick} className="text-black text-sm hover:text-[#285100]">
+                    로그인
+                  </button>
+                )}
+              </div>
             </div>
           </div>
         </div>

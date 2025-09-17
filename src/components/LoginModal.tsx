@@ -16,14 +16,8 @@ const LoginModal: React.FC<LoginModalProps> = ({ open, onClose }) => {
   if (!open) return null;
 
   const handleKakaoLogin = () => {
-    if (!nickname) {
-      toast.error("닉네임은 필수 입력값입니다.");
-      return;
-    }
-    if (!phone) {
-      toast.error("전화번호는 필수 입력값입니다.");
-      return;
-    }
+    if (!nickname) return toast.error("닉네임은 필수 입력값입니다.");
+    if (!phone) return toast.error("전화번호는 필수 입력값입니다.");
 
     sessionStorage.setItem("nickname", nickname);
     sessionStorage.setItem("phone", phone);
