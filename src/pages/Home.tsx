@@ -5,111 +5,97 @@ import { RefButton } from "../components/home/RefButton";
 import { useNavigate } from "react-router-dom";
 
 // 타임테이블 데이터 (Timetable.tsx와 동일)
-const scheduleData = {
-  1: [ // 9월 22일 (월) - 1일차
-    { time: "13:00 ~ 17:00", title: "무대 및 부스 설치", description: "축제 준비 작업" },
-    { time: "17:00 ~", title: "무대 및 부스 설치", description: "축제 준비 작업 (계속)" },
-    { time: "18:00 ~ 20:30", title: "전야제", description: "축제 전야 행사" }
-  ],
-  2: [ // 9월 23일 (화) - 2일차
-    { time: "13:00 ~ 17:00", title: "리허설", description: "공연 리허설" },
-    { time: "17:00 ~", title: "재학생존 입장", description: "학생 전용 구역 입장" },
-    { time: "18:00 ~ 18:30", title: "티저 영상 상영, 개막 선언 및 초청 축하 공연", description: "축제 개막식" },
-    { time: "18:30 ~ 20:30", title: "재학생 무대 공연(KNU Artist)", description: "밴드제 7팀" },
-    { time: "21:00 ~ 21:30", title: "초청 인사 소개 및 말씀", description: "초청 인사 인사말" },
-    { time: "21:30 ~ 22:00", title: "초청 아티스트 공연", description: "초청 아티스트 1팀" }
-  ],
-  3: [ // 9월 24일 (수) - 3일차
-    { time: "13:00 ~ 17:00", title: "리허설", description: "공연 리허설" },
-    { time: "17:00 ~", title: "재학생존 입장", description: "학생 전용 구역 입장" },
-    { time: "18:00 ~ 18:30", title: "보이는 라디오", description: "특별 라디오 프로그램" },
-    { time: "18:30 ~ 20:30", title: "재학생 무대 공연(KNU Artist)", description: "댄스제 3팀" },
-    { time: "21:00 ~ 21:30", title: "초청 아티스트 공연", description: "초청 아티스트 3팀" }
-  ],
-  4: [ // 9월 25일 (목) - 4일차
-    { time: "13:00 ~ 17:00", title: "리허설", description: "공연 리허설" },
-    { time: "17:00 ~", title: "재학생존 입장", description: "학생 전용 구역 입장" },
-    { time: "18:00 ~ 19:30", title: "재학생 무대 공연(KNU Artist)", description: "가요제 8팀" },
-    { time: "19:30 ~ 20:30", title: "총장님 프로그램", description: "총장님 특별 프로그램" },
-    { time: "20:30 ~ 21:00", title: "폐막식", description: "축제 폐막식" },
-    { time: "21:00 ~ 21:30", title: "초청 아티스트 공연", description: "초청 아티스트 2팀" },
-    { time: "22:00 ~ 23:00", title: "축제 스케치 사진 상영회", description: "축제 추억 사진 상영" }
-  ]
-};
+// 날짜 기반 스케줄 데이터
+const scheduleData = [
+  {
+    date: "2025-09-22",
+    events: [
+      { time: "13:00 ~ 17:00", title: "무대 및 부스 설치" },
+      { time: "17:00 ~", title: "무대 및 부스 설치 (계속)" },
+      { time: "18:00 ~ 20:30", title: "전야제" },
+    ],
+  },
+  {
+    date: "2025-09-23",
+    events: [
+      { time: "13:00 ~ 17:00", title: "리허설" },
+      { time: "17:00 ~", title: "재학생존 입장" },
+      { time: "18:00 ~ 18:30", title: "개막식" },
+      { time: "18:30 ~ 20:30", title: "재학생 무대 공연(KNU Artist)" },
+      { time: "21:00 ~ 21:30", title: "초청 인사 소개 및 말씀" },
+      { time: "21:30 ~ 22:00", title: "초청 아티스트 공연" },
+    ],
+  },
+  {
+    date: "2025-09-24",
+    events: [
+      { time: "13:00 ~ 17:00", title: "리허설" },
+      { time: "17:00 ~", title: "재학생존 입장" },
+      { time: "18:00 ~ 18:30", title: "보이는 라디오" },
+      { time: "18:30 ~ 20:30", title: "재학생 무대 공연(KNU Artist)" },
+      { time: "21:00 ~ 21:30", title: "초청 아티스트 공연" },
+    ],
+  },
+  {
+    date: "2025-09-25",
+    events: [
+      { time: "13:00 ~ 17:00", title: "리허설" },
+      { time: "17:00 ~", title: "재학생존 입장" },
+      { time: "18:00 ~ 19:30", title: "재학생 무대 공연(KNU Artist)" },
+      { time: "19:30 ~ 20:30", title: "총장님 프로그램" },
+      { time: "20:30 ~ 21:00", title: "폐막식" },
+      { time: "21:00 ~ 21:30", title: "초청 아티스트 공연" },
+      { time: "22:00 ~ 23:00", title: "축제 스케치 사진 상영회" },
+    ],
+  },
+];
 
-// 현재 이벤트를 표시하는 컴포넌트
 const CurrentEventDisplay: React.FC = () => {
   const [currentEvent, setCurrentEvent] = useState<{ time: string; title: string } | null>(null);
 
-  // 현재 날짜에 맞는 일차 계산
-  const getCurrentDay = (): number => {
-    const now = new Date();
-    const currentDate = now.getDate();
-    const currentMonth = now.getMonth() + 1; // 0-based month
-    
-    // 2024년 9월 22일부터 시작
-    if (currentMonth === 9) {
-      if (currentDate >= 22 && currentDate <= 25) {
-        return currentDate - 21; // 22일 = 1일차, 23일 = 2일차, ...
-      }
-    }
-    
-    // 실제 날짜가 아닌 경우 1일차로 설정
-    return 1;
+  // 오늘 날짜에 맞는 이벤트 가져오기
+  const getTodaySchedule = () => {
+    const todayStr = new Date().toISOString().slice(0, 10); // YYYY-MM-DD
+    return scheduleData.find((day) => day.date === todayStr)?.events || [];
   };
 
-  // 현재 시간에 해당하는 이벤트 찾기
-  const getCurrentEvent = (day: number) => {
+  const getCurrentEvent = () => {
     const now = new Date();
     const currentMinutes = now.getHours() * 60 + now.getMinutes();
-    const schedule = scheduleData[day as keyof typeof scheduleData];
-    
-    if (!schedule) return null;
+    const events = getTodaySchedule();
 
-    // 시간 문자열을 분으로 변환
-    const timeToMinutes = (timeStr: string): number => {
+    const timeToMinutes = (timeStr: string) => {
       const [time] = timeStr.split(' ~');
       const [hours, minutes] = time.split(':').map(Number);
       return hours * 60 + minutes;
     };
 
-    // 현재 시간에 해당하는 이벤트 찾기
-    for (const event of schedule) {
+    for (const event of events) {
       if (event.time.includes('~')) {
         if (event.time.endsWith('~')) {
-          // "17:00 ~" 형태 - 18:00까지로 제한
-          const startTime = timeToMinutes(event.time);
-          const endTime = 18 * 60; // 18:00 = 1080분
-          if (currentMinutes >= startTime && currentMinutes <= endTime) {
-            return event;
-          }
-        } else if (event.time.includes(' ~ ')) {
-          // "13:00 ~ 17:00" 형태
-          const [start, end] = event.time.split(' ~ ');
-          const startMinutes = timeToMinutes(start);
-          const endMinutes = timeToMinutes(end);
-          if (currentMinutes >= startMinutes && currentMinutes <= endMinutes) {
-            return event;
-          }
+          const start = timeToMinutes(event.time);
+          const end = 24 * 60; // 하루 끝까지
+          if (currentMinutes >= start && currentMinutes <= end) return event;
+        } else {
+          const [startStr, endStr] = event.time.split(' ~ ');
+          const start = timeToMinutes(startStr);
+          const end = timeToMinutes(endStr);
+          if (currentMinutes >= start && currentMinutes <= end) return event;
         }
       }
     }
 
     return null;
   };
-
   useEffect(() => {
-    const day = getCurrentDay();
-    const event = getCurrentEvent(day);
-    setCurrentEvent(event);
+    const updateEvent = () => {
+      const event = getCurrentEvent();
+      setCurrentEvent(event);
+    };
 
-    // 1분마다 업데이트
-    const timer = setInterval(() => {
-      const newDay = getCurrentDay();
-      const newEvent = getCurrentEvent(newDay);
-      setCurrentEvent(newEvent);
-    }, 60000);
+    updateEvent();
 
+    const timer = setInterval(updateEvent, 60000); // 1분마다 업데이트
     return () => clearInterval(timer);
   }, []);
 
