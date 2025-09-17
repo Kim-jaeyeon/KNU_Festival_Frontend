@@ -18,7 +18,6 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   const [accessToken, setToken] = useState<string | null>(null);
   const [nickname, setNickname] = useState<string | null>(null);
 
-  // 새로고침 후 세션에서 초기값 가져오기
   useEffect(() => {
     const storedToken = sessionStorage.getItem("accessToken");
     const storedNickname = sessionStorage.getItem("nickname");
