@@ -16,6 +16,7 @@ import BoothRecommendResult from "./pages/BoothRecommend/BoothRecommendResult";
 import Artist from "./pages/Artist/Artist";
 import PhotoUpload from "./pages/PhotoUpload";
 import LoginCallback from "./components/LoginCallback";
+import { AuthProvider } from "./utils/AuthContext";
 
 function AppContent() {
   //const location = useLocation();
@@ -85,9 +86,11 @@ function AppContent() {
 
 function App() {
   return (
+    <AuthProvider>
     <Router>
       <AppContent />
     </Router>
+    </AuthProvider>
   );
 }
 
