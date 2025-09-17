@@ -11,25 +11,25 @@ export interface KakaoLoginResponse {
   message: string;
   data?: {
     accessToken: string;
-    refreshToken: string;
+    // refreshToken은 서버에서 HttpOnly Cookie로 설정
   };
 }
 
-// 이 함수가 POST 요청을 담당합니다.
 export const kakaoLogin = async (body: KakaoLoginBody) => {
   try {
     const res = await axios.post<KakaoLoginResponse>(
-      "https://api.knu2025festival.com/api/auth/login", // 로그인 API URL 통일
+      "https://api.knu2025festival.com/api/auth/login",
       body,
-      { headers: { "Content-Type": "application/json" } }
+      {
+        headers: { "Content-Type": "application/json" },
+        withCredentials: true, // 중요: 서버가 HttpOnly Cookie로 refreshToken 설정 가능
+      }
     );
 
-    // 서버 응답 코드가 0이면 성공으로 간주
     if (res.data.code === 0 && res.data.data) {
-      return res.data.data;
+      return res.data.data; // accessToken만 반환
     }
-    
-    // 서버 응답이 실패일 경우 에러 메시지 반환
+
     throw new Error(res.data.message || "로그인 실패");
   } catch (err: any) {
     console.error("kakaoLogin 에러:", err.response?.data || err.message);

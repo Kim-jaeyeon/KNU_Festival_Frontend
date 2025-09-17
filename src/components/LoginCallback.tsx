@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import { useSearchParams, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { kakaoLogin } from "./kakaologin";
+import { setAccessToken } from "../utils/auth";
 
 const LoginCallback: React.FC = () => {
   const [searchParams] = useSearchParams();
@@ -20,10 +21,10 @@ const LoginCallback: React.FC = () => {
 
     kakaoLogin({ code, nickname, phone })
       .then((data) => {
-        localStorage.setItem("accessToken", data.accessToken);
-        localStorage.setItem("refreshToken", data.refreshToken);
+        setAccessToken(data.accessToken); // accessToken만 저장
         sessionStorage.removeItem("nickname");
         sessionStorage.removeItem("phone");
+
         toast.success("로그인 성공!");
         navigate("/"); // 홈 이동
       })

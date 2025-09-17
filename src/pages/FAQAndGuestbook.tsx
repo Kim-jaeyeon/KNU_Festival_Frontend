@@ -3,6 +3,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import axios from "axios";
 import TabNav from "../components/TabNav";
 import FAQItem from "../components/FAQItem";
+import api from "../utils/api";
 
 // FAQ 데이터
 const FAQ_DATA = [
@@ -50,42 +51,28 @@ const FAQAndGuestbook: React.FC = () => {
   }, [location.pathname]);
 
   // 서버에서 방명록 목록 가져오기
-  useEffect(() => {
-    if (activeTab === "guestbook") {
-      const fetchGuestbooks = async () => {
-        try {
-          const accessToken = sessionStorage.getItem("accessToken");
-          if (!accessToken) {
-            alert("로그인이 필요합니다.");
-            navigate("/login");
-            return;
-          }
-          const res = await axios.get("api/guestbooks", {
-            headers: {
-              Authorization: `Bearer ${accessToken}`,
-            },
-          });
+  // 서버에서 방명록 목록 가져오기
+useEffect(() => {
+  if (activeTab !== "guestbook") return;
 
-          if (res.data.code === 0) {
-            setGuestbooks(res.data.data);
-          } else {
-            alert(res.data.message || "방명록 불러오기 실패");
-          }
-        } catch (err: any) {
-          if (err.response) {
-            console.error("서버 응답:", err.response.status, err.response.data);
-            alert(`방명록 불러오기 실패: ${err.response.data.message}`);
-          } else {
-            console.error("네트워크 오류:", err.message);
-            alert("네트워크 오류가 발생했습니다.");
-          }
-        }
-      };
-
-      fetchGuestbooks();
+  const fetchGuestbooks = async () => {
+    try {
+      const res = await api.get("/api/guestbooks"); // accessToken 자동 첨부
+      if (res.data.code === 0) {
+        setGuestbooks(res.data.data);
+      } else {
+        alert(res.data.message || "방명록 불러오기 실패");
+      }
+    } catch (err: any) {
+      console.error("방명록 조회 오류:", err);
+      // 401 처리 등은 api.ts에서 자동
+      alert("방명록 불러오기 실패 또는 로그인 필요");
+      navigate("/login");
     }
-  }, [activeTab]);
+  };
 
+  fetchGuestbooks();
+}, [activeTab, navigate]);
   const handleTabChange = (tab: "faq" | "guestbook") => {
     setActiveTab(tab);
   };
