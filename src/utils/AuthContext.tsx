@@ -1,5 +1,4 @@
-import React, { createContext, useContext, useState } from "react";
-import { getAccessToken, setAccessToken as setToken, removeAccessToken } from "../utils/auth";
+import React, { createContext, useContext, useState, useEffect } from "react";
 
 interface AuthContextType {
   accessToken: string | null;
@@ -16,23 +15,29 @@ const AuthContext = createContext<AuthContextType>({
 });
 
 export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  const [accessToken, setAccessTokenState] = useState<string | null>(getAccessToken());
-  const [nickname, setNickname] = useState<string | null>(sessionStorage.getItem("nickname"));
+  const [accessToken, setToken] = useState<string | null>(null);
+  const [nickname, setNickname] = useState<string | null>(null);
 
-  const setAuth = (token: string, nickname?: string) => {
+  // 새로고침 후 세션에서 초기값 가져오기
+  useEffect(() => {
+    const storedToken = sessionStorage.getItem("accessToken");
+    const storedNickname = sessionStorage.getItem("nickname");
+    if (storedToken) setToken(storedToken);
+    if (storedNickname) setNickname(storedNickname);
+  }, []);
+
+  const setAuth = (token: string, name?: string) => {
     setToken(token);
-    setAccessTokenState(token);
-    if (nickname) {
-      sessionStorage.setItem("nickname", nickname);
-      setNickname(nickname);
-    }
+    setNickname(name || null);
+    sessionStorage.setItem("accessToken", token);
+    if (name) sessionStorage.setItem("nickname", name);
   };
 
   const logout = () => {
-    removeAccessToken();
-    setAccessTokenState(null);
-    sessionStorage.removeItem("nickname");
+    setToken(null);
     setNickname(null);
+    sessionStorage.removeItem("accessToken");
+    sessionStorage.removeItem("nickname");
   };
 
   return (
