@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import api from "../utils/api";
+import { setAccessToken } from '../utils/auth';
 
 const PhotoUpload: React.FC = () => {
   const navigate = useNavigate();
@@ -62,15 +64,44 @@ const PhotoUpload: React.FC = () => {
     }
   };
 
-  const handleSubmit = () => {
-    if (!selectedImage) {
-      alert('사진을 선택해주세요.');
-      return;
+  const handleSubmit = async () => {
+  if (!selectedImage) {
+    alert('사진을 선택해주세요.');
+    return;
+  }
+  if (!content.trim()) {
+    alert('내용을 입력해주세요.');
+    return;
+  }
+
+  try {
+    const formData = new FormData();
+    formData.append('photo', selectedImage);
+    formData.append('content', content);
+
+    const response = await api.post('/api/photo', formData, {
+      headers: { 'Content-Type': 'multipart/form-data' },
+    });
+
+ // accessToken 갱신 처리
+    const newAccessToken = response.headers['accesstoken'];
+    if (newAccessToken) setAccessToken(newAccessToken);
+   
+    if (response.status === 200 && response.data?.code === 0) {
+      alert(response.data.message || '사진 업로드 성공!');
+      navigate('/photo-festival');
+    } else {
+      alert(response.data?.message || '업로드 실패');
     }
- 
-    // 성공 후 포토페스티벌 페이지로 이동
-    navigate('/photo-festival');
-  };
+  } catch (err: any) {
+    console.error('사진 업로드 오류:', err);
+    if (err.response?.status === 401) {
+      alert('유효하지 않은 토큰입니다. 로그인 후 다시 시도해주세요.');
+    } else {
+      alert('사진 업로드 중 오류가 발생했습니다.');
+    }
+  }
+};
 
   return (
     <div className="min-h-screen relative overflow-hidden">
