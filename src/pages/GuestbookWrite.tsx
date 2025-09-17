@@ -1,147 +1,83 @@
-import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
-import api from '../utils/api';
-import { setAccessToken } from '../utils/auth';
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import api from "../utils/api";
+import { setAccessToken } from "../utils/auth";
 
-const PhotoUpload: React.FC = () => {
+const GuestbookWrite: React.FC = () => {
   const navigate = useNavigate();
-  const [selectedImage, setSelectedImage] = useState<File | null>(null);
-  const [imagePreview, setImagePreview] = useState<string | null>(null);
-  const [content, setContent] = useState('');
+  const [content, setContent] = useState("");
 
-  // 순차적 필드 표시 상태
-  const [showImageSelect, setShowImageSelect] = useState(false);
-  const [showContent, setShowContent] = useState(false);
-  const [showSubmit, setShowSubmit] = useState(false);
-
-  // 페이지 로드 시 첫 번째 필드 표시
-  useEffect(() => {
-    const timer = setTimeout(() => setShowImageSelect(true), 300);
-    return () => clearTimeout(timer);
-  }, []);
-
-  // 이미지 선택 완료 시 내용 입력 표시
-  useEffect(() => {
-    if (selectedImage) {
-      const timer = setTimeout(() => setShowContent(true), 200);
-      return () => clearTimeout(timer);
-    }
-  }, [selectedImage]);
-
-  // 내용 입력 완료 시 제출 버튼 표시
-  useEffect(() => {
-    if (content.trim().length > 0) {
-      const timer = setTimeout(() => setShowSubmit(true), 200);
-      return () => clearTimeout(timer);
-    }
-  }, [content]);
-
-  const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const file = event.target.files?.[0];
-    if (file) {
-      setSelectedImage(file);
-      const reader = new FileReader();
-      reader.onload = (e) => setImagePreview(e.target?.result as string);
-      reader.readAsDataURL(file);
-    }
-  };
-
-  const handleSubmit = async () => {
-    if (!selectedImage) {
-      alert('사진을 선택해주세요.');
-      return;
-    }
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
     if (!content.trim()) {
-      alert('내용을 입력해주세요.');
+      alert("내용을 입력해주세요!");
       return;
     }
 
     try {
-      const formData = new FormData();
-      formData.append('photo', selectedImage);
-      formData.append('content', content);
+      const response = await api.post("/api/guestbooks/register", { content });
 
-      const response = await api.post('/api/photo', formData, {
-        headers: { 'Content-Type': 'multipart/form-data' },
-      });
-
-      // 서버에서 새 accessToken 발급 시 갱신
-      const newAccessToken = response.headers['accesstoken'];
+      // 서버에서 새 accessToken 발급 시 LocalStorage 갱신
+      const newAccessToken = response.headers["accesstoken"];
       if (newAccessToken) setAccessToken(newAccessToken);
 
-      if (response.status === 200 && response.data?.code === 0) {
-        alert(response.data.message || '사진 업로드 성공!');
-        navigate('/photo-festival');
+      if (response.status === 201 && response.data?.code === 0) {
+        alert(response.data.message || "방명록이 등록되었습니다.");
+        navigate("/guestbook");
       } else {
-        alert(response.data?.message || '업로드 실패');
+        alert(response.data?.message || "방명록 등록 실패");
       }
     } catch (err: any) {
-      console.error('사진 업로드 오류:', err);
-      if (err.response?.status === 401) {
-        alert('유효하지 않은 토큰입니다. 로그인 후 다시 시도해주세요.');
-      } else {
-        alert('사진 업로드 중 오류가 발생했습니다.');
-      }
+      console.error("방명록 등록 오류:", err);
+      alert("방명록 등록 중 오류가 발생했습니다.");
     }
   };
 
   return (
-    <div className="min-h-screen relative overflow-hidden">
-      <div className="relative z-10 pt-20 px-6 pb-8">
-        {/* 이미지 선택 */}
-        <div className={`mb-6 transition-all duration-700 ease-out ${
-          showImageSelect ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
-        }`}>
-          <label className="block text-green-800 font-semibold mb-2 text-sm">사진 선택</label>
-          <div className="relative">
-            <input
-              type="file"
-              accept="image/*"
-              onChange={handleImageChange}
-              className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
+    <div className="w-full min-h-screen flex justify-center">
+      <main className="pt-[74px] px-4 max-w-[430px] mx-auto">
+        <form onSubmit={handleSubmit} className="flex flex-col gap-6">
+          <div>
+            <label className="block mb-2 text-[#285100] font-pretendard font-bold">
+              내용
+            </label>
+            <textarea
+              placeholder="내용을 입력해주세요"
+              value={content}
+              onChange={(e) => setContent(e.target.value)}
+              className="w-[353px] h-[124px] px-[20px] py-[16px] rounded-[20px]
+                bg-[rgba(255,255,255,0.54)] font-pretendard text-sm resize-none
+                placeholder:text-[#555555]
+                focus:outline-none focus:ring-2 focus:ring-[#285100]"
+              style={{ color: "#000", caretColor: "#000" }}
             />
-            <div className="w-full px-4 py-3 bg-white/80 rounded-2xl text-gray-700 cursor-pointer hover:bg-white/80 focus-within:ring-2 focus-within:ring-green-400 transition-all duration-300 text-sm flex items-center justify-center">
-              {imagePreview ? (
-                <div className="flex items-center space-x-3">
-                  <img src={imagePreview} alt="미리보기" className="w-12 h-12 object-cover rounded-lg" />
-                  <span className="text-green-600">사진이 선택되었습니다</span>
-                </div>
-              ) : (
-                <span className="text-gray-500">사진 선택하기</span>
-              )}
-            </div>
           </div>
-        </div>
 
-        {/* 내용 입력 */}
-        <div className={`mb-8 transition-all duration-700 ease-out ${
-          showContent ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
-        }`}>
-          <label className="block text-green-800 font-semibold mb-2 text-sm">내용</label>
-          <textarea
-            value={content}
-            onChange={(e) => setContent(e.target.value)}
-            placeholder="사진에 대한 설명을 50자 이내로 입력해주세요"
-            rows={4}
-            maxLength={50}
-            className="w-full px-4 py-3 bg-white/60 rounded-2xl text-gray-700 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-green-400 transition-all duration-300 resize-none text-sm"
+          <div
+            style={{
+              width: "339.5px",
+              height: "0px",
+              borderTop: "0.8px solid rgba(255, 255, 255, 0.88)",
+              flexShrink: 0,
+            }}
           />
-        </div>
 
-        {/* 등록 버튼 */}
-        <div className={`transition-all duration-700 ease-out ${
-          showSubmit ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
-        }`}>
           <button
-            onClick={handleSubmit}
-            className="w-full py-3 bg-white/80 rounded-2xl text-green-800 font-semibold hover:bg-green-200 transition-colors text-sm"
+            type="submit"
+            disabled={!content.trim()}
+            className={`w-[353px] h-[65px] rounded-[40px] font-pretendard font-bold 
+              transition-colors duration-200 bg-[rgba(255,255,255,0.8)]
+              ${!content.trim()
+                ? "text-gray-400 border border-gray-400 cursor-not-allowed"
+                : "text-[#285100] border border-[#285100] hover:bg-[#285100] hover:text-white"
+              }`}
           >
-            사진 업로드
+            방명록 등록
           </button>
-        </div>
-      </div>
+        </form>
+      </main>
     </div>
   );
 };
 
-export default PhotoUpload;
+export default GuestbookWrite;
