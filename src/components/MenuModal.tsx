@@ -16,7 +16,9 @@ const MenuModal: React.FC<MenuModalProps> = ({ isOpen, onClose, onLoginClick }) 
   const [shouldRender, setShouldRender] = useState(false);
   const [isAnimatingOut, setIsAnimatingOut] = useState(false);
 
-  const { nickname, logout, accessToken } = useAuth();
+  const { logout, accessToken } = useAuth();
+  const nickname = sessionStorage.getItem("nickname"); // 세션스토리지에서 직접 읽기
+
 
   const menuItems = [
     { label: "홈", path: "/" },
