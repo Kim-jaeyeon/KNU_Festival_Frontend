@@ -16,8 +16,13 @@ export default defineConfig({
     port: 5173,   // ← 포트 고정 (필요시 변경 가능)
   },*/
   server: {
+    port: 3000,
     proxy: {
-      '/api': 'http://34.47.70.96:8080',
+      '/api': {
+        target: 'https://api.knu2025festival.com',
+        changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/api/, '')
+      }
     },
   },
 })

@@ -15,7 +15,7 @@ import GuestbookWrite from "./pages/GuestbookWrite";
 import BoothRecommendResult from "./pages/BoothRecommend/BoothRecommendResult";
 import Artist from "./pages/Artist/Artist";
 import PhotoUpload from "./pages/PhotoUpload";
-import KakaoCallback from "./components/KakaoCallback";
+
 import LoginCallback from "./components/LoginCallback";
 
 function AppContent() {
@@ -77,7 +77,7 @@ function AppContent() {
             <Route path="/guestbook" element={<FAQAndGuestbook />} />
             <Route path="/artist/:number" element={<Artist />} />
             <Route path="/photo-upload" element={<PhotoUpload />} />
-            <Route path="/kakao/callback" element={<KakaoCallback />} />
+        
             <Route path="/login/callback" element={<LoginCallback />} />
           </Routes>
         </div>
