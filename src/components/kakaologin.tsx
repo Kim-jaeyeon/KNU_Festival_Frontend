@@ -1,5 +1,5 @@
 // kakaologin.ts
-import axios from "axios";
+import api from "../utils/api"; // api 인스턴스 사용
 
 export interface KakaoLoginBody {
   code: string;
@@ -14,21 +14,14 @@ export interface KakaoLoginResponse {
 
 export const kakaoLogin = async (body: KakaoLoginBody): Promise<KakaoLoginResponse> => {
   try {
-    const res = await axios.post(
-      "https://api.knu2025festival.com/api/auth/login",
-      body,
-      {
-        headers: { "Content-Type": "application/json" },
-        withCredentials: true,
-      }
-    );
+    const res = await api.post("/api/auth/login", body);
 
     const accessToken =
       res.headers["accesstoken"] ||
       res.headers["authorization"] ||
       res.data?.data?.accessToken;
 
-    const nickname = res.data?.data?.nickname; // 여기에 nickname 가져오기
+    const nickname = res.data?.data?.nickname;
 
     if (res.data.code === 0 && accessToken) {
       return { accessToken, nickname };
