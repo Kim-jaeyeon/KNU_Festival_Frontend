@@ -24,7 +24,7 @@ const phone = sessionStorage.getItem("phone") || undefined;
 kakaoLogin({ code, nickname, phone })
   .then((data) => {
     setAuth(data.accessToken, data.nickname);
-    sessionStorage.setItem("accessToken", data.accessToken);
+    console.log('Saved Token:', sessionStorage.getItem('accessToken')); // 저장 직후 확인
     sessionStorage.removeItem("phone");
     toast.success("로그인 성공!");
     navigate("/");
