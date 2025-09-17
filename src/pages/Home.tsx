@@ -1,5 +1,6 @@
 import React, { useRef, useState, useEffect } from "react";
 import { HomeCard2 } from "../components/home/HomeCard2";
+import { HomeCard3 } from "../components/home/HomeCard3";
 import { RefButton } from "../components/home/RefButton";
 import { useNavigate } from "react-router-dom";
 
@@ -336,134 +337,85 @@ const Home: React.FC = () => {
         </div>
       </div>
 
-      <div
-        ref={scroll2Ref}
-        className="w-full min-h-[932px] pt-[101px] bg-cover bg-center bg-no-repeat bg-[url('/assets/home/BGimg/BackImgT.webp')]"
-      >
-        <img
-          src="/assets/home/commingsoon.webp"
-          alt=""
-          className="mx-auto w-[80%] mt-[120px]"
-        />
 
-        <div className="relative mx-auto w-[100px] h-[100px] mt-[63px]">
-          <img
-            src="/assets/home/circle1.webp"
-            alt=""
-            className="w-full h-full"
-          />
-          <div className="absolute inset-0 flex flex-col items-center justify-center">
-            <div className="text-[#2F86E9] font-pretendard text-[17px] font-bold leading-[22px]">
-              DAY 1
-            </div>
-            <div className="text-[#002A59] text-center font-pretendard text-[17px] font-bold leading-[22px]">
-              9.23
-            </div>
-          </div>
-        </div>
-
-        <div className="relative mx-auto w-[100px] h-[100px] mt-[63px]">
-          <img
-            src="/assets/home/circle2.webp"
-            alt=""
-            className="w-full h-full"
-          />
-          <div className="absolute inset-0 flex flex-col items-center justify-center">
-            <div className="text-[#2F86E9] font-pretendard text-[17px] font-bold leading-[22px]">
-              DAY 2
-            </div>
-            <div className="text-[#002A59] text-center font-pretendard text-[17px] font-bold leading-[22px]">
-              9.24
-            </div>
-          </div>
-        </div>
-
-        <div className="relative mx-auto w-[100px] h-[100px] mt-[63px]">
-          <img
-            src="/assets/home/circle3.webp"
-            alt=""
-            className="w-full h-full"
-          />
-          <div className="absolute inset-0 flex flex-col items-center justify-center">
-            <div className="text-[#2F86E9] font-pretendard text-[17px] font-bold leading-[22px]">
-              DAY 3
-            </div>
-            <div className="text-[#002A59] text-center font-pretendard text-[17px] font-bold leading-[22px]">
-              9.235
-            </div>
-          </div>
-        </div>
-      </div>
 
       {/* scroll2 시작 */}
-      {/*
+      
       <div
         ref={scroll2Ref}
         className="w-full min-h-[932px] pt-[101px] bg-cover bg-center bg-no-repeat bg-[url('/assets/home/BGimg/BackImg2.webp')] bg-cover bg-center"
       >
-        <HomeCard3
-          logoSrc="/assets/home/lineup/extext.svg"
-          mainImgSrc="/assets/home/lineup/eximg.svg"
+        <div className="relative -top-8">
+          <HomeCard3
+          logoSrc="/assets/home/lineup/name1.webp"
+          mainImgSrc="/assets/home/lineup/idol1.webp"
           dayText="DAY1"
           dateText="9.23"
-          nameText="Kii Kii"
-          imagePosition="left"
+          nameText="JEON SOMI"
+          imagePosition="right"
           number="1"
         />
+        </div>
+        
 
         <HomeCard3
-          logoSrc="/assets/home/lineup/extext.svg"
-          mainImgSrc="/assets/home/lineup/eximg.svg"
-          dayText="DAY1"
-          dateText="9.23"
-          nameText="Kii Kii"
-          imagePosition="right"
+          logoSrc="/assets/home/lineup/name2.webp"
+          mainImgSrc="/assets/home/lineup/idol2.webp"
+          dayText="DAY2"
+          dateText="9.24"
+          nameText="KISS OF LIFE"
+          imagePosition="left"
           number="2"
         />
 
+        <div className="relative -top-6">
         <HomeCard3
-          logoSrc="/assets/home/lineup/extext.svg"
-          mainImgSrc="/assets/home/lineup/eximg.svg"
-          dayText="DAY1"
-          dateText="9.23"
-          nameText="Kii Kii"
-          imagePosition="left"
+          logoSrc="/assets/home/lineup/name3.webp"
+          mainImgSrc="/assets/home/lineup/idol3.webp"
+          dayText="DAY2"
+          dateText="9.24"
+          nameText="PARK HYEWON"
+          imagePosition="right"
           number="3"
         />
+        </div>
       </div>
-
+      
       <div className="w-full min-h-[932px] pt-[50px] bg-cover bg-center bg-no-repeat bg-[url('/assets/home/BGimg/BackImg3.webp')] bg-cover bg-center">
+        
+        <div className="relative -top-20">
         <HomeCard3
-          logoSrc="/assets/home/lineup/extext.svg"
-          mainImgSrc="/assets/home/lineup/eximg.svg"
-          dayText="DAY1"
-          dateText="9.23"
-          nameText="Kii Kii"
-          imagePosition="right"
+          logoSrc="/assets/home/lineup/name4.webp"
+          mainImgSrc="/assets/home/lineup/idol4.webp"
+          dayText="DAY2"
+          dateText="9.24"
+          nameText="ASH ISLAND"
+          imagePosition="left"
           number="4"
         />
+        </div>
 
         <HomeCard3
-          logoSrc="/assets/home/lineup/extext.svg"
-          mainImgSrc="/assets/home/lineup/eximg.svg"
-          dayText="DAY1"
-          dateText="9.23"
-          nameText="Kii Kii"
-          imagePosition="left"
+          logoSrc="/assets/home/lineup/name5.webp"
+          mainImgSrc="/assets/home/lineup/idol5.webp"
+          dayText="DAY3"
+          dateText="9.25"
+          nameText="KIIRAS"
+          imagePosition="right"
           number="5"
         />
 
         <HomeCard3
-          logoSrc="/assets/home/lineup/extext.svg"
-          mainImgSrc="/assets/home/lineup/eximg.svg"
-          dayText="DAY1"
-          dateText="9.23"
-          nameText="Kii Kii"
-          imagePosition="right"
+          logoSrc="/assets/home/lineup/name6.webp"
+          mainImgSrc="/assets/home/lineup/idol6.webp"
+          dayText="DAY3"
+          dateText="9.25"
+          nameText="CAR THE GARDEN"
+          imagePosition="left"
           number="6"
         />
 
-        <div className="text-center">
+        <div className="text-center relative z-3">
           <RefButton
             text="축제 지도 보기"
             backgroundColor="#A0C09A"
@@ -482,7 +434,7 @@ const Home: React.FC = () => {
           />
         </div>
       </div>
-           */}
+           
 
       {/* scroll3 시작 */}
       <div
