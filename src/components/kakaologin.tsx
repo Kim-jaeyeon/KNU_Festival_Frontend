@@ -22,6 +22,7 @@ export const kakaoLogin = async (body: KakaoLoginBody): Promise<KakaoLoginRespon
       res.data?.data?.accessToken;
 
     const nickname = res.data?.data?.nickname;
+    
 
     if (res.data.code === 0 && accessToken) {
       return { accessToken, nickname };
