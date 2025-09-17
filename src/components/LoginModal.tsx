@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { toast } from "react-toastify";
 
-const KAKAO_REST_API_KEY = "bb6441364cea7deb9943a6234e8abd02"; // 실제 키로 교체
-const REDIRECT_URI = "http://localhost:3000/login/callback";
+const KAKAO_REST_API_KEY = `${process.env.REACT_APP_KAKAO_REST_API_KEY!}`; // 실제 키로 교체
+const REDIRECT_URI = `${process.env.REACT_APP_API_BASE_URL!}/login/callback`;
 
 interface LoginModalProps {
   open: boolean;

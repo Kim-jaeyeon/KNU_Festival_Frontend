@@ -25,7 +25,7 @@ const GuestbookWrite: React.FC = () => {
 
       // 서버 API 호출
       const response = await axios.post(
-        "http://34.47.70.96:8080/api/guestbook",
+        `${process.env.REACT_APP_API_BASE_URL!}/api/guestbook`, 
         {
           content,
         },

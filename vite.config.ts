@@ -11,18 +11,7 @@ export default defineConfig({
     tailwindcss(),
     svgr(),
   ],
-  /*server: {
-    host: true,   // ← 외부 기기(iPad) 접속 허용
-    port: 5173,   // ← 포트 고정 (필요시 변경 가능)
-  },*/
   server: {
-    port: 3000,
-    proxy: {
-      '/api': {
-        target: 'https://api.knu2025festival.com',
-        changeOrigin: true,
-        rewrite: (path) => path.replace(/^\/api/, '')
-      }
-    },
+    host: true,   
   },
 })
