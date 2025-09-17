@@ -29,7 +29,11 @@ api.interceptors.response.use(
         );
 
         const newAccessToken = response.data.data.accessToken;
-        if (newAccessToken) setAccessToken(newAccessToken);
+        if (newAccessToken) {
+          setAccessToken(newAccessToken); // 세션스토리지 갱신
+          originalRequest.headers["Authorization"] = `Bearer ${newAccessToken}`;
+          return axios(originalRequest);
+        }
 
         // 원래 요청에 새 토큰 적용 후 재전송
         originalRequest.headers["Authorization"] = `Bearer ${newAccessToken}`;
