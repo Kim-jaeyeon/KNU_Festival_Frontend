@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef, useCallback, memo } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Masonry from 'react-masonry-css';
+import api from "../utils/api";
 
 interface PhotoPost {
   id: number;
@@ -119,6 +120,11 @@ const PhotoCard = memo<PhotoCardProps>(({
   );
 });
 
+const fetchPhotos = async () => {
+  const res = await api.get("/api/photo"); // interceptors가 자동으로 토큰 붙여줌
+  return res.data;
+};
+
 const PhotoFestival: React.FC = () => {
   const navigate = useNavigate();
   const [visibleCards, setVisibleCards] = useState<Set<number>>(new Set());
@@ -130,19 +136,11 @@ const PhotoFestival: React.FC = () => {
   const [posts, setPosts] = useState<PhotoPost[]>([]);
 
   // API 호출
-  useEffect(() => {
-    const fetchPhotos = async () => {
+    useEffect(() => {
+    const loadPhotos = async () => {
       try {
-        const res = await fetch('/api/photo', {
-          headers: {
-            Authorization: `Bearer eyJhbGciOiJIUzI1NiJ9.eyJ1c2VySWQiOjIsInJvbGUiOiJVU0VSIiwiaWF0IjoxNzU4MDQyMzYzLCJleHAiOjE3NTgwNDk1NjN9.JV1y7NfdkUfKrSnzOdxQgYzRSW3VySc1dxw1izHfYac`,
-          },
-        });
-        const data = await res.json();
-        // 여기서 URL 확인
-        data.data.forEach((item: any) => {
-          console.log('이미지 URL:', item.imgUrl);
-        });
+        const data = await fetchPhotos(); // axios로 데이터 받음
+
         if (data.code === 0) {
           const mappedPosts: PhotoPost[] = data.data.map((item: any) => ({
             id: item.id,
@@ -152,20 +150,18 @@ const PhotoFestival: React.FC = () => {
             image: item.imgUrl,
             caption: item.content,
             height: 200 + Math.floor(Math.random() * 200),
-            
           }));
           setPosts(mappedPosts);
         } else {
-          console.error('사진 조회 실패:', data.message);
+          console.error("사진 조회 실패:", data.message);
         }
       } catch (error) {
-        console.error('API 호출 에러:', error);
+        console.error("사진 API 호출 에러:", error);
       }
     };
 
-    fetchPhotos();
+    loadPhotos();
   }, []);
-  
 
   // 페이지 로드 애니메이션
   useEffect(() => {

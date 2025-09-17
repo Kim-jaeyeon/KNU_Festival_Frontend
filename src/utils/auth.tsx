@@ -1,12 +1,3 @@
-// accessToken 관리
-export const setAccessToken = (token: string) => {
-  localStorage.setItem("accessToken", token);
-};
-
-export const getAccessToken = () => {
-  return localStorage.getItem("accessToken");
-};
-
-export const removeAccessToken = () => {
-  localStorage.removeItem("accessToken");
-};
+export const getAccessToken = () => sessionStorage.getItem("accessToken");
+export const setAccessToken = (token: string) => sessionStorage.setItem("accessToken", token);
+export const removeAccessToken = () => sessionStorage.removeItem("accessToken");

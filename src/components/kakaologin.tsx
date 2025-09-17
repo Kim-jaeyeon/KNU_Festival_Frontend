@@ -6,28 +6,25 @@ export interface KakaoLoginBody {
   phone?: string;
 }
 
-export interface KakaoLoginResponse {
-  code: number;
-  message: string;
-  data?: {
-    accessToken: string;
-    // refreshToken은 서버에서 HttpOnly Cookie로 설정
-  };
-}
-
 export const kakaoLogin = async (body: KakaoLoginBody) => {
   try {
-    const res = await axios.post<KakaoLoginResponse>(
+    const res = await axios.post(
       "https://api.knu2025festival.com/api/auth/login",
       body,
       {
         headers: { "Content-Type": "application/json" },
-        withCredentials: true, // 중요: 서버가 HttpOnly Cookie로 refreshToken 설정 가능
+        withCredentials: true, // 서버가 HttpOnly Cookie로 refreshToken 설정 가능
       }
     );
 
-    if (res.data.code === 0 && res.data.data) {
-      return res.data.data; // accessToken만 반환
+    // 헤더에서 accessToken 꺼내기
+    const accessToken =
+      res.headers["accesstoken"] ||
+      res.headers["authorization"] ||
+      (res.data?.data?.accessToken ?? null);
+
+    if (res.data.code === 0 && accessToken) {
+      return { accessToken }; // 오직 accessToken만 반환
     }
 
     throw new Error(res.data.message || "로그인 실패");
