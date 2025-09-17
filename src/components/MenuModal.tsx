@@ -36,18 +36,27 @@ const MenuModal: React.FC<MenuModalProps> = ({ isOpen, onClose, onLoginClick }) 
     handleClose(() => onLoginClick());
   };
 
-  const handleLogoutClick = async () => {
-    if (!accessToken) return;
-    try {
-      await axios.post("/api/auth/logout", {}, { headers: { Authorization: `Bearer ${accessToken}` } });
-      logout(); // AuthContext에서 바로 상태 초기화
-      handleClose();
-      navigate("/");
-    } catch (err) {
-      console.error("로그아웃 실패:", err);
-      handleClose();
+const handleLogoutClick = async () => {
+  console.log("로그아웃 token:", accessToken);
+
+  try {
+    if (accessToken) {
+      const res = await axios.post(
+        "/api/auth/logout",
+        {},
+        { headers: { Authorization: `Bearer ${accessToken}` } }
+      );
+      console.log("로그아웃 API 응답:", res.data);
     }
-  };
+  } catch (err: any) {
+    console.error("로그아웃 실패:", err.response?.data || err.message);
+  } finally {
+    logout();      // 항상 context + sessionStorage 초기화
+    handleClose(); // 모달 닫기
+    navigate("/"); // 홈 이동
+  }
+};
+
 
   const handleClose = (callback?: () => void) => {
     setIsAnimatingOut(true);
