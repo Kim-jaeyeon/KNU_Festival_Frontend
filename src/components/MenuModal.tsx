@@ -1,7 +1,7 @@
 import React, { useRef, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import { getAccessToken, removeAccessToken } from "../utils/auth";
+import { useAuth } from "../utils/AuthContext";
 
 interface MenuModalProps {
   isOpen: boolean;
@@ -10,16 +10,13 @@ interface MenuModalProps {
   onLoginClick: () => void;
 }
 
-const MenuModal: React.FC<MenuModalProps> = ({
-  isOpen,
-  onClose,
-  onLoginClick,
-}) => {
+const MenuModal: React.FC<MenuModalProps> = ({ isOpen, onClose, onLoginClick }) => {
   const navigate = useNavigate();
   const modalRef = useRef<HTMLDivElement>(null);
   const [shouldRender, setShouldRender] = useState(false);
   const [isAnimatingOut, setIsAnimatingOut] = useState(false);
-  const [nickname, setNickname] = useState<string | null>(null);
+
+  const { nickname, logout, accessToken } = useAuth();
 
   const menuItems = [
     { label: "홈", path: "/" },
@@ -31,35 +28,20 @@ const MenuModal: React.FC<MenuModalProps> = ({
     { label: "방명록", path: "/guestbook" },
   ];
 
-  useEffect(() => {
-    const storedNickname = sessionStorage.getItem("nickname");
-    setNickname(storedNickname);
-  }, [isOpen]);
-
   const handleMenuItemClick = (path: string) => {
     navigate(path);
     handleClose();
   };
 
   const handleLoginClick = () => {
-    handleClose(() => {
-      onLoginClick();
-    });
+    handleClose(() => onLoginClick());
   };
 
   const handleLogoutClick = async () => {
-    const token = getAccessToken();
-    if (!token) return;
-
+    if (!accessToken) return;
     try {
-      await axios.post(
-        "/api/auth/logout",
-        {},
-        { headers: { Authorization: `Bearer ${token}` } }
-      );
-      removeAccessToken();
-      sessionStorage.removeItem("nickname");
-      setNickname(null);
+      await axios.post("/api/auth/logout", {}, { headers: { Authorization: `Bearer ${accessToken}` } });
+      logout();
       handleClose();
       navigate("/");
     } catch (err) {
@@ -79,45 +61,25 @@ const MenuModal: React.FC<MenuModalProps> = ({
   };
 
   useEffect(() => {
-    if (isOpen) {
-      setShouldRender(true);
-      setIsAnimatingOut(false);
-    }
+    if (isOpen) setShouldRender(true);
   }, [isOpen]);
 
   if (!shouldRender) return null;
 
   return (
     <>
-      <div
-        className="fixed inset-0 bg-black/30 z-40"
-        onClick={() => handleClose()}
-      />
+      <div className="fixed inset-0 bg-black/30 z-40" onClick={() => handleClose()} />
       <div
         ref={modalRef}
         className={`absolute top-12 right-4 w-56 rounded-2xl shadow-lg z-50 border border-gray-200 transform transition-all duration-100 ease-out ${
-          isAnimatingOut
-            ? "opacity-0 scale-95 translate-y-2 pointer-events-none"
-            : "opacity-100 scale-100 translate-y-0 pointer-events-auto"
+          isAnimatingOut ? "opacity-0 scale-95 translate-y-2 pointer-events-none" : "opacity-100 scale-100 translate-y-0 pointer-events-auto"
         }`}
-        style={{
-          backgroundColor: "#FFFAE0",
-          animation: isAnimatingOut
-            ? "modalSlideOut 0.1s ease-in forwards"
-            : "modalSlideIn 0.2s ease-out forwards",
-          transformOrigin: "top right",
-          backfaceVisibility: "hidden",
-          perspective: "1000px",
-        }}
+        style={{ backgroundColor: "#FFFAE0", transformOrigin: "top right", backfaceVisibility: "hidden", perspective: "1000px" }}
       >
         <div className="p-3">
           <div className="space-y-1">
             {menuItems.map((item, index) => (
-              <button
-                key={index}
-                onClick={() => handleMenuItemClick(item.path)}
-                className="w-full text-center text-black text-base font-normal py-3 rounded-lg hover:bg-[#9CAA2CB8]"
-              >
+              <button key={index} onClick={() => handleMenuItemClick(item.path)} className="w-full text-center text-black text-base font-normal py-3 rounded-lg hover:bg-[#9CAA2CB8]">
                 {item.label}
               </button>
             ))}
@@ -127,23 +89,11 @@ const MenuModal: React.FC<MenuModalProps> = ({
                 <span className="text-gray-500 text-2xl">👤</span>
               </div>
               <div className="text-center space-y-1">
-                <div className="text-black text-base font-normal">
-                  {nickname || "게스트"}
-                </div>
+                <div className="text-black text-base font-normal">{nickname || "게스트"}</div>
                 {nickname ? (
-                  <button
-                    onClick={handleLogoutClick}
-                    className="text-black text-sm hover:text-[#285100]"
-                  >
-                    로그아웃
-                  </button>
+                  <button onClick={handleLogoutClick} className="text-black text-sm hover:text-[#285100]">로그아웃</button>
                 ) : (
-                  <button
-                    onClick={handleLoginClick}
-                    className="text-black text-sm hover:text-[#285100]"
-                  >
-                    로그인
-                  </button>
+                  <button onClick={handleLoginClick} className="text-black text-sm hover:text-[#285100]">로그인</button>
                 )}
               </div>
             </div>

@@ -2,11 +2,12 @@ import React, { useEffect } from "react";
 import { useSearchParams, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { kakaoLogin } from "./kakaologin";
-import { setAccessToken } from "../utils/auth";
+import { useAuth } from "../utils/AuthContext";
 
 const LoginCallback: React.FC = () => {
   const [searchParams] = useSearchParams();
   const navigate = useNavigate();
+  const { setAuth } = useAuth();
 
   useEffect(() => {
     const code = searchParams.get("code");
@@ -21,23 +22,17 @@ const LoginCallback: React.FC = () => {
 
     kakaoLogin({ code, nickname, phone })
       .then((data) => {
-        setAccessToken(data.accessToken); // accessToken만 저장
-
-        // nickname 저장
-        if (data.nickname) sessionStorage.setItem("nickname", data.nickname);
-        
-        sessionStorage.removeItem("nickname");
+        setAuth(data.accessToken, data.nickname);
         sessionStorage.removeItem("phone");
-
         toast.success("로그인 성공!");
-        navigate("/"); // 홈 이동
+        navigate("/");
       })
       .catch((err) => {
         console.error("Login POST 에러:", err);
         toast.error("로그인에 실패했습니다.");
         navigate("/");
       });
-  }, [searchParams, navigate]);
+  }, [searchParams, navigate, setAuth]);
 
   return <div className="flex justify-center items-center h-screen">로그인 처리 중...</div>;
 };

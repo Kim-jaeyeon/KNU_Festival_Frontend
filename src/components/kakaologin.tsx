@@ -1,3 +1,4 @@
+// kakaologin.ts
 import axios from "axios";
 
 export interface KakaoLoginBody {
@@ -6,27 +7,31 @@ export interface KakaoLoginBody {
   phone?: string;
 }
 
-export const kakaoLogin = async (body: KakaoLoginBody) => {
+export interface KakaoLoginResponse {
+  accessToken: string;
+  nickname?: string;
+}
+
+export const kakaoLogin = async (body: KakaoLoginBody): Promise<KakaoLoginResponse> => {
   try {
     const res = await axios.post(
       "https://api.knu2025festival.com/api/auth/login",
       body,
       {
         headers: { "Content-Type": "application/json" },
-        withCredentials: true, // 서버가 HttpOnly Cookie로 refreshToken 설정 가능
+        withCredentials: true,
       }
     );
 
-    // 헤더에서 accessToken 꺼내기
     const accessToken =
       res.headers["accesstoken"] ||
       res.headers["authorization"] ||
-      (res.data?.data?.accessToken ?? null);
+      res.data?.data?.accessToken;
 
-      const nickname = res.data?.nickname;
+    const nickname = res.data?.data?.nickname; // 여기에 nickname 가져오기
 
     if (res.data.code === 0 && accessToken) {
-      return { accessToken, nickname  }; // 오직 accessToken만 반환
+      return { accessToken, nickname };
     }
 
     throw new Error(res.data.message || "로그인 실패");
