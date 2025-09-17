@@ -59,7 +59,10 @@ const PhotoUpload: React.FC = () => {
   try {
     const formData = new FormData();
     formData.append('file', selectedImage);
-    formData.append('content', content);
+
+    // content를 JSON 문자열로 감싸서 'request'라는 key로 전송
+    const jsonData = JSON.stringify({ content });
+    formData.append('request', jsonData);
 
     const response = await api.post('/api/photo', formData, {
       headers: { 'Content-Type': 'multipart/form-data' },
@@ -80,10 +83,6 @@ const PhotoUpload: React.FC = () => {
     if (err.response?.status === 401) {
       alert('유효하지 않은 토큰입니다. 로그인 후 다시 시도해주세요.');
     } else {
-      console.error('사진 업로드 오류 전체:', err);
-      console.error('response:', err.response);
-      console.error('status:', err.response?.status);
-      console.error('data:', err.response?.data);
       alert('사진 업로드 중 오류가 발생했습니다.');
     }
   }
