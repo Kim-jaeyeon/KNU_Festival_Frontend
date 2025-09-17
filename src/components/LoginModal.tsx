@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { toast } from "react-toastify";
 
 const KAKAO_REST_API_KEY = import.meta.env.VITE_KAKAO_REST_API_KEY as string;
 const REDIRECT_URI = import.meta.env.VITE_REDIRECT_URI as string;
