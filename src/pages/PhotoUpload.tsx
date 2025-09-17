@@ -3,24 +3,22 @@ import { useNavigate } from 'react-router-dom';
 
 const PhotoUpload: React.FC = () => {
   const navigate = useNavigate();
-  const [nickname, setNickname] = useState('');
+  const [nickname] = useState('');
   const [selectedImage, setSelectedImage] = useState<File | null>(null);
   const [imagePreview, setImagePreview] = useState<string | null>(null);
   const [content, setContent] = useState('');
   
   // 순차적 필드 표시 상태
-  const [showNickname, setShowNickname] = useState(false);
   const [showImageSelect, setShowImageSelect] = useState(false);
   const [showContent, setShowContent] = useState(false);
   const [showSubmit, setShowSubmit] = useState(false);
 
   // 페이지 로드 시 첫 번째 필드 표시
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setShowNickname(true);
-    }, 300);
+    useEffect(() => {
+    const timer = setTimeout(() => setShowImageSelect(true), 300);
     return () => clearTimeout(timer);
   }, []);
+
 
   // 닉네임 입력 완료 시 다음 필드 표시
   useEffect(() => {
