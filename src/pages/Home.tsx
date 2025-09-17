@@ -87,6 +87,8 @@ const CurrentEventDisplay: React.FC = () => {
 
     return null;
   };
+
+  
   useEffect(() => {
     const updateEvent = () => {
       const event = getCurrentEvent();
@@ -120,6 +122,15 @@ const CurrentEventDisplay: React.FC = () => {
 };
 
 const Home: React.FC = () => {
+  const getTodayString = (): string => {
+  const now = new Date();
+  const month = now.getMonth() + 1; // 0-based
+  const date = now.getDate();
+  // "MM.DD" 형식으로 반환
+  return `${month.toString().padStart(2, "0")}.${date
+    .toString()
+    .padStart(2, "0")}`;
+};
   //네비게이터
   const navigate = useNavigate();
 
@@ -262,7 +273,7 @@ const Home: React.FC = () => {
             </p>
 
             <p className="absolute top-[27px] right-[32px] text-white font-[Hahmlet] text-[19.698px] font-semibold leading-normal">
-              09.21
+              {getTodayString()}
             </p>
 
             <CurrentEventDisplay />
