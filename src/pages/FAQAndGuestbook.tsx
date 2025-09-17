@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import axios from "axios";
 import TabNav from "../components/TabNav";
 import FAQItem from "../components/FAQItem";
 import api from "../utils/api";
