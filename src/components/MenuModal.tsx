@@ -16,9 +16,7 @@ const MenuModal: React.FC<MenuModalProps> = ({ isOpen, onClose, onLoginClick }) 
   const [shouldRender, setShouldRender] = useState(false);
   const [isAnimatingOut, setIsAnimatingOut] = useState(false);
 
-  const { logout, accessToken } = useAuth();
-  const nickname = sessionStorage.getItem("nickname"); // 세션스토리지에서 직접 읽기
-
+  const { nickname, logout, accessToken } = useAuth(); // AuthContext 기반 nickname 사용
 
   const menuItems = [
     { label: "홈", path: "/" },
@@ -40,26 +38,22 @@ const MenuModal: React.FC<MenuModalProps> = ({ isOpen, onClose, onLoginClick }) 
   };
 
   const handleLogoutClick = async () => {
-  if (!accessToken) return;
-  try {
-    await axios.post(
-      "/api/auth/logout",
-      {},
-      { headers: { Authorization: `Bearer ${accessToken}` } }
-    );
+    if (!accessToken) return;
+    try {
+      await axios.post(
+        "/api/auth/logout",
+        {},
+        { headers: { Authorization: `Bearer ${accessToken}` } }
+      );
 
-    // 세션스토리지와 AuthContext 초기화
-    logout(); // nickname, accessToken 초기화
-    sessionStorage.removeItem("accessToken");
-    sessionStorage.removeItem("nickname");
-
-    handleClose();
-    navigate("/");
-  } catch (err) {
-    console.error("로그아웃 실패:", err);
-    handleClose();
-  }
-};
+      logout(); // AuthContext 초기화
+      handleClose();
+      navigate("/");
+    } catch (err) {
+      console.error("로그아웃 실패:", err);
+      handleClose();
+    }
+  };
 
   const handleClose = (callback?: () => void) => {
     setIsAnimatingOut(true);
@@ -83,7 +77,9 @@ const MenuModal: React.FC<MenuModalProps> = ({ isOpen, onClose, onLoginClick }) 
       <div
         ref={modalRef}
         className={`absolute top-12 right-4 w-56 rounded-2xl shadow-lg z-50 border border-gray-200 transform transition-all duration-100 ease-out ${
-          isAnimatingOut ? "opacity-0 scale-95 translate-y-2 pointer-events-none" : "opacity-100 scale-100 translate-y-0 pointer-events-auto"
+          isAnimatingOut
+            ? "opacity-0 scale-95 translate-y-2 pointer-events-none"
+            : "opacity-100 scale-100 translate-y-0 pointer-events-auto"
         }`}
         style={{ backgroundColor: "#FFFAE0", transformOrigin: "top right", backfaceVisibility: "hidden", perspective: "1000px" }}
       >
@@ -100,24 +96,17 @@ const MenuModal: React.FC<MenuModalProps> = ({ isOpen, onClose, onLoginClick }) 
                 <span className="text-gray-500 text-2xl">👤</span>
               </div>
               <div className="text-center space-y-1">
-              {/* 로그인 상태면 닉네임 표시, 로그아웃 버튼 */}
-              <div className="text-black text-base font-normal">{nickname || "게스트"}</div>
-              {nickname ? (
-                <button
-                  onClick={handleLogoutClick}
-                  className="text-black text-sm hover:text-[#285100]"
-                >
-                  로그아웃
-                </button>
-              ) : (
-                <button
-                  onClick={handleLoginClick}
-                  className="text-black text-sm hover:text-[#285100]"
-                >
-                  로그인
-                </button>
-              )}
-            </div>
+                <div className="text-black text-base font-normal">{nickname || "게스트"}</div>
+                {nickname ? (
+                  <button onClick={handleLogoutClick} className="text-black text-sm hover:text-[#285100]">
+                    로그아웃
+                  </button>
+                ) : (
+                  <button onClick={handleLoginClick} className="text-black text-sm hover:text-[#285100]">
+                    로그인
+                  </button>
+                )}
+              </div>
             </div>
           </div>
         </div>
