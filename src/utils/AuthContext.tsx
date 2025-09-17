@@ -30,7 +30,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     setToken(token);
     setNickname(name || null);
     sessionStorage.setItem("accessToken", token);
-    if (name) sessionStorage.setItem("nickname", name);
+    sessionStorage.setItem("nickname", name || "");
   };
 
   const logout = () => {
