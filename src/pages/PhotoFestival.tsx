@@ -221,10 +221,29 @@ const PhotoFestival: React.FC = () => {
     setPosts(prevPosts => prevPosts.map(p => p.id === id ? { ...p, likes: p.likes + 1 } : p));
   }, []);
 
-  const handleDelete = useCallback((id: number) => {
-    setPosts(prevPosts => prevPosts.filter(p => p.id !== id));
-    setShowDeleteMenu(null);
-  }, []);
+  const handleDelete = useCallback(async (id: number) => {
+  try {
+    const res = await api.delete(`/api/photo/${id}`);
+    if (res.data?.code === 0) {
+      // 삭제 성공 시 로컬 상태에서도 제거
+      setPosts(prevPosts => prevPosts.filter(p => p.id !== id));
+      setShowDeleteMenu(null);
+      alert(res.data.message || '삭제되었습니다.');
+    } else {
+      alert(res.data?.message || '삭제 실패');
+    }
+  } catch (err: any) {
+    console.error('삭제 API 오류:', err);
+    if (err.response?.status === 401) {
+      alert('유효하지 않은 토큰입니다. 다시 로그인 해주세요.');
+    } else if (err.response?.status === 404) {
+      alert('삭제할 게시글을 찾을 수 없습니다.');
+    } else {
+      alert('삭제 중 오류가 발생했습니다.');
+    }
+  }
+}, []);
+
 
   const toggleDeleteMenu = useCallback((id: number) => {
     setShowDeleteMenu(prev => (prev === id ? null : id));
