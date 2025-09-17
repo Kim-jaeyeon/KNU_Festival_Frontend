@@ -25,7 +25,6 @@ const LoginModal: React.FC<LoginModalProps> = ({ open, onClose }) => {
       return;
     }
 
-    // 닉네임과 전화번호를 sessionStorage에 저장하여, 콜백 페이지에서 사용
     sessionStorage.setItem("nickname", nickname);
     sessionStorage.setItem("phone", phone);
 

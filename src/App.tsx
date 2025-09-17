@@ -15,7 +15,6 @@ import GuestbookWrite from "./pages/GuestbookWrite";
 import BoothRecommendResult from "./pages/BoothRecommend/BoothRecommendResult";
 import Artist from "./pages/Artist/Artist";
 import PhotoUpload from "./pages/PhotoUpload";
-
 import LoginCallback from "./components/LoginCallback";
 
 function AppContent() {
