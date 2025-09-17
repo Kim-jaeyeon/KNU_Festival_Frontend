@@ -11,24 +11,21 @@ const LoginCallback: React.FC = () => {
 
   useEffect(() => {
     const code = searchParams.get("code");
+    const nickname = sessionStorage.getItem("nickname");
+    const phone = sessionStorage.getItem("phone");
 
-    // 'code'가 없으면 에러 처리 후 종료합니다.
-    if (!code) {
+    if (!code || !nickname || !phone) {
       toast.error("로그인 정보가 부족합니다.");
       navigate("/");
       return;
     }
 
-    // kakaoLogin 함수는 'code'만 보내고, 응답으로 'accessToken'과 'nickname'을 받아와야 합니다.
-    kakaoLogin({ code })
+        kakaoLogin({ code, nickname, phone })
       .then((data) => {
-        // 'data' 객체에 서버에서 보낸 'accessToken'과 'nickname'이 모두 포함되어야 합니다.
-        if (data.accessToken && data.nickname) {
-          setAuth(data.accessToken, data.nickname); // 서버에서 받은 닉네임으로 AuthContext 업데이트
-          toast.success("로그인 성공!");
-        } else {
-          toast.error("로그인에 실패했습니다.");
-        }
+        setAuth(data.accessToken, data.nickname);
+        sessionStorage.setItem("accessToken", data.accessToken); // ← 꼭 갱신
+        sessionStorage.removeItem("phone");
+        toast.success("로그인 성공!");
         navigate("/");
       })
       .catch((err) => {
