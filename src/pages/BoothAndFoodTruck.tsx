@@ -146,7 +146,7 @@ const BoothAndFoodTruck: React.FC = () => {
             setTouchStartX(null);
           }}
         >
-          <div className="relative w-[353px] h-[251px] flex justify-center items-center rounded-[10px] bg-[rgba(255,255,255,0.8)] shadow-md px-[10px] pt-[12px] pr-[9px] pb-[11px]">
+          <div className="relative w-[353px] h-[200px] flex justify-center items-center rounded-[10px] bg-[rgba(255,255,255,0.8)] shadow-md px-[10px] pt-[12px] pr-[9px] pb-[11px]">
             {/* 좌우 버튼 */}
             <button
               onClick={prevLocation}

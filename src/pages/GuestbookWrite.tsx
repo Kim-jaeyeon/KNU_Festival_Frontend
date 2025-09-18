@@ -45,7 +45,7 @@ const GuestbookWrite: React.FC = () => {
               placeholder="내용을 입력해주세요"
               value={content}
               onChange={(e) => setContent(e.target.value)}
-              maxLength={50}
+              maxLength={100}
               className="w-[353px] h-[124px] px-[20px] py-[16px] rounded-[20px]
                 bg-[rgba(255,255,255,0.54)] font-pretendard text-sm resize-none
                 placeholder:text-[#555555]
