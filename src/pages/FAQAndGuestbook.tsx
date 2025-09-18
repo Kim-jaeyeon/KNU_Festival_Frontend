@@ -54,7 +54,7 @@ const FAQ_DATA = [
     q: "부스 상품권 이벤트 참여 방법은 무엇인가요?",
     a: "체험 부스 참여 후 상품권을 수령하며, 판매 부스에서 현금처럼 사용 가능합니다. 선착순 200명 대상입니다."
   },
-  
+
 ];
 
 interface GuestbookItem {
@@ -84,27 +84,27 @@ const FAQAndGuestbook: React.FC = () => {
 
   // 서버에서 방명록 목록 가져오기
   // 서버에서 방명록 목록 가져오기
-useEffect(() => {
-  if (activeTab !== "guestbook") return;
+  useEffect(() => {
+    if (activeTab !== "guestbook") return;
 
-  const fetchGuestbooks = async () => {
-    try {
-      const res = await api.get("/api/guestbooks"); // accessToken 자동 첨부
-      if (res.data.code === 0) {
-        setGuestbooks(res.data.data);
-      } else {
-        alert(res.data.message || "방명록 불러오기 실패");
+    const fetchGuestbooks = async () => {
+      try {
+        const res = await api.get("/api/guestbooks"); // accessToken 자동 첨부
+        if (res.data.code === 0) {
+          setGuestbooks(res.data.data);
+        } else {
+          alert(res.data.message || "방명록 불러오기 실패");
+        }
+      } catch (err: any) {
+        console.error("방명록 조회 오류:", err);
+        // 401 처리 등은 api.ts에서 자동
+        alert("방명록 불러오기 실패 또는 로그인 필요");
+        navigate("/login");
       }
-    } catch (err: any) {
-      console.error("방명록 조회 오류:", err);
-      // 401 처리 등은 api.ts에서 자동
-      alert("방명록 불러오기 실패 또는 로그인 필요");
-      navigate("/login");
-    }
-  };
+    };
 
-  fetchGuestbooks();
-}, [activeTab, navigate]);
+    fetchGuestbooks();
+  }, [activeTab, navigate]);
   const handleTabChange = (tab: "faq" | "guestbook") => {
     setActiveTab(tab);
   };
@@ -164,6 +164,13 @@ useEffect(() => {
                   }
                 />
               ))}
+
+              {/* 안내 문구를 FAQ 탭 맨 아래에만 출력 */}
+              <p className="mt-6 text-center font-pretendard text-white text-[14px] font-bold leading-[22px]">
+                자세한 내용은 @knuch_2025 로 문의 부탁드립니다
+              </p>
+
+
             </div>
           ) : (
             <div className="space-y-4">
