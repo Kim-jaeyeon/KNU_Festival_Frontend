@@ -61,7 +61,7 @@ const Artist: React.FC = () => {
             />
           </div>
           <div className="flex justify-center items-center h-16 w-1/4 bg-white/60 p-3 rounded-full">
-            <p className="text-[#285100] font-pretendard font-bold text-base text-center">✨🎶</p>
+            <p className="text-[#285100] font-pretendard font-bold text-base text-center">{artist.performanceDate}</p>
           </div>
         </div>
 
