@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef, useCallback, memo } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Masonry from 'react-masonry-css';
 import api from "../utils/api";
+import { useAuth } from "../utils/AuthContext"
 
 interface PhotoPost {
   id: number;
@@ -30,6 +31,7 @@ const PhotoCard = memo<PhotoCardProps>(({
   showDeleteMenu,
   onToggleDeleteMenu
 }) => {
+  const { nickname: loggedInUser } = useAuth(); // 현재 로그인 유저
   const [isMenuAnimating, setIsMenuAnimating] = useState(false);
   const [shouldShowMenu, setShouldShowMenu] = useState(false);
 
@@ -71,18 +73,20 @@ const PhotoCard = memo<PhotoCardProps>(({
           </div>
         </div>
         <div className="relative -mr-1">
-          <button
-            data-menu-button
-            onClick={handleToggleMenu}
-            className={`p-1 transition-colors ${
-              showDeleteMenu === post.id ? 'text-gray-600 bg-gray-100 rounded-full' : 'text-gray-400 hover:text-gray-600'
-            }`}
-          >
-            <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
-              <path d="M12 8c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm0 2c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm0 6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z"/>
-            </svg>
-          </button>
-          {showDeleteMenu === post.id && (
+          {post.username === loggedInUser && (
+            <button
+              data-menu-button
+              onClick={handleToggleMenu}
+              className={`p-1 transition-colors ${
+                showDeleteMenu === post.id ? 'text-gray-600 bg-gray-100 rounded-full' : 'text-gray-400 hover:text-gray-600'
+              }`}
+            >
+              <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M12 8c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm0 2c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm0 6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z"/>
+              </svg>
+            </button>
+          )}
+          {showDeleteMenu === post.id && post.username === loggedInUser && (
             <div
               data-delete-menu
               className={`absolute -right-2 top-6 bg-white rounded-lg shadow-lg border border-gray-200 py-2 px-3 z-10 min-w-[80px] transition-all duration-200 ease-out ${
@@ -298,7 +302,8 @@ const PhotoFestival: React.FC = () => {
               showDeleteMenu={showDeleteMenu}
               onToggleDeleteMenu={toggleDeleteMenu}
             />
-          ))}
+          ))
+          }
         </Masonry>
       </div>
 
