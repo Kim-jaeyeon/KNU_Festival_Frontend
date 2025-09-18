@@ -2,7 +2,6 @@ import React, { useState, useEffect, useRef, useCallback, memo } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Masonry from 'react-masonry-css';
 import api from "../utils/api";
-import { useAuth } from "../utils/AuthContext"
 
 interface PhotoPost {
   id: number;
@@ -31,7 +30,7 @@ const PhotoCard = memo<PhotoCardProps>(({
   showDeleteMenu,
   onToggleDeleteMenu
 }) => {
-  const { nickname: loggedInUser } = useAuth(); // 현재 로그인 유저
+  const loggedInUser  = sessionStorage.getItem("nickname"); // 현재 로그인 유저
   const [isMenuAnimating, setIsMenuAnimating] = useState(false);
   const [shouldShowMenu, setShouldShowMenu] = useState(false);
 

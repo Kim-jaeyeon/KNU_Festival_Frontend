@@ -100,12 +100,13 @@ const Artist: React.FC = () => {
       </div>
 
       {/* 곡 이름 */}
-      <p className="truncate text-[#285100] font-Pretendard text-sm font-normal text-center mt-1">
-        {item.title}
-      </p>
+      {/* 곡 이름 */}
+<p className="truncate max-w-[10ch] text-[#285100] font-Pretendard text-xs font-normal text-center mt-1">
+  {item.title}
+</p>
 
       {/* 발매년도 */}
-      <p className="truncate text-[#4E5B2C] font-Pretendard text-xs font-light text-center">
+      <p className="truncate text-[#4E5B2C] font-Pretendard text-[10px] font-light text-center">
         {item.desc}
       </p>
     </div>
